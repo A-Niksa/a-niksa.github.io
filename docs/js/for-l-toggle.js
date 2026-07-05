@@ -1,6 +1,6 @@
 /* Toggle the private anniversary link in the menu.
    Set SHOW_FOR_L to true before the anniversary, or false to hide it. */
-const SHOW_FOR_L = true;
+const SHOW_FOR_L = false;
 
 function applyForLToggle() {
     document.querySelectorAll('[data-feature="for-l"]').forEach((forLMenuItem) => {
