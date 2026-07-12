@@ -1,10 +1,12 @@
 :root {
-    --background: #f8f7f4;
-    --surface: #ffffff;
-    --text: #2f2f2f;
-    --muted: #757575;
-    --border: #e4e0da;
-    --accent: #bd5d38;
+    --background: #ffffff;
+    --surface: #f8f9fa;
+    --text: #212529;
+    --heading: #343a40;
+    --muted: #6c757d;
+    --border: #dee2e6;
+    --accent: #0a58ca;
+    --accent-hover: #0246aa;
 }
 
 * {
@@ -44,12 +46,14 @@ a {
 .site-link:hover,
 .back-link:hover,
 .post-link:hover {
+    color: var(--accent-hover);
     text-decoration: underline;
     text-underline-offset: 0.2em;
 }
 
 h1 {
     margin: 1rem 0 1.5rem;
+    color: var(--heading);
     font-size: clamp(2.4rem, 7vw, 4.6rem);
     line-height: 1;
 }
@@ -74,16 +78,20 @@ h1 {
     cursor: pointer;
 }
 
+.language-button:hover {
+    color: var(--accent);
+}
+
 .language-button[aria-pressed="true"] {
-    background: var(--text);
-    color: var(--surface);
+    background: var(--accent);
+    color: #ffffff;
 }
 
 .language-button:focus-visible,
 .site-link:focus-visible,
 .back-link:focus-visible,
 .post-link:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    outline: 3px solid rgba(10, 88, 202, 0.35);
     outline-offset: 4px;
 }
 
@@ -101,6 +109,7 @@ h1 {
 }
 
 .post-link {
+    color: var(--heading);
     font-size: 1.35rem;
     font-weight: 700;
     text-decoration: none;
