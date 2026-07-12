@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="English and Persian writing by Arsha Niksa." />
+    <title>Blog | Arsha Niksa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet" />
+    <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+    <main class="blog-shell">
+        <header class="blog-header">
+            <a class="site-link" href="/">Arsha Niksa</a>
+            <h1>Blog</h1>
+            <div class="language-switch" aria-label="Choose blog language">
+                <button class="language-button" type="button" data-language-button="fa" aria-pressed="true">فارسی</button>
+                <button class="language-button" type="button" data-language-button="en" aria-pressed="false">English</button>
+            </div>
+        </header>
+
+        <section class="post-list" data-language-posts="fa" lang="fa" dir="rtl" aria-label="نوشته‌های فارسی">
+            <article class="post-item">
+                <a class="post-link" href="khod-va-faghat-khod.html">خود و فقط خود</a>
+            </article>
+        </section>
+
+        <section class="post-list" data-language-posts="en" lang="en" dir="ltr" aria-label="English posts" hidden>
+            <p class="empty-state">No English posts yet.</p>
+        </section>
+    </main>
+
+    <script src="blog.js"></script>
+</body>
+</html>
