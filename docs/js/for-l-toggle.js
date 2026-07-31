@@ -1,6 +1,6 @@
 /* Keep the Blog and private anniversary links visually separate from the main menu.
    Set SHOW_FOR_L to true before the anniversary, or false to hide it. */
-const SHOW_FOR_L = true;
+const SHOW_FOR_L = false;
 
 function styleShortcutLink(link, label, buttonClass) {
     link.className = `btn ${buttonClass} btn-sm`;
