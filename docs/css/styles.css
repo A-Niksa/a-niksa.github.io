@@ -10984,3 +10984,12 @@ section.resume-section .resume-section-content {
     background-color: #1d4ed8;
     border-color: #1d4ed8;
 }
+
+#cvDropdown {
+    color: #ffffff;
+}
+
+#cvDropdown:hover,
+#cvDropdown:focus {
+    color: #ffffff;
+}
