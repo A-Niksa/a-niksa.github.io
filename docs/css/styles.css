@@ -10985,11 +10985,12 @@ section.resume-section .resume-section-content {
     border-color: #1d4ed8;
 }
 
-#cvDropdown {
-    color: #ffffff;
+#cvDropdown,
+#cvDropdown i {
+    color: #ffffff !important;
 }
 
 #cvDropdown:hover,
 #cvDropdown:focus {
-    color: #ffffff;
+    color: #ffffff !important;
 }
