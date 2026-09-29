@@ -1,0 +1,569 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=1.55 cm, % seperation between body and page edge from the top
+    bottom=1.55 cm, % seperation between body and page edge from the bottom
+    left=1.8 cm, % seperation between body and page edge from the left
+    right=1.8 cm, % seperation between body and page edge from the right
+    footskip=0.75 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage{datetime}
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 79, 144} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Arsha Niksa's CV},
+    pdfauthor={Arsha Niksa},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    % \usepackage[T1]{fontenc} % this breaks sb2nov
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0cm} % set column seperation
+\makeatletter
+\let\ps@customFooterStyle\ps@plain % Copy the plain style to customFooterStyle
+\patchcmd{\ps@customFooterStyle}{\thepage}{
+    \color{gray}\textit{\small Arsha Niksa - Page \thepage{} of \pageref*{LastPage}}
+}{}{} % replace number by desired string
+\makeatother
+\pagestyle{customFooterStyle}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.22 cm
+}{
+    % bottom space:
+    0.12 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\circ$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.05 cm,
+        parsep=0.04 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.05 cm,
+        parsep=0.04 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0.2 cm + 0.00001 cm
+    }{
+        0.2 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(
+        \LenToUnit{\paperwidth-2 cm-0.2 cm+0.05cm},
+        \LenToUnit{\paperheight-1.0 cm}
+    ){\vtop{{\null}\makebox[0pt][c]{
+        \small\color{gray}\textit{Last updated in \monthyeardate\today}\hspace{\widthof{Last updated in \monthyeardate\today}}
+    }}}%
+  }%
+}%
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
+
+    \placelastupdatedtext
+    \begin{header}
+        \textbf{\fontsize{24 pt}{24 pt}\selectfont Arsha Niksa}
+
+        \vspace{0.3 cm}
+
+        \normalsize
+        \mbox{\hrefWithoutArrow{mailto:a.niksa@sharif.edu}{\color{black}{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}a.niksa@sharif.edu}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://www.aniksa.me}{\color{black}{\footnotesize\faGlobe}\hspace*{0.13cm}aniksa.me}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/arsha-niksa-51066017b/}{\color{black}{\footnotesize\faLinkedinIn}\hspace*{0.13cm}arsha-niksa}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://github.com/A-Niksa}{\color{black}{\footnotesize\faGithub}\hspace*{0.13cm}A-Niksa}}%
+
+    \end{header}
+
+    \vspace{0.3 cm - 0.3 cm}
+    
+    \section{Education}
+
+        \begin{twocolentry}{
+            
+            
+        \textit{Oct 2021 – Jul 2026}}
+            \textbf{Sharif University of Technology}
+
+            \textit{BSc (Double Major), Mathematics and Physics}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item GPA: 19.54/20.00 (Rank 1 in Mathematics)
+            \end{highlights}
+        \end{onecolentry}
+
+    \section{Coursework}        
+        \begin{onecolentry}
+            \textbf{Graduate}
+
+		\begin{highlightsforbulletentries} 
+        \item \textbf{Mathematics:} Algebraic Geometry (17.00/20.00), Topics in Mathematical Biology (19.00/20.00), Algebraic Topology (19.00/20.00), Commutative Algebra (Audited)
+        \end{highlightsforbulletentries}  
+        \end{onecolentry}    
+        
+        \vspace{0.2 cm}
+
+        \begin{onecolentry}
+            \textbf{Undergraduate}
+		\begin{highlightsforbulletentries}
+		\item \textbf{Computer Science:} Data Structures (20.00/20.00), Advanced Programming (20.00/20.00)
+		 \item \textbf{Mathematics:} Statistics (20.00/20.00), Complex Analysis (20.00/20.00), Elementary Diff Geometry (19.40/20.00), Topology (20.00/20.00), Abstract Algebra (18.80/20.00), Linear Algebra (20.00/20.00)
+		 \item \textbf{Physics:} Thermodynamics (20.00/20.00), Electromagnetism (20.00/20.00), Group Theory in Physics (20.00/20.00)
+        \end{highlightsforbulletentries}  
+        \end{onecolentry}
+    
+	\section{Awards}
+        \begin{twocolentry}{  
+            \textit{2024}}
+            \textbf{Bronze Medal (Rank 3)}, National University Mathematics Olympiad
+        \end{twocolentry}
+        
+        \vspace{0.2 cm}
+        
+        \begin{twocolentry}{  
+            \textit{2021}}
+            \textbf{Top 0.2\%}, National University Entrance Exam (STEM Stream)
+        \end{twocolentry}
+        
+        \vspace{0.2 cm}
+        
+        \begin{twocolentry}{  
+            \textit{2020}}
+            \textbf{Gold Medal}, Persian Young Physicists' Tournament
+        \end{twocolentry}
+        
+        \vspace{0.2 cm}
+        
+        \begin{twocolentry}{  
+            \textit{2020}}
+            \textbf{Gold Medal}, Korea-USA Science and Engineering Federation
+        \end{twocolentry}
+        
+        \vspace{0.2 cm}
+        
+        \begin{twocolentry}{  
+            \textit{2019}}
+            \textbf{Gold Medal}, Korea Science and Engineering Fair
+        \end{twocolentry}
+
+    \section{Academic Experiences}
+
+        \begin{twocolentry}{
+            \textit{Remote}
+
+            \textit{Jul 2026 -- Present}}
+            \textbf{Research Project | Manifold Reconstruction from Morse Critical Points}
+
+            \textit{With Vidit Nanda (University of Oxford)}
+        \end{twocolentry}
+
+        \vspace{0.08 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Studying reconstruction of embedded manifolds from Morse critical-point information of directional height functions, including conditions under which dense critical data determines the manifold.
+                \item Developing computational experiments that reconstruct from point-cloud-derived critical data and evaluate Hausdorff error between the original and reconstructed manifolds.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.14 cm}
+
+        \begin{twocolentry}{
+            \textit{Remote}
+
+            \textit{Mar 2026 -- Present}}
+            \textbf{Research Project | Symmetry-Invariant Kernels for Molecular Shape Spaces}
+
+            \textit{With Marina Meil\u{a} (University of Waterloo and Vector Institute)}
+        \end{twocolentry}
+
+        \vspace{0.08 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Investigating kernels on molecular shape spaces that are invariant under symmetry-group actions, with applications to molecular dynamics data.
+                \item Developing representations that compare molecular configurations while factoring out symmetry-equivalent transformations.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.14 cm}
+
+        \begin{twocolentry}{
+            \textit{Remote}
+
+            \textit{Jul 2025 -- Feb 2026}}
+            \textbf{Research Project | Manifold Cohomology Estimation}
+
+            \textit{With J. Jost and M. Eidi (Max Planck Institute)}
+        \end{twocolentry}
+
+        \vspace{0.08 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Developed methods for estimating manifold cohomology from sampled point clouds, extending ideas from data-driven estimation of real cohomology groups.
+                \item Explored dimension-reduction methods designed to preserve geometric and topological structure.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.14 cm}
+
+        \begin{twocolentry}{
+            \textit{Remote}
+
+            \textit{Jul 2024 -- Mar 2025}}
+            \textbf{Directed Reading | Topological Data Analysis}
+
+            \textit{Under H. Edelsbrunner (Institute of Science and Technology Austria)}
+        \end{twocolentry}
+
+        \vspace{0.08 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Studied computational topology, stability theorems in persistent homology, persistence modules, and algebraic stability.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.14 cm}
+
+        \begin{twocolentry}{
+            \textit{Remote}
+
+            \textit{Feb 2024 -- Aug 2024}}
+            \textbf{Directed Reading/Research | Geometric Formalisms of Mechanics}
+
+            \textit{Under T. Strobl and H. Nahari (Camille Jordan Institute)}
+        \end{twocolentry}
+
+        \vspace{0.08 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Studied singular Riemannian foliations, I-Poisson manifolds, Dirac structures, and advanced differential geometry.
+            \end{highlights}
+        \end{onecolentry}
+
+    \section{Professional Experience}
+
+        \begin{twocolentry}{
+            \textit{Tehran, Iran}
+
+            \textit{Jul 2026 -- Present}}
+            \textbf{Data Scientist | Searchwise}
+
+            \textit{Full-time, On-site}
+        \end{twocolentry}
+
+        \vspace{0.08 cm}
+        \begin{onecolentry}
+            Contributing to the development and evaluation of data-driven and language-related systems, with a focus on benchmarking, data pipelines, and deployment.
+
+            \vspace{0.08 cm}
+            \begin{highlights}
+                \item Worked on the end-to-end development of SnappPay's spell-checking system.
+                \item Built and maintained data pipelines used across experimentation and evaluation workflows.
+                \item Dockerized services and supported deployment and production workflows.
+                \item Contributed to DevOps-related tasks, including service configuration and environment management.
+            \end{highlights}
+        \end{onecolentry}
+
+    \section{Teaching Experiences}        
+    %     \begin{onecolentry}
+    %         \textbf{University Teaching Assistance:} Linear Algebra (for Mathematics students), Linear Algebra (for Computer Engineering students), Abstract Algebra, Topology, Electromagnetism, General Physics 3
+    %     \end{onecolentry}
+
+    %     \vspace{0.2 cm}
+
+        \begin{onecolentry}
+            \textbf{Teaching High-school Students:} Advanced Physics for International Young Physicists' Tournament preparation.
+        \end{onecolentry}
+
+        \vspace{0.2 cm}
+
+        \begin{onecolentry}
+            \textbf{Teaching English as a Foreign Language:} English instructor for children and teenagers at Hermes Language Institute.
+        \end{onecolentry}
+        
+    \section{Publications}
+
+        \begin{samepage}
+            \begin{twocolentry}{
+                Jul 2025
+            }
+                \textbf{Persistent Patterns in Eye Movements: A Topological Approach to Emotion Recognition}
+        
+                \vspace{0.10 cm}
+        
+                \mbox{\textbf{\textit{Arsha Niksa}}}, \mbox{Hooman Zare}, \mbox{Ali Shahrabi}, \mbox{Hanieh Hatami}, \mbox{Mohammadreza Razvan}
+            \end{twocolentry}
+        
+            \vspace{-0.3cm}
+        
+            \begin{onecolentry}
+                \href{https://arxiv.org/abs/2507.17450}{\textit{arXiv Preprint}}
+            \end{onecolentry}
+            \vspace{0.3 cm}
+        \end{samepage}
+
+        \begin{samepage}
+            \begin{twocolentry}{
+                Sep 2021
+            }
+                \textbf{Effects of Roughness on Rarefied Gas Flow in a Microfluidic Channel}
+
+                \vspace{0.10 cm}
+
+                \mbox{\textbf{\textit{Arsha Niksa}}}, \mbox{Amirreza Soheili}, \mbox{Vahid Bazargan}
+            \end{twocolentry}
+
+            \vspace{0.10 cm}
+
+            \begin{onecolentry}
+        \href{https://en.civilica.com/doc/1328730/}{Proceedings of the 19th Fluid Dyn. Conf., SUT}
+            \end{onecolentry}
+        \end{samepage}
+
+    % \section{Ongoing Projects}
+
+    %     \begin{twocolentry}{
+    %         \textit{TBS in Dec 2025}
+    %     }
+    %         \textbf{Topology-preserving Dimension Reduction via the Hodge-Laplacian Operator of Homotopy Equivalent Vietoris–Rips Complexes}
+            
+    %         \vspace{0.10 cm}
+            
+    %         With J. Jost and M. Eidi
+    %     \end{twocolentry}
+
+	\section{Test Scores}
+	\begin{onecolentry}
+		\begin{highlightsforbulletentries}
+
+        \item {GRE Mathematics Subject Test:} \textbf{850}, 82nd Percentile 
+
+        \item {iBT TOEFL: } \textbf{119}/120 (Reading: 30, Listening: 30, Speaking: 29, Writing: 30)
+
+        \end{highlightsforbulletentries}
+    \end{onecolentry}
+
+        \vspace{0.2 cm}
+    
+    \section{Skills}
+        
+        \begin{onecolentry}
+            \textbf{Programming (In Order of Proficiency):} Java, Python, R, Julia, MATLAB, C++
+        \end{onecolentry}
+
+        \vspace{0.2 cm}
+
+        \begin{onecolentry}
+            \textbf{Soft:} Public Speaking, Team Collaboration, Leadership
+        \end{onecolentry}
+        
+        \vspace{0.2 cm}
+
+        \begin{onecolentry}
+            \textbf{Languages:} Persian (Native), Kurdish (Native), English (Fluent), German (Beginner), French (Beginner)
+        \end{onecolentry}
+        
+    \section{Volunteering}
+        \begin{twocolentry}{
+            
+            
+        \textit{Apr 2024}}
+            \textbf{Staff Member of the Women in Mathematics Seminars}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Hamband, the Mathematical Association of Sharif University, coordinated a number of talks highlighting the role of women in Mathematics. 
+                \item Was a staff member, helping with executive tasks.
+            \end{highlights}
+        \end{onecolentry}
+
+        % \vspace{0.2 cm}
+
+        % \begin{twocolentry}{
+            
+            
+        % \textit{Jun 2023 - Jul 2023}}
+        %     \textbf{Coordinator at the Hamband Summer School}
+        % \end{twocolentry}
+
+        % \vspace{0.10 cm}
+        % \begin{onecolentry}
+        %     \begin{highlights}
+        %         \item Hamband presented interested students, at both high-school and college levels, with a number of courses in Mathematics.
+        %         \item Was in charge of coordinating the Game Theory and Logic courses, in addition to coordinating the Music and Mathematics seminars.
+        %     \end{highlights}
+        % \end{onecolentry}
+
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            
+            
+        \textit{Sep 2021, Sep 2023}}
+            \textbf{Student Resources Coordinator at CaYPT}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Managed and advanced the computational tutorials project at the CaYPT Committee (the Canadian Young Physicists' Tournament) as a member of STEM Fellowship, a Canadian non-profit.
+                \item Prepared materials and video tutorials, published on the YouTube channel of the tournament.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            
+            
+        \textit{Nov 2020, Oct 2021}}
+            \textbf{External Science Communications Team Lead at STEM Fellowship}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Led the team working on securing sponsorships from Canadian corporations and building partnerships between STEM Fellowship and other North American non-profits for STEM outreach programs.
+                \item Focused on programs for underrepresented communities and the Indigenous communities of Canada.
+            \end{highlights}
+        \end{onecolentry}
+
+	\section{Hobbies}
+	\begin{onecolentry}
+
+        Ping Pong, Guitar
+    \end{onecolentry}
+
+% \section{References}
+
+% \begin{onecolentry}
+%     \textbf{Jim Chen | CaYPT Director at STEM Fellowship}
+% \end{onecolentry}
+
+% \vspace{0.10 cm}
+% \begin{onecolentry}
+%     \begin{highlights}
+%         \item Email: \hrefWithoutArrow{mailto:jim.chen@stemfellowship.org}{jim.chen@stemfellowship.org}
+%         \item Phone: +1 (647)-898-9728
+%     \end{highlights}
+% \end{onecolentry}
+
+% \vspace{0.2 cm}
+
+% \begin{onecolentry}
+%     \textbf{Gurman Khera | Former Science Communications Director at STEM Fellowship}
+% \end{onecolentry}
+
+% \vspace{0.10 cm}
+% \begin{onecolentry}
+%     \begin{highlights}
+%         \item Email: \hrefWithoutArrow{mailto:gurman_khera@hotmail.com}{gurman.khera@gmail.com}
+%         % \item Phone: To be added
+%     \end{highlights}
+% \end{onecolentry}
+
+\end{document}
