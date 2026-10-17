@@ -7,18 +7,18 @@
   <title>Dimension Reduction as Projection and Flow | Arsha Niksa</title>
   <link rel="stylesheet" href="blog.css" />
   <style>
-    .post-body { line-height: 1.85; }
-    .post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
-    .post-body .equation { overflow-x: auto; margin: 1.35rem 0; padding: .3rem 0; }
-    .post-body li { margin: .45rem 0; }
-    .post-body .note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
-    .post-meta { color: var(--muted); }
+.post-body { line-height: 1.85; }
+.post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
+.post-body.equation { overflow-x: auto; margin: 1.35rem 0; padding:.3rem 0; }
+.post-body li { margin:.45rem 0; }
+.post-body.note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
+.post-meta { color: var(--muted); }
   
-      .references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-      .references ol { padding-left: 1.5rem; }
-      .references li { margin: .85rem 0; overflow-wrap: anywhere; }
-      .references a { overflow-wrap: anywhere; }
-      .citation { font-size: .92em; white-space: nowrap; text-decoration: none; }
+.references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.references ol { padding-left: 1.5rem; }
+.references li { margin:.85rem 0; overflow-wrap: anywhere; }
+.references a { overflow-wrap: anywhere; }
+.citation { font-size:.92em; white-space: nowrap; text-decoration: none; }
     </style>
   <script>
     window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
@@ -33,7 +33,7 @@
       <p class="post-meta">Arsha Niksa · An original formalization developed in the broader research context with Marzieh Eidi and Jürgen Jost</p>
     </header>
     <article class="post-body">
-      <p>This note isolates my own formalization from the broader research context in which I worked with Marzieh Eidi and Jürgen Jost. The model treats dimension reduction as a composition of a nonlinear deformation, a linear projection, and a change of coordinates. Alongside that factorization, I formulated a data-driven local approximation of a dimension-reduction rule using first- and second-order terms, then interpolated those local models across nearby inputs. The focus here is this decomposition and its mathematical structure, not a summary of the wider collaboration <a class="citation" href="#ref-1">[1]</a>.</p>
+      <p>This note isolates my own formalization from the broader research context in which I worked with Marzieh Eidi and Jürgen Jost. The model treats dimension reduction as a composition of a nonlinear deformation, a linear projection, and a change of coordinates. Alongside that factorization, I formulated a data-driven local approximation of a dimension-reduction rule using first- and second-order terms, then interpolated those local models across nearby inputs. The focus here is this decomposition and its mathematical structure, not a summary of the wider collaboration.</p>
 
       <h2>1. Treat dimension reduction as a map-valued rule</h2>
       <p>Let \(n&gt;k\). Rather than regard dimension reduction only as a single embedding of one point cloud, model the procedure as a rule that takes an input distribution or data measure \(\mu\) to a map \(f:\mathbb R^n\to\mathbb R^k\):</p>
@@ -55,7 +55,7 @@
       <p>The restricted rule is then a map between finite-dimensional spaces, \(F:X\to Y\). An input is represented by coefficients in the measure basis, and an output map by coefficients in the feature basis. This turns a map-valued learning problem into a finite-dimensional approximation problem.</p>
 
       <h2>3. Local second-order model</h2>
-      <p>Fix an anchor \(x_0\in X\). For inputs near \(x_0\), approximate the rule by a second-order expansion <a class="citation" href="#ref-1">[1]</a>:</p>
+      <p>Fix an anchor \(x_0\in X\). For inputs near \(x_0\), approximate the rule by a second-order expansion:</p>
       <div class="equation">\[
         F(x)\approx F(x_0)+J(x-x_0)
         +H[(x-x_0),(x-x_0)],
@@ -74,7 +74,7 @@
       <p>with each anchor output itself estimated using its local linear and quadratic terms. This combines local information without assuming that one expansion is accurate throughout the input space. The choice of anchors and interpolation weights becomes part of the approximation design.</p>
 
       <h2>5. Factorization into deformation, projection, and coordinates</h2>
-      <p>For a fixed input, let \(f:\mathbb R^n\to\mathbb R^k\) be the resulting dimension-reduction map. The proposed structural model is <a class="citation" href="#ref-1">[1]</a>.</p>
+      <p>For a fixed input, let \(f:\mathbb R^n\to\mathbb R^k\) be the resulting dimension-reduction map. The proposed structural model is.</p>
       <div class="equation">\[
         f=T\circ P\circ N,
       \]</div>
@@ -87,7 +87,7 @@
       <p>The decomposition separates three roles that are often bundled together in a dimension-reduction algorithm. The nonlinear stage can reorganize or flatten the geometry; projection removes dimensions; and the final isomorphism changes coordinates without losing information within the projected subspace.</p>
 
       <h2>6. Modelling the nonlinear stage as a flow</h2>
-      <p>The preprocessing map \(N\) can be viewed as the time-one map of a flow <a class="citation" href="#ref-1">[1]</a>. A gradient-flow form is</p>
+      <p>The preprocessing map \(N\) can be viewed as the time-one map of a flow. A gradient-flow form is</p>
       <div class="equation">\[
         \dot X(t)=-\nabla E(X(t)),\qquad X(0)=X_0,
       \]</div>
@@ -96,13 +96,8 @@
       <h2>7. What this formalization does—and does not—claim</h2>
       <p>The framework combines two ideas: a finite-dimensional, data-driven surrogate for how the reduction rule varies with its input, and a structural factorization of a fixed reduction map into nonlinear deformation, projection, and coordinate change. These ideas provide a common language for discussing local approximation and geometric preprocessing.</p>
       <p>The formalization is a modelling framework, not by itself a convergence theorem or a guarantee that a chosen flow preserves topology. To turn it into a complete algorithm, one must specify the feature basis, the anchor-selection and interpolation rules, the energy functional, and the conditions under which the estimated local models are stable. These are substantive mathematical and computational choices, not details that can be omitted.</p>
-      <p>The central idea is the decomposition itself: study the nonlinear geometric transformation separately from the unavoidable dimensional projection, while using local second-order models to approximate how the overall reduction rule responds to changes in its input <a class="citation" href="#ref-1">[1]</a>.</p>
-    <section class="references" aria-labelledby="references-title">
-<h2 id="references-title">References</h2>
-<ol>
-<li id="ref-1">Niksa, A. <em>Dimension Reduction as Projection and Flow.</em> Unpublished technical note in the supplied research archive. The source PDF does not state a publication date or list external references.</li>
-</ol>
-</section>
+      <p>The central idea is the decomposition itself: study the nonlinear geometric transformation separately from the unavoidable dimensional projection, while using local second-order models to approximate how the overall reduction rule responds to changes in its input.</p>
+    
     </article>
     <footer class="post-footer"><a class="back-link" href="./">All posts</a></footer>
   </main>
