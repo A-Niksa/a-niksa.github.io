@@ -10,23 +10,23 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet" />
     <link rel="stylesheet" href="blog.css" />
     <style>
-      .post-body { line-height: 1.85; }
-      .post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
-      .post-body h3 { margin: 2rem 0 .75rem; line-height: 1.3; }
-      .post-body p { margin-bottom: 1.15rem; }
-      .post-body .equation { overflow-x: auto; margin: 1.5rem 0; padding: .25rem 0; }
-      .math-figure { margin: 2rem auto; padding: 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: #fff; text-align: center; }
-      .math-figure img { display: block; width: min(100%, 560px); height: auto; margin: 0 auto; }
-      .math-figure figcaption { margin-top: .75rem; color: var(--muted); font-size: .92rem; line-height: 1.55; }
-      .post-body .note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
-      .post-body li { margin: .45rem 0; }
-      .post-meta { color: var(--muted); }
+.post-body { line-height: 1.85; }
+.post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
+.post-body h3 { margin: 2rem 0.75rem; line-height: 1.3; }
+.post-body p { margin-bottom: 1.15rem; }
+.post-body.equation { overflow-x: auto; margin: 1.5rem 0; padding:.25rem 0; }
+.math-figure { margin: 2rem auto; padding: 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: #fff; text-align: center; }
+.math-figure img { display: block; width: min(100%, 560px); height: auto; margin: 0 auto; }
+.math-figure figcaption { margin-top:.75rem; color: var(--muted); font-size:.92rem; line-height: 1.55; }
+.post-body.note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
+.post-body li { margin:.45rem 0; }
+.post-meta { color: var(--muted); }
     
-      .references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-      .references ol { padding-left: 1.5rem; }
-      .references li { margin: .85rem 0; overflow-wrap: anywhere; }
-      .references a { overflow-wrap: anywhere; }
-      .citation { font-size: .92em; white-space: nowrap; text-decoration: none; }
+.references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.references ol { padding-left: 1.5rem; }
+.references li { margin:.85rem 0; overflow-wrap: anywhere; }
+.references a { overflow-wrap: anywhere; }
+.citation { font-size:.92em; white-space: nowrap; text-decoration: none; }
     </style>
     <script>
       window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
@@ -42,7 +42,7 @@
         </header>
 
         <article class="post-body">
-            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons <a class="citation" href="#ref-1">[1]</a>.</p>
+            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons.</p>
 
             <h2>1. The object to compare is an orbit, not always a coordinate vector</h2>
 
@@ -52,9 +52,9 @@
               G\cdot x=\{g\cdot x:g\in G\}.
             \]</div>
 
-            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits <a class="citation" href="#ref-1">[1]</a>.</p>
+            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits.</p>
 
-            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction; the appropriate symmetry group depends on the molecular point group and the modelling question <a class="citation" href="#ref-2">[2]</a>.</p>
+            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction; the appropriate symmetry group depends on the molecular point group and the modelling question <a class="citation" href="#ref-1">[1]</a>.</p>
 
             <h2>2. Invariance as a factorization property</h2>
 
@@ -71,9 +71,9 @@
               d_f(x,x')=d_Y\!\left(f(x),f(x')\right).
             \]</div>
 
-            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well <a class="citation" href="#ref-1">[1]</a>.</p>
+            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well.</p>
 
-            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it <a class="citation" href="#ref-1">[1]</a>:</p>
+            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it:</p>
 
             <figure class="math-figure">
               <img src="quotient-factorization.svg" alt="Commutative triangle: X maps to Y by f, X maps to X modulo G by pi sub G, and X modulo G maps to Y by f tilde." />
@@ -101,7 +101,7 @@
 
             <p>When the action is by isometries, this reduces to the one-sided expression \(\inf_{g\in G}d(x,g\cdot y)\). The assumptions matter: without compatibility between the action and the distance, this expression need not have the desired metric properties. For finite groups, the infimum becomes a minimum, but the number of group elements can still make exhaustive search expensive.</p>
 
-            <p>For molecular configurations, a pairwise interatomic distance matrix is one way to remove dependence on global translations and rotations before addressing atom relabelling. If \(D(x)_{ij}=\lVert r_i-r_j\rVert_2\), then rigid motions preserve \(D(x)\). A permutation \(\pi\) reindexes the matrix. This separates invariance under ambient rigid motion from the remaining action on atom labels, as developed in my research note <a class="citation" href="#ref-1">[1]</a>. One can therefore study objectives of the form</p>
+            <p>For molecular configurations, a pairwise interatomic distance matrix is one way to remove dependence on global translations and rotations before addressing atom relabelling. If \(D(x)_{ij}=\lVert r_i-r_j\rVert_2\), then rigid motions preserve \(D(x)\). A permutation \(\pi\) reindexes the matrix. This separates invariance under ambient rigid motion from the remaining action on atom labels. One can therefore study objectives of the form</p>
 
             <div class="equation">\[
               \min_{\pi\in G}\sum_{i,j}
@@ -116,7 +116,7 @@
               \text{ for every }j=1,\ldots,k\}.
             \]</div>
 
-            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. The source report compares this construction with Chenab’s internal report on interchangeable sets <a class="citation" href="#ref-3">[3]</a>. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
+            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. The source report compares this construction with Chenab’s internal report on interchangeable sets <a class="citation" href="#ref-2">[2]</a>. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
 
             <h2>4. Testing invariance computationally</h2>
 
@@ -143,14 +143,13 @@
               <li>Validate the implementation against the defining invariance property, while keeping computational approximations separate from exact claims.</li>
             </ol>
 
-            <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab; the full formulation is documented in my research report <a class="citation" href="#ref-1">[1]</a>.</p>
+            <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab.</p>
         
     <section class="references" aria-labelledby="references-title">
 <h2 id="references-title">References</h2>
 <ol>
-<li id="ref-1">Niksa, A. <em>Symmetry-Invariant Distance Functions for Molecular Dynamics Data.</em> Unpublished research report; source file: <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/arsha_reports/writeup/arsha_sym_writeup_report.tex">arsha_sym_writeup_report.tex</a>.</li>
-<li id="ref-2">MIT 5.03 Inorganic Chemistry. <em>Point Group Symmetry.</em> Course reading. <a href="https://web.mit.edu/5.03/www/readings/point_groups/out.pdf">Source listed in the project’s references.bib</a>.</li>
-<li id="ref-3">Chenab. <em>Invariant Algorithm: Interchangeable Sets.</em> 2026. Internal, unpublished report; source file: <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/chenab_reports/main.tex">chenab_reports/main.tex</a>.</li>
+<li id="ref-1">MIT 5.03 Inorganic Chemistry. <em>Point Group Symmetry.</em> Course reading. <a href="https://web.mit.edu/5.03/www/readings/point_groups/out.pdf">Source listed in the project’s references.bib</a>.</li>
+<li id="ref-2">Chenab. <em>Invariant Algorithm: Interchangeable Sets.</em> 2026. Internal, unpublished report; source file: <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/chenab_reports/main.tex">chenab_reports/main.tex</a>.</li>
 </ol>
 </section>
     </article>
