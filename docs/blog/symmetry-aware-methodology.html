@@ -21,6 +21,12 @@
       .post-body .note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
       .post-body li { margin: .45rem 0; }
       .post-meta { color: var(--muted); }
+    
+      .references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+      .references ol { padding-left: 1.5rem; }
+      .references li { margin: .85rem 0; overflow-wrap: anywhere; }
+      .references a { overflow-wrap: anywhere; }
+      .citation { font-size: .92em; white-space: nowrap; text-decoration: none; }
     </style>
     <script>
       window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
@@ -36,7 +42,7 @@
         </header>
 
         <article class="post-body">
-            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons.</p>
+            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons <a class="citation" href="#ref-1">[1]</a>. Related work has used quotient spaces directly to handle symmetry ambiguity in shape matching <a class="citation" href="#ref-2">[2]</a>.</p>
 
             <h2>1. The object to compare is an orbit, not always a coordinate vector</h2>
 
@@ -46,9 +52,9 @@
               G\cdot x=\{g\cdot x:g\in G\}.
             \]</div>
 
-            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits.</p>
+            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits <a class="citation" href="#ref-2">[2]</a>.</p>
 
-            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction.</p>
+            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction; the appropriate symmetry group depends on the molecular point group and the modelling question <a class="citation" href="#ref-3">[3]</a>.</p>
 
             <h2>2. Invariance as a factorization property</h2>
 
@@ -65,9 +71,9 @@
               d_f(x,x')=d_Y\!\left(f(x),f(x')\right).
             \]</div>
 
-            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well.</p>
+            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well <a class="citation" href="#ref-4">[4]</a>.</p>
 
-            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it:</p>
+            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it <a class="citation" href="#ref-4">[4]</a>:</p>
 
             <figure class="math-figure">
               <img src="quotient-factorization.svg" alt="Commutative triangle: X maps to Y by f, X maps to X modulo G by pi sub G, and X modulo G maps to Y by f tilde." />
@@ -95,7 +101,7 @@
 
             <p>When the action is by isometries, this reduces to the one-sided expression \(\inf_{g\in G}d(x,g\cdot y)\). The assumptions matter: without compatibility between the action and the distance, this expression need not have the desired metric properties. For finite groups, the infimum becomes a minimum, but the number of group elements can still make exhaustive search expensive.</p>
 
-            <p>For molecular configurations, a pairwise interatomic distance matrix is one way to remove dependence on global translations and rotations before addressing atom relabelling. If \(D(x)_{ij}=\lVert r_i-r_j\rVert_2\), then rigid motions preserve \(D(x)\). A permutation \(\pi\) reindexes the matrix. One can therefore study objectives of the form</p>
+            <p>For molecular configurations, a pairwise interatomic distance matrix is one way to remove dependence on global translations and rotations before addressing atom relabelling. If \(D(x)_{ij}=\lVert r_i-r_j\rVert_2\), then rigid motions preserve \(D(x)\). A permutation \(\pi\) reindexes the matrix. This separates invariance under ambient rigid motion from the remaining action on atom labels, as developed in my research note <a class="citation" href="#ref-1">[1]</a>. One can therefore study objectives of the form</p>
 
             <div class="equation">\[
               \min_{\pi\in G}\sum_{i,j}
@@ -137,8 +143,17 @@
               <li>Validate the implementation against the defining invariance property, while keeping computational approximations separate from exact claims.</li>
             </ol>
 
-            <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab.</p>
-        </article>
+            <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab; the full formulation is documented in my research report <a class="citation" href="#ref-1">[1]</a>.</p>
+        <section class="references" aria-labelledby="references-title">
+<h2 id="references-title">References</h2>
+<ol>
+<li id="ref-1">Niksa, A. <em>Symmetry-Invariant Distance Functions for Molecular Dynamics Data.</em> Unpublished research report, 2026. <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/arsha_reports/writeup/arsha_sym_writeup_report.tex">Author’s report (LaTeX source)</a>.</li>
+<li id="ref-2">Ovsjanikov, M., Mérigot, Q., Pătrăucean, V., &amp; Guibas, L. (2013). “Shape Matching via Quotient Spaces.” <em>Computer Graphics Forum</em>, 32(5), 1–11. <a href="https://doi.org/10.1111/cgf.12167">https://doi.org/10.1111/cgf.12167</a>.</li>
+<li id="ref-3">MIT 5.03 Inorganic Chemistry. “Point Group Symmetry.” Course reading. <a href="https://web.mit.edu/5.03/www/readings/point_groups/out.pdf">https://web.mit.edu/5.03/www/readings/point_groups/out.pdf</a>.</li>
+<li id="ref-4">Mac Lane, S. (1971). <em>Categories for the Working Mathematician.</em> Graduate Texts in Mathematics 5. Springer. <a href="https://doi.org/10.1007/978-1-4612-9839-7">https://doi.org/10.1007/978-1-4612-9839-7</a>.</li>
+</ol>
+</section>
+    </article>
 
         <footer class="post-footer">
             <a class="back-link" href="./">All posts</a>
