@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The Freefall Method, an original approach to dimensionality reduction of embedded simplicial complexes using driven deformation and spectral protection." />
+    <title>The Freefall Method: Spectrally Guided Dimensionality Reduction | Arsha Niksa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="blog.css" />
+    <style>
+      .post-body { line-height: 1.85; }
+      .post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
+      .post-body h3 { margin: 2rem 0 .75rem; line-height: 1.3; }
+      .post-body .equation { overflow-x: auto; margin: 1.35rem 0; padding: .3rem 0; }
+      .post-body li { margin: .45rem 0; }
+      .post-body .note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
+      .post-meta { color: var(--muted); }
+    </style>
+    <script>
+      window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <main class="blog-shell">
+        <header class="post-header">
+            <a class="back-link" href="./">Back to the blog</a>
+            <h1 class="post-title">The Freefall Method: Spectrally Guided Dimensionality Reduction</h1>
+            <p class="post-meta">Arsha Niksa · Original method developed in the context of a broader research collaboration with Marzieh Eidi and Jürgen Jost</p>
+        </header>
+
+        <article class="post-body">
+            <p>This note isolates my original contribution, the <em>Freefall Method</em>, from the wider research collaboration in which it was developed. It does not attempt to summarize the other research directions pursued in that collaboration. The focus here is the method's own mathematical construction: a driven deformation of an embedded simplicial complex, with spectral information used to decide which structures should resist deformation or be removed.</p>
+
+            <h2>1. Problem and guiding idea</h2>
+
+            <p>Let \(\Sigma\subset\mathbb R^n\) be a finite simplicial complex, and let \(k&lt;n\). The objective is to produce an embedding in \(\mathbb R^k\) that approximately retains both geometric and topological structure. Instead of assigning a low-dimensional coordinate to each vertex directly, Freefall evolves the original embedding under a time-dependent external field and internal forces that penalize changes in the complex's geometry.</p>
+
+            <p>The name reflects the basic mechanism: an external drive moves the complex toward a target hyperplane, while internal interactions resist distortion. A spectral rule provides an additional notion of structural importance, protecting selected edges from being removed merely because the deformation stretches them.</p>
+
+            <h2>2. The graph model</h2>
+
+            <p>Begin with the one-dimensional case: a graph with vertices \(x_1,\ldots,x_m\in\mathbb R^n\) and edge set \(\Sigma_1\). Choose a unit vector \(u\in\mathbb R^n\), and select \(c\in\mathbb R\) so that the hyperplane</p>
+
+            <div class="equation">\[
+              \Pi_{u,c}=\{x\in\mathbb R^n:\langle x,u\rangle=c\}
+            \]</div>
+
+            <p>does not intersect the initial complex. The report describes choosing \(c\) constructively by repeatedly increasing its magnitude until the hyperplane lies outside the complex.</p>
+
+            <p>The external driving field is</p>
+
+            <div class="equation">\[
+              F(t)=at\,u,\qquad t&gt;0,
+            \]</div>
+
+            <p>where \(a\) controls the acceleration. The vertices evolve according to</p>
+
+            <div class="equation">\[
+              \ddot{x}_i(t)=F(t)-H_i(t),
+            \]</div>
+
+            <p>where \(H_i(t)\) is an internal interaction term based on the change in pairwise distances relative to the initial configuration. In the graph formulation, it is written as</p>
+
+            <div class="equation">\[
+              H_i(t)=\sum_{j\ne i}
+              \bigl(\|x_j(t)-x_i(t)\|-\|x_j(0)-x_i(0)\|\bigr)
+              \frac{x_j(t)-x_i(t)}{\|x_j(t)-x_i(t)\|}.
+            \]</div>
+
+            <p>Thus, a pairwise interaction vanishes when its distance is unchanged and grows with the discrepancy between the current and initial distance. The direction of the interaction is along the line joining the two vertices. This supplies a simple geometric penalty against deformation.</p>
+
+            <h2>3. Termination and the reduced embedding</h2>
+
+            <p>The evolution stops when a prescribed fraction \(p\in(0,1]\) of the vertices reaches the target hyperplane. In the idealized continuous formulation, define</p>
+
+            <div class="equation">\[
+              S=\left\{t&gt;0:
+              \frac{\#\{i:\langle x_i(t),u\rangle=c\}}{m}\ge p
+              \right\},\qquad
+              t_{\mathrm{term}}=\inf S.
+            \]</div>
+
+            <p>The state at \(t_{\mathrm{term}}\) determines the reduced representation. Vertices that have not reached the hyperplane are removed, together with simplices that depend on them; portions of simplices that remain supported on the hyperplane are retained. The parameter \(p\) therefore controls how much of the complex must reach the target before the process terminates.</p>
+
+            <p>In numerical computation, the equality defining the hyperplane must be implemented with a tolerance, and the integration step must be chosen to avoid an abrupt collapse. The stopping rule is part of the method, not a cosmetic post-processing choice.</p>
+
+            <h2>4. Spectral protection of edges</h2>
+
+            <p>Purely geometric deletion can remove edges that are important to the complex's topology. Freefall introduces a spectral criterion based on the one-dimensional Hodge Laplacian \(L\). Let \(L^{\uparrow}\) denote its upper-Laplacian component, and let \((\lambda_\ell,\phi_\ell)\) denote eigenpairs. The method selects the family</p>
+
+            <div class="equation">\[
+              T=\left\{\phi_\ell:
+              L\phi_\ell=0
+              \ \text{or}\
+              \bigl(L^{\uparrow}\phi_\ell\ne0
+              \ \text{and}\ \lambda_\ell&lt;\tau\bigr)
+              \right\},
+            \]</div>
+
+            <p>where \(\tau\) is a small spectral threshold. This combines harmonic edge modes with selected low-eigenvalue modes that have a nonzero upper-Laplacian component.</p>
+
+            <p>For an edge \(e_{ij}\), define its deformation by</p>
+
+            <div class="equation">\[
+              \delta_{ij}(t)=
+              \|x_j(t)-x_i(t)\|-\|x_j(0)-x_i(0)\|.
+            \]</div>
+
+            <p>The proposed deletion rule removes the edge when its stretch exceeds the spectral score</p>
+
+            <div class="equation">\[
+              \delta_{ij}(t)&gt;
+              \sum_{\phi_\ell\in T}|\phi_\ell(e_{ij})|.
+            \]</div>
+
+            <p>The intended distinction is structural: an edge with greater support in the selected modes receives a larger tolerance to deformation. The spectral information therefore influences which parts of the graph survive the geometric evolution, rather than being used only after the embedding has been computed.</p>
+
+            <h2>5. Extension to higher-dimensional simplices</h2>
+
+            <p>The same construction can be extended beyond graphs. For a 2-simplex \(\sigma=[x_i,x_j,x_k]\), the internal term uses the change in simplex volume,</p>
+
+            <div class="equation">\[
+              \operatorname{vol}(\sigma(t))-
+              \operatorname{vol}(\sigma(0)),
+            \]</div>
+
+            <p>in place of the change in edge length. The direction used in the report is the vector from \(x_i\) toward the opposite edge's midpoint, normalized to unit length:</p>
+
+            <div class="equation">\[
+              \frac{x_j(t)+x_k(t)-2x_i(t)}
+              {\|x_j(t)+x_k(t)-2x_i(t)\|}.
+            \]</div>
+
+            <p>The contribution at a vertex is summed over the 2-simplices containing that vertex. For higher-dimensional simplices, the proposal replaces area by the corresponding simplex volume. A \(q\)-simplex is terminated when it exceeds its deformation threshold and has no \((q+1)\)-simplex of which it is a face. This coface condition is intended to avoid deleting a lower-dimensional face while it is still required by a higher-dimensional simplex.</p>
+
+            <h2>6. An elastic variant</h2>
+
+            <p>The report also describes a variant without discrete deletion. Instead of removing a simplex once its deformation crosses a threshold, the complex is treated as an elastic medium whose stiffness depends on spectral importance. In the graph case, the interaction is weighted by</p>
+
+            <div class="equation">\[
+              w(e_{ij})=\sum_{\phi_\ell\in T}|\phi_\ell(e_{ij})|.
+            \]</div>
+
+            <p>The internal force then multiplies the change in edge length by this weight. Edges with larger spectral weight resist deformation more strongly, while the combinatorial structure is retained throughout the evolution. The higher-dimensional version uses the corresponding simplex volume and spectral weight.</p>
+
+            <p>The two variants make different trade-offs. The threshold model changes the complex combinatorially as the simulation proceeds; the elastic model keeps the complex intact but allows its geometry to deform continuously.</p>
+
+            <h2>7. Parameters and scope</h2>
+
+            <p>The method depends on the driving acceleration \(a\), the time increment, the target hyperplane, the stopping fraction \(p\), and the spectral threshold \(\tau\). The original note gives an empirical scaling rule for \(a\) in terms of the distance from the complex's barycenter to the target hyperplane and the integration step. This is a practical initialization heuristic, not a convergence theorem.</p>
+
+            <p>The construction is a proposed algorithmic framework. Its formulation alone does not guarantee that the output is an injective embedding, nor does it prove preservation of homology or homotopy type. Those properties require separate definitions of the admissible deformation, precise treatment of numerical thresholds, and theoretical or empirical validation. In particular, the spectral deletion criterion is a mechanism for prioritizing edges; it should not be interpreted as a proof that all topologically essential edges are preserved.</p>
+
+            <h2>8. Summary</h2>
+
+            <p>Freefall combines three ingredients: a time-dependent external drive toward a lower-dimensional hyperplane, internal forces penalizing changes in geometric measurements, and a spectral rule that modulates which simplices resist deformation or are removed. Its distinctive idea is to couple a physical-style deformation process with spectral information from the simplicial structure itself.</p>
+
+            <p>This article isolates the Freefall Method as my original contribution within the broader collaboration with Marzieh Eidi and Jürgen Jost. It documents this method specifically; it is not a summary of the collaboration's other research directions.</p>
+        </article>
+
+        <footer class="post-footer">
+            <a class="back-link" href="./">All posts</a>
+        </footer>
+    </main>
+</body>
+</html>
