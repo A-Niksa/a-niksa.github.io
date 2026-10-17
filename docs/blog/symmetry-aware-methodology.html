@@ -3,50 +3,143 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A personal methodological reflection on comparing geometric data when some transformations should not change the comparison." />
-    <title>A Methodological Note on Symmetry-Aware Comparison | Arsha Niksa</title>
+    <meta name="description" content="A technical note on quotient spaces, invariant representations, and symmetry-aware distances for molecular configurations." />
+    <title>A Quotient-First View of Symmetry-Invariant Distances | Arsha Niksa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet" />
     <link rel="stylesheet" href="blog.css" />
+    <style>
+      .post-body { line-height: 1.85; }
+      .post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
+      .post-body h3 { margin: 2rem 0 .75rem; line-height: 1.3; }
+      .post-body p { margin-bottom: 1.15rem; }
+      .post-body .equation { overflow-x: auto; margin: 1.5rem 0; padding: .25rem 0; }
+      .math-figure { margin: 2rem auto; padding: 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: #fff; text-align: center; }
+      .math-figure img { display: block; width: min(100%, 560px); height: auto; margin: 0 auto; }
+      .math-figure figcaption { margin-top: .75rem; color: var(--muted); font-size: .92rem; line-height: 1.55; }
+      .post-body .note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
+      .post-body li { margin: .45rem 0; }
+      .post-meta { color: var(--muted); }
+    </style>
+    <script>
+      window.MathJax = { tex: { inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <main class="blog-shell">
         <header class="post-header">
             <a class="back-link" href="./">Back to the blog</a>
-            <h1 class="post-title">A Methodological Note on Symmetry-Aware Comparison</h1>
-            <p class="post-meta">Arsha Niksa · Research notes</p>
+            <h1 class="post-title">A Quotient-First View of Symmetry-Invariant Distances</h1>
+            <p class="post-meta">Arsha Niksa · Notes on a collaborative project with Marina Meila and Chenab</p>
         </header>
+
         <article class="post-body">
-            <p>One question that shaped my work on geometric data was deceptively simple: when should two configurations count as different? A raw comparison can treat two descriptions as distinct even when the difference comes only from a transformation that should be irrelevant to the problem.</p>
+            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons.</p>
 
-            <p>My starting point was therefore not to choose an algorithm immediately, but to make the notion of sameness explicit. I first tried to identify which transformations should leave a comparison unchanged, and which differences should remain meaningful. This modelling decision comes before implementation: if the intended invariance is unclear, a numerical score can be computed precisely while answering the wrong question.</p>
+            <h2>1. The object to compare is an orbit, not always a coordinate vector</h2>
 
-            <h2>From the modelling choice to a computational test</h2>
+            <p>Represent a configuration of \(N\) atoms by \(x=(r_1,\ldots,r_N)\in\mathcal X\subseteq\mathbb R^{3N}\). A group \(G\) acts on \(\mathcal X\). Depending on the modelling choice, its elements may represent allowed relabellings, internal symmetries, or geometric transformations. The action generates the orbit</p>
 
-            <p>I treated the work as a sequence of connected tasks:</p>
+            <div class="equation">\[
+              G\cdot x=\{g\cdot x:g\in G\}.
+            \]</div>
+
+            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits.</p>
+
+            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction.</p>
+
+            <h2>2. Invariance as a factorization property</h2>
+
+            <p>Suppose \(Y\) is a target space on which \(G\) acts trivially. A representation \(f:\mathcal X\to Y\) is \(G\)-invariant if</p>
+
+            <div class="equation">\[
+              f(g\cdot x)=f(x)
+              \qquad\text{for every }g\in G,\ x\in\mathcal X.
+            \]</div>
+
+            <p>Invariance says that \(f\) is constant on every orbit. If \(Y\) carries a metric \(d_Y\), it induces a pseudometric on configurations by pulling that metric back:</p>
+
+            <div class="equation">\[
+              d_f(x,x')=d_Y\!\left(f(x),f(x')\right).
+            \]</div>
+
+            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well.</p>
+
+            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it:</p>
+
+            <figure class="math-figure">
+              <img src="quotient-factorization.svg" alt="Commutative triangle: X maps to Y by f, X maps to X modulo G by pi sub G, and X modulo G maps to Y by f tilde." />
+              <figcaption>The factorization diagram. Commutativity means \(f=\widetilde f\circ\pi_G\): an invariant representation can be defined on the quotient and then pulled back to the original configuration space.</figcaption>
+            </figure>
+
+            <p>In formulas, there is a unique map \(\widetilde f:\mathcal X/G\to Y\) satisfying</p>
+
+            <div class="equation">\[
+              f=\widetilde f\circ\pi_G,\qquad
+              \widetilde f([x])=f(x).
+            \]</div>
+
+            <p>Why is \(\widetilde f\) well-defined? If \([x]=[x']\), then \(x'=g\cdot x\) for some \(g\in G\), so invariance gives \(f(x')=f(g\cdot x)=f(x)\). Thus the value depends on the orbit, not the representative. Uniqueness follows because every point of the quotient is an orbit \([x]\).</p>
+
+            <p>A contribution I developed in the project was to make this factorization diagram an organizing principle for the invariant-distance problem. It separates two questions that can otherwise get mixed together: <em>which configurations should be identified?</em> and <em>which representation or metric should we use on the resulting space?</em> The universal property is standard; its role here is to connect the symmetry model to every invariant representation built from it.</p>
+
+            <h2>3. From the quotient to a computable comparison</h2>
+
+            <p>One route is to compare invariant representations. Another is to compare orbits directly. Given a distance \(d\) on \(\mathcal X\), a natural candidate is</p>
+
+            <div class="equation">\[
+              d_G([x],[y])=\inf_{g,h\in G}d(g\cdot x,h\cdot y).
+            \]</div>
+
+            <p>When the action is by isometries, this reduces to the one-sided expression \(\inf_{g\in G}d(x,g\cdot y)\). The assumptions matter: without compatibility between the action and the distance, this expression need not have the desired metric properties. For finite groups, the infimum becomes a minimum, but the number of group elements can still make exhaustive search expensive.</p>
+
+            <p>For molecular configurations, a pairwise interatomic distance matrix is one way to remove dependence on global translations and rotations before addressing atom relabelling. If \(D(x)_{ij}=\lVert r_i-r_j\rVert_2\), then rigid motions preserve \(D(x)\). A permutation \(\pi\) reindexes the matrix. One can therefore study objectives of the form</p>
+
+            <div class="equation">\[
+              \min_{\pi\in G}\sum_{i,j}
+              \bigl(D(x)_{ij}-D(y)_{\pi(i)\pi(j)}\bigr)^2.
+            \]</div>
+
+            <p>This formula is a modelling template, not a claim that the optimization is cheap or that every molecular symmetry is captured by a distance matrix. Which permutations are admissible must come from the molecular model. If the model specifies subsets \(S_1,\ldots,S_k\) whose labels may be rearranged internally, a consistent global action can be described by the subgroup</p>
+
+            <div class="equation">\[
+              G_{\mathcal S}=
+              \{\pi\in\mathfrak S_N:\pi(S_j)=S_j
+              \text{ for every }j=1,\ldots,k\}.
+            \]</div>
+
+            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
+
+            <h2>4. Testing invariance computationally</h2>
+
+            <p>The group-action formulation also gives a direct diagnostic for implementations. If \(S\) is a chosen set of generators for \(G\) and \(\{x_i\}_{i=1}^M\) is a sample of configurations, one can measure the response of a candidate distance \(d\) to the tested transformations:</p>
+
+            <div class="equation">\[
+              I_S(d)=\frac{1}{M|S|}
+              \sum_{i=1}^{M}\sum_{s\in S}d(x_i,s\cdot x_i).
+            \]</div>
+
+            <p>Because distance functions can have different scales, this quantity can be reported relative to a typical pairwise distance on the same sample, provided that scale is nonzero. I implemented a prototype benchmark around this idea, with utilities for constructing permutation and dihedral generators.</p>
+
+            <p>The interpretation must remain modest. A small sampled score says that the distance is insensitive to the transformations actually tested on the sampled configurations. It is not, by itself, a proof of invariance under every element of \(G\). The choice of generators, the action implementation, numerical tolerances, and the normalization all need to be checked. This makes the score a debugging and comparison tool—not a substitute for a mathematical argument.</p>
+
+            <h2>5. What the framework clarifies</h2>
+
+            <p>The quotient-first viewpoint keeps the logical order of the problem explicit:</p>
+
             <ol>
-                <li><strong>Specify the objects.</strong> Describe the configurations being compared and the transformations regarded as equivalent for the task.</li>
-                <li><strong>State the desired behaviour.</strong> Write down, in mathematical terms, what a comparison should preserve and what it is allowed to ignore.</li>
-                <li><strong>Separate definition from approximation.</strong> Distinguish the ideal mathematical quantity from a practical procedure used to estimate or compute it.</li>
-                <li><strong>Test the property directly.</strong> Apply transformations that should preserve the comparison and check whether the implementation behaves accordingly.</li>
-                <li><strong>Inspect failure cases.</strong> Vary inputs and implementation details, including the order in which transformations are presented, to find accidental dependencies that the mathematical definition does not permit.</li>
+              <li>Specify the physical or representational equivalence relation.</li>
+              <li>Encode it as a group action on the configuration space.</li>
+              <li>Construct invariant representations, or compare orbits directly.</li>
+              <li>Check whether the representation distinguishes the orbits it is meant to distinguish.</li>
+              <li>Validate the implementation against the defining invariance property, while keeping computational approximations separate from exact claims.</li>
             </ol>
 
-            <p>This workflow helped me connect abstract structure with software behaviour. The mathematical definition states what should be true; a benchmark makes that expectation testable; and small, controlled examples make it easier to diagnose a discrepancy before running larger experiments.</p>
-
-            <h2>Why validation needs more than a plausible output</h2>
-
-            <p>A program returning a number is not evidence that the number measures the intended quantity. I found it useful to test properties rather than relying only on example outputs: invariance under the transformations of interest, consistency across equivalent descriptions, and stability under changes that should be immaterial. Where an exact calculation is impractical, the approximation and its limitations should be made explicit rather than hidden behind a single score.</p>
-
-            <p>This also changes how I think about benchmarking. A useful benchmark should make its assumptions visible, let different comparison procedures be evaluated under the same conditions, and produce failures that can be investigated. It should not merely reward an implementation for producing convenient outputs.</p>
-
-            <h2>A broader lesson</h2>
-
-            <p>The main methodological lesson I took from this project is that mathematical structure and computational validation should be designed together. The choice of equivalence determines what a method is supposed to measure; the implementation turns that choice into a procedure; and property-based tests help determine whether the procedure actually respects the intended structure.</p>
-
-            <p>This is a methodological reflection, not a presentation of a finished theorem or a claim that every implementation detail is settled. The broader principle is useful well beyond molecular data: whenever a problem contains symmetries or irrelevant transformations, it is worth defining what should count as the same before deciding how to measure difference.</p>
+            <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab. It is not a claim of sole authorship over the broader project or over the standard mathematics of group actions and quotient spaces. The central point is narrower: the commuting diagram makes the quotient's universal property explicit, and that property provides a clean interface between the choice of symmetry and the construction of invariant comparisons.</p>
         </article>
+
         <footer class="post-footer">
             <a class="back-link" href="./">All posts</a>
         </footer>
