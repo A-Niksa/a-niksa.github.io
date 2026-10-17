@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 270" role="img" aria-labelledby="title desc">
+  <title id="title">Factorization of an invariant map through the orbit space</title>
+  <desc id="desc">A commutative triangle: X maps to Y by f and to X modulo G by pi G; X modulo G maps to Y by the unique induced map f tilde.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#344054"/>
+    </marker>
+  </defs>
+  <rect width="560" height="270" fill="#ffffff"/>
+  <g fill="none" stroke="#344054" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M160 63 L390 63"/>
+    <path d="M130 85 L130 181"/>
+    <path d="M165 201 L385 88" stroke-dasharray="7 6"/>
+  </g>
+  <g fill="#182230" font-family="Georgia, 'Times New Roman', serif" font-size="27" text-anchor="middle">
+    <text x="130" y="58">X</text>
+    <text x="420" y="58">Y</text>
+    <text x="130" y="225">X/G</text>
+  </g>
+  <g fill="#182230" font-family="Georgia, 'Times New Roman', serif" font-size="21" text-anchor="middle">
+    <text x="275" y="43">f</text>
+    <text x="90" y="139">π<tspan baseline-shift="sub" font-size="15">G</tspan></text>
+    <text x="300" y="133">f̃</text>
+  </g>
+</svg>
