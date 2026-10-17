@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A personal methodological reflection on comparing geometric data when some transformations should not change the comparison." />
+    <title>A Methodological Note on Symmetry-Aware Comparison | Arsha Niksa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet" />
+    <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+    <main class="blog-shell">
+        <header class="post-header">
+            <a class="back-link" href="./">Back to the blog</a>
+            <h1 class="post-title">A Methodological Note on Symmetry-Aware Comparison</h1>
+            <p class="post-meta">Arsha Niksa · Research notes</p>
+        </header>
+        <article class="post-body">
+            <p>One question that shaped my work on geometric data was deceptively simple: when should two configurations count as different? A raw comparison can treat two descriptions as distinct even when the difference comes only from a transformation that should be irrelevant to the problem.</p>
+
+            <p>My starting point was therefore not to choose an algorithm immediately, but to make the notion of sameness explicit. I first tried to identify which transformations should leave a comparison unchanged, and which differences should remain meaningful. This modelling decision comes before implementation: if the intended invariance is unclear, a numerical score can be computed precisely while answering the wrong question.</p>
+
+            <h2>From the modelling choice to a computational test</h2>
+
+            <p>I treated the work as a sequence of connected tasks:</p>
+            <ol>
+                <li><strong>Specify the objects.</strong> Describe the configurations being compared and the transformations regarded as equivalent for the task.</li>
+                <li><strong>State the desired behaviour.</strong> Write down, in mathematical terms, what a comparison should preserve and what it is allowed to ignore.</li>
+                <li><strong>Separate definition from approximation.</strong> Distinguish the ideal mathematical quantity from a practical procedure used to estimate or compute it.</li>
+                <li><strong>Test the property directly.</strong> Apply transformations that should preserve the comparison and check whether the implementation behaves accordingly.</li>
+                <li><strong>Inspect failure cases.</strong> Vary inputs and implementation details, including the order in which transformations are presented, to find accidental dependencies that the mathematical definition does not permit.</li>
+            </ol>
+
+            <p>This workflow helped me connect abstract structure with software behaviour. The mathematical definition states what should be true; a benchmark makes that expectation testable; and small, controlled examples make it easier to diagnose a discrepancy before running larger experiments.</p>
+
+            <h2>Why validation needs more than a plausible output</h2>
+
+            <p>A program returning a number is not evidence that the number measures the intended quantity. I found it useful to test properties rather than relying only on example outputs: invariance under the transformations of interest, consistency across equivalent descriptions, and stability under changes that should be immaterial. Where an exact calculation is impractical, the approximation and its limitations should be made explicit rather than hidden behind a single score.</p>
+
+            <p>This also changes how I think about benchmarking. A useful benchmark should make its assumptions visible, let different comparison procedures be evaluated under the same conditions, and produce failures that can be investigated. It should not merely reward an implementation for producing convenient outputs.</p>
+
+            <h2>A broader lesson</h2>
+
+            <p>The main methodological lesson I took from this project is that mathematical structure and computational validation should be designed together. The choice of equivalence determines what a method is supposed to measure; the implementation turns that choice into a procedure; and property-based tests help determine whether the procedure actually respects the intended structure.</p>
+
+            <p>This is a methodological reflection, not a presentation of a finished theorem or a claim that every implementation detail is settled. The broader principle is useful well beyond molecular data: whenever a problem contains symmetries or irrelevant transformations, it is worth defining what should count as the same before deciding how to measure difference.</p>
+        </article>
+        <footer class="post-footer">
+            <a class="back-link" href="./">All posts</a>
+        </footer>
+    </main>
+</body>
+</html>
