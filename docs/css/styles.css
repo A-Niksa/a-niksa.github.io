@@ -10994,3 +10994,12 @@ section.resume-section .resume-section-content {
 #cvDropdown:focus {
     color: #ffffff !important;
 }
+
+/* Keep CV menu labels aligned regardless of icon width. */
+.dropdown-menu .cv-download-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    margin-right: 0.5rem;
+}
