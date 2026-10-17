@@ -42,7 +42,7 @@
         </header>
 
         <article class="post-body">
-            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons <a class="citation" href="#ref-1">[1]</a>. Related work has used quotient spaces directly to handle symmetry ambiguity in shape matching <a class="citation" href="#ref-2">[2]</a>.</p>
+            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons <a class="citation" href="#ref-1">[1]</a>.</p>
 
             <h2>1. The object to compare is an orbit, not always a coordinate vector</h2>
 
@@ -52,9 +52,9 @@
               G\cdot x=\{g\cdot x:g\in G\}.
             \]</div>
 
-            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits <a class="citation" href="#ref-2">[2]</a>.</p>
+            <p>If these transformations are declared irrelevant, then \(x\) and \(x'\) represent the same state whenever \(x'=g\cdot x\) for some \(g\in G\). This defines an equivalence relation, and the corresponding quotient \(\mathcal X/G\) is the space of orbits <a class="citation" href="#ref-1">[1]</a>.</p>
 
-            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction; the appropriate symmetry group depends on the molecular point group and the modelling question <a class="citation" href="#ref-3">[3]</a>.</p>
+            <p>This first step is a modelling decision, not an implementation detail. A group that is too small leaves irrelevant differences in the representation; a group that is too large identifies states that the application may need to distinguish. For example, identifying reflections is appropriate only when mirror images are meant to be equivalent. For a chiral system, that choice can erase a physically meaningful distinction; the appropriate symmetry group depends on the molecular point group and the modelling question <a class="citation" href="#ref-2">[2]</a>.</p>
 
             <h2>2. Invariance as a factorization property</h2>
 
@@ -71,9 +71,9 @@
               d_f(x,x')=d_Y\!\left(f(x),f(x')\right).
             \]</div>
 
-            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well <a class="citation" href="#ref-4">[4]</a>.</p>
+            <p>Consequently, \(d_f(x,g\cdot x)=0\). It is a <em>pseudometric</em> rather than necessarily a metric on \(\mathcal X\), because distinct coordinate vectors can receive distance zero. There is a second subtlety: invariance guarantees that points in the same orbit are identified, but it does not guarantee the converse. If \(f\) loses additional information, it can collapse different orbits as well <a class="citation" href="#ref-1">[1]</a>.</p>
 
-            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it <a class="citation" href="#ref-4">[4]</a>:</p>
+            <p>The quotient map \(\pi_G:\mathcal X\to\mathcal X/G\), defined by \(\pi_G(x)=[x]\), is the canonical invariant map. The useful categorical statement is that every invariant representation factors uniquely through it <a class="citation" href="#ref-1">[1]</a>:</p>
 
             <figure class="math-figure">
               <img src="quotient-factorization.svg" alt="Commutative triangle: X maps to Y by f, X maps to X modulo G by pi sub G, and X modulo G maps to Y by f tilde." />
@@ -116,7 +116,7 @@
               \text{ for every }j=1,\ldots,k\}.
             \]</div>
 
-            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
+            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. The source report compares this construction with Chenab’s internal report on interchangeable sets <a class="citation" href="#ref-3">[3]</a>. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
 
             <h2>4. Testing invariance computationally</h2>
 
@@ -144,13 +144,13 @@
             </ol>
 
             <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab; the full formulation is documented in my research report <a class="citation" href="#ref-1">[1]</a>.</p>
-        <section class="references" aria-labelledby="references-title">
+        
+    <section class="references" aria-labelledby="references-title">
 <h2 id="references-title">References</h2>
 <ol>
-<li id="ref-1">Niksa, A. <em>Symmetry-Invariant Distance Functions for Molecular Dynamics Data.</em> Unpublished research report, 2026. <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/arsha_reports/writeup/arsha_sym_writeup_report.tex">Author’s report (LaTeX source)</a>.</li>
-<li id="ref-2">Ovsjanikov, M., Mérigot, Q., Pătrăucean, V., &amp; Guibas, L. (2013). “Shape Matching via Quotient Spaces.” <em>Computer Graphics Forum</em>, 32(5), 1–11. <a href="https://doi.org/10.1111/cgf.12167">https://doi.org/10.1111/cgf.12167</a>.</li>
-<li id="ref-3">MIT 5.03 Inorganic Chemistry. “Point Group Symmetry.” Course reading. <a href="https://web.mit.edu/5.03/www/readings/point_groups/out.pdf">https://web.mit.edu/5.03/www/readings/point_groups/out.pdf</a>.</li>
-<li id="ref-4">Mac Lane, S. (1971). <em>Categories for the Working Mathematician.</em> Graduate Texts in Mathematics 5. Springer. <a href="https://doi.org/10.1007/978-1-4612-9839-7">https://doi.org/10.1007/978-1-4612-9839-7</a>.</li>
+<li id="ref-1">Niksa, A. <em>Symmetry-Invariant Distance Functions for Molecular Dynamics Data.</em> Unpublished research report; source file: <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/arsha_reports/writeup/arsha_sym_writeup_report.tex">arsha_sym_writeup_report.tex</a>.</li>
+<li id="ref-2">MIT 5.03 Inorganic Chemistry. <em>Point Group Symmetry.</em> Course reading. <a href="https://web.mit.edu/5.03/www/readings/point_groups/out.pdf">Source listed in the project’s references.bib</a>.</li>
+<li id="ref-3">Chenab. <em>Invariant Algorithm: Interchangeable Sets.</em> 2026. Internal, unpublished report; source file: <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/chenab_reports/main.tex">chenab_reports/main.tex</a>.</li>
 </ol>
 </section>
     </article>
