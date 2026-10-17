@@ -8,19 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="blog.css" />
     <style>
-      .post-body { line-height: 1.85; }
-      .post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
-      .post-body h3 { margin: 2rem 0 .75rem; line-height: 1.3; }
-      .post-body .equation { overflow-x: auto; margin: 1.35rem 0; padding: .3rem 0; }
-      .post-body li { margin: .45rem 0; }
-      .post-body .note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
-      .post-meta { color: var(--muted); }
+.post-body { line-height: 1.85; }
+.post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
+.post-body h3 { margin: 2rem 0.75rem; line-height: 1.3; }
+.post-body.equation { overflow-x: auto; margin: 1.35rem 0; padding:.3rem 0; }
+.post-body li { margin:.45rem 0; }
+.post-body.note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
+.post-meta { color: var(--muted); }
     
-      .references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-      .references ol { padding-left: 1.5rem; }
-      .references li { margin: .85rem 0; overflow-wrap: anywhere; }
-      .references a { overflow-wrap: anywhere; }
-      .citation { font-size: .92em; white-space: nowrap; text-decoration: none; }
+.references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.references ol { padding-left: 1.5rem; }
+.references li { margin:.85rem 0; overflow-wrap: anywhere; }
+.references a { overflow-wrap: anywhere; }
+.citation { font-size:.92em; white-space: nowrap; text-decoration: none; }
     </style>
     <script>
       window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
@@ -36,7 +36,7 @@
         </header>
 
         <article class="post-body">
-            <p>This note isolates my original contribution, the <em>Freefall Method</em>, from the wider research collaboration in which it was developed. It does not attempt to summarize the other research directions pursued in that collaboration. The focus here is the method's own mathematical construction: a driven deformation of an embedded simplicial complex, with spectral information used to decide which structures should resist deformation or be removed <a class="citation" href="#ref-1">[1]</a>.</p>
+            <p>This note isolates my original contribution, the <em>Freefall Method</em>, from the wider research collaboration in which it was developed. It does not attempt to summarize the other research directions pursued in that collaboration. The focus here is the method's own mathematical construction: a driven deformation of an embedded simplicial complex, with spectral information used to decide which structures should resist deformation or be removed.</p>
 
             <h2>1. Problem and guiding idea</h2>
 
@@ -66,7 +66,7 @@
               \ddot{x}_i(t)=F(t)-H_i(t),
             \]</div>
 
-            <p>where \(H_i(t)\) is an internal interaction term based on the change in pairwise distances relative to the initial configuration. In the graph formulation, it is written as <a class="citation" href="#ref-1">[1]</a></p>
+            <p>where \(H_i(t)\) is an internal interaction term based on the change in pairwise distances relative to the initial configuration. In the graph formulation, it is written as </p>
 
             <div class="equation">\[
               H_i(t)=\sum_{j\ne i}
@@ -93,7 +93,7 @@
 
             <h2>4. Spectral protection of edges</h2>
 
-            <p>Purely geometric deletion can remove edges that are important to the complex's topology. Freefall introduces a spectral criterion based on the one-dimensional Hodge Laplacian \(L\) <a class="citation" href="#ref-2">[2]</a>, <a class="citation" href="#ref-3">[3]</a>. Let \(L^{\uparrow}\) denote its upper-Laplacian component, and let \((\lambda_\ell,\phi_\ell)\) denote eigenpairs. The method selects the family</p>
+            <p>Purely geometric deletion can remove edges that are important to the complex's topology. Freefall introduces a spectral criterion based on the one-dimensional Hodge Laplacian \(L\) <a class="citation" href="#ref-1">[1]</a>, <a class="citation" href="#ref-2">[2]</a>. Let \(L^{\uparrow}\) denote its upper-Laplacian component, and let \((\lambda_\ell,\phi_\ell)\) denote eigenpairs. The method selects the family</p>
 
             <div class="equation">\[
               T=\left\{\phi_\ell:
@@ -104,7 +104,7 @@
               \right\},
             \]</div>
 
-            <p>where \(\tau\) is a small spectral threshold. This combines harmonic edge modes with selected low-eigenvalue modes that have a nonzero upper-Laplacian component. The interpretation of harmonic and small-eigenvalue modes depends on the complex and Laplacian being studied <a class="citation" href="#ref-2">[2]</a>, <a class="citation" href="#ref-3">[3]</a>.</p>
+            <p>where \(\tau\) is a small spectral threshold. This combines harmonic edge modes with selected low-eigenvalue modes that have a nonzero upper-Laplacian component. The interpretation of harmonic and small-eigenvalue modes depends on the complex and Laplacian being studied <a class="citation" href="#ref-1">[1]</a>, <a class="citation" href="#ref-2">[2]</a>.</p>
 
             <p>For an edge \(e_{ij}\), define its deformation by</p>
 
@@ -124,7 +124,7 @@
 
             <h2>5. Extension to higher-dimensional simplices</h2>
 
-            <p>The same construction can be extended beyond graphs <a class="citation" href="#ref-1">[1]</a>. For a 2-simplex \(\sigma=[x_i,x_j,x_k]\), the internal term uses the change in simplex volume,</p>
+            <p>The same construction can be extended beyond graphs. For a 2-simplex \(\sigma=[x_i,x_j,x_k]\), the internal term uses the change in simplex volume,</p>
 
             <div class="equation">\[
               \operatorname{vol}(\sigma(t))-
@@ -142,7 +142,7 @@
 
             <h2>6. An elastic variant</h2>
 
-            <p>The report also describes a variant without discrete deletion <a class="citation" href="#ref-1">[1]</a>. Instead of removing a simplex once its deformation crosses a threshold, the complex is treated as an elastic medium whose stiffness depends on spectral importance. In the graph case, the interaction is weighted by</p>
+            <p>A variant omits discrete deletion. Instead of removing a simplex once its deformation crosses a threshold, the complex is treated as an elastic medium whose stiffness depends on spectral importance. In the graph case, the interaction is weighted by</p>
 
             <div class="equation">\[
               w(e_{ij})=\sum_{\phi_\ell\in T}|\phi_\ell(e_{ij})|.
@@ -162,16 +162,15 @@
 
             <p>Freefall combines three ingredients: a time-dependent external drive toward a lower-dimensional hyperplane, internal forces penalizing changes in geometric measurements, and a spectral rule that modulates which simplices resist deformation or are removed. Its distinctive idea is to couple a physical-style deformation process with spectral information from the simplicial structure itself.</p>
 
-            <p>This article isolates the Freefall Method as my original contribution within the broader collaboration with Marzieh Eidi and Jürgen Jost. It documents this method specifically; it is not a summary of the collaboration's other research directions <a class="citation" href="#ref-1">[1]</a>.</p>
+            <p>This article isolates the Freefall Method as my original contribution within the broader collaboration with Marzieh Eidi and Jürgen Jost. It documents this method specifically; it is not a summary of the collaboration's other research directions.</p>
 
             <h2>Related work</h2>
             <p>Two other notes document distinct parts of my research: <a href="scale-selection-witness-complexes.html">extending scale-selection experiments to three-dimensional point clouds and testing witness complexes</a>, and <a href="projection-flow.html">a decomposition of dimension reduction into nonlinear flow, orthogonal projection, and a coordinate map</a>.</p>
         <section class="references" aria-labelledby="references-title">
 <h2 id="references-title">References</h2>
 <ol>
-<li id="ref-1">Niksa, A. <em>The Freefall Method for Dimensionality Reduction of Embedded Simplicial Complexes.</em> Unpublished technical report; no date is stated in the source document.</li>
-<li id="ref-2">Ebli, S., &amp; Spreemann, G. (2019). “A notion of harmonic clustering in simplicial complexes.” <em>CoRR</em>, abs/1910.07247.</li>
-<li id="ref-3">Grande, V. P., &amp; Schaub, M. T. (2024). “Disentangling the spectral properties of the Hodge Laplacian: not all small eigenvalues are equal.” In <em>ICASSP 2024</em>, pp. 9896–9900. IEEE, April 2024.</li>
+<li id="ref-1">Ebli, S., &amp; Spreemann, G. (2019). “A notion of harmonic clustering in simplicial complexes.” <em>CoRR</em>, abs/1910.07247.</li>
+<li id="ref-2">Grande, V. P., &amp; Schaub, M. T. (2024). “Disentangling the spectral properties of the Hodge Laplacian: not all small eigenvalues are equal.” In <em>ICASSP 2024</em>, pp. 9896–9900. IEEE, April 2024.</li>
 </ol>
 </section>
     </article>
