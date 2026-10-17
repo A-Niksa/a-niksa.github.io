@@ -15,7 +15,13 @@
     .post-body th, .post-body td { padding: .65rem .55rem; border: 1px solid var(--border); text-align: left; }
     .post-body th { background: var(--surface); }
     .post-meta { color: var(--muted); }
-  </style>
+  
+      .references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+      .references ol { padding-left: 1.5rem; }
+      .references li { margin: .85rem 0; overflow-wrap: anywhere; }
+      .references a { overflow-wrap: anywhere; }
+      .citation { font-size: .92em; white-space: nowrap; text-decoration: none; }
+    </style>
   <script>
     window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
   </script>
@@ -29,32 +35,32 @@
       <p class="post-meta">Arsha Niksa · Independent research notes from work conducted in the broader collaboration with Marzieh Eidi and Jürgen Jost</p>
     </header>
     <article class="post-body">
-      <p>This article isolates my investigations into extending a Hodge-Laplacian-based scale-selection pipeline to three-dimensional manifolds and evaluating witness-complex constructions. The starting point was an existing model-selection framework; my work focused on testing its behaviour beyond simple two-dimensional examples, investigating alternative complex constructions, and identifying where the computational and statistical assumptions break down.</p>
+      <p>This article isolates my investigations into extending a Hodge-Laplacian-based scale-selection pipeline to three-dimensional manifolds and evaluating witness-complex constructions. The starting point was an existing model-selection framework <a class="citation" href="#ref-1">[1]</a>; my work focused on testing its behaviour beyond simple two-dimensional examples, investigating alternative complex constructions, and identifying where the computational and statistical assumptions break down <a class="citation" href="#ref-9">[9]</a>–<a class="citation" href="#ref-11">[11]</a>.</p>
 
       <h2>1. Scale selection from the Hodge heat operator</h2>
-      <p>Let \(M\subset\mathbb R^d\) be an unknown manifold and \(X=\{x_1,\ldots,x_n\}\) a finite sample from it. To estimate a Betti number \(\beta_q(M)\), construct a family of simplicial complexes \(\Sigma(r)\) indexed by a scale \(r\). The scale matters: too little connectivity leaves genuine structure disconnected, while too much connectivity fills cycles or merges components.</p>
+      <p>Let \(M\subset\mathbb R^d\) be an unknown manifold and \(X=\{x_1,\ldots,x_n\}\) a finite sample from it. To estimate a Betti number \(\beta_q(M)\), construct a family of simplicial complexes \(\Sigma(r)\) indexed by a scale \(r\). The scale matters: too little connectivity leaves genuine structure disconnected, while too much connectivity fills cycles or merges components. Under sampling and reach assumptions, manifold-reconstruction results constrain the scale at which a complex can recover a manifold, although those quantities may be difficult to estimate in practice <a class="citation" href="#ref-7">[7]</a>.</p>
       <p>For a complex at scale \(r\), let \(\Delta_{q,r}\) be its degree-\(q\) Hodge Laplacian. The heat operator</p>
       <div class="equation">\[
         e^{-t\Delta_{q,r}}
       \]</div>
-      <p>suppresses nonzero spectral modes as \(t\) increases. In the finite-dimensional setting, its long-time limit is the orthogonal projection onto the harmonic subspace:</p>
+      <p>suppresses nonzero spectral modes as \(t\) increases. In the finite-dimensional setting, its long-time limit is the orthogonal projection onto the harmonic subspace <a class="citation" href="#ref-2">[2]</a>, <a class="citation" href="#ref-3">[3]</a>:</p>
       <div class="equation">\[
         \lim_{t\to\infty}e^{-t\Delta_{q,r}}
         =P_{\ker\Delta_{q,r}},\qquad
         \dim\ker\Delta_{q,r}=\beta_q(\Sigma(r)).
       \]</div>
-      <p>A family of candidate dissimilarities \(d\) compares a finite-time heat operator with its limiting projection, yielding a score such as</p>
+      <p>A family of candidate dissimilarities \(d\) compares a finite-time heat operator with its limiting projection, yielding a score such as <a class="citation" href="#ref-4">[4]</a>:</p>
       <div class="equation">\[
         D(r)=d\!\left(e^{-\Delta_{q,r}},
         P_{\ker\Delta_{q,r}}\right),\qquad
         \widehat r=\arg\max_r D(r).
       \]</div>
-      <p>This is a model-selection heuristic, not a general guarantee that the maximizing scale recovers the topology. The investigation asked how far the approach could be taken when the geometry and topology became more complicated.</p>
+      <p>This is a model-selection heuristic, not a general guarantee that the maximizing scale recovers the topology <a class="citation" href="#ref-1">[1]</a>. The investigation asked how far the approach could be taken when the geometry and topology became more complicated.</p>
 
       <h2>2. Extending the evaluation to three-dimensional geometry</h2>
-      <p>I extended the experimental investigation to point clouds sampled from surfaces in three-dimensional ambient space, including spheres, multiple spheres, tori, and higher-genus tori. These cases test different topological signatures: for example, a sphere has \(\beta_2=1\), while a standard torus has \(\beta_1=2\) and \(\beta_2=1\).</p>
+      <p>I extended the experimental investigation to point clouds sampled from surfaces in three-dimensional ambient space, including spheres, multiple spheres, tori, and higher-genus tori <a class="citation" href="#ref-9">[9]</a>, <a class="citation" href="#ref-10">[10]</a>. These cases test different topological signatures: for example, a sphere has \(\beta_2=1\), while a standard torus has \(\beta_1=2\) and \(\beta_2=1\).</p>
       <p>The experiments showed why results on circles cannot be treated as evidence of general reliability. The scale-selection criteria varied substantially across geometries. Even with uniform sampling, several methods struggled on toroidal examples, especially as the topology became more complex. This was an important negative result: extending the code and running the method in 3D is not the same as establishing a robust 3D estimator.</p>
-      <p>The archived experiments evaluated relative entropy, Hilbert–Schmidt distance, trace distance, and a barcode-based alternative. The following are representative reported accuracies from 50 trials in the witness-complex experiment report:</p>
+      <p>The archived experiments evaluated relative entropy, Hilbert–Schmidt distance, trace distance, and a barcode-based alternative <a class="citation" href="#ref-8">[8]</a>. The following are representative reported accuracies from 50 trials in the witness-complex experiment report <a class="citation" href="#ref-10">[10]</a>:</p>
       <table>
         <thead><tr><th>Geometry</th><th>Target</th><th>Relative entropy</th><th>Hilbert–Schmidt</th><th>Trace</th><th>Barcode</th></tr></thead>
         <tbody>
@@ -67,13 +73,13 @@
       <p>These results are specific to the recorded implementation and test settings. They should be read as evidence of uneven behaviour, not as universal rankings of the dissimilarity measures.</p>
 
       <h2>3. Why investigate witness complexes?</h2>
-      <p>Vietoris–Rips complexes can become expensive because a dense 1-skeleton generates many higher-dimensional cliques. Witness complexes offer a way to build a complex on a smaller landmark set \(L\), using the remaining data points as witnesses to relationships among landmarks.</p>
-      <p>I tested both strong and lazy witness constructions. Random landmark selection was unsatisfactory in the initial experiments, so I switched to a maxmin strategy: after choosing an initial landmark, repeatedly select the data point whose distance to its nearest existing landmark is largest. This spreads landmarks across the observed data rather than allowing them to cluster in already well-sampled regions.</p>
+      <p>Vietoris–Rips complexes can become expensive because a dense 1-skeleton generates many higher-dimensional cliques. Witness complexes offer a way to build a complex on a smaller landmark set \(L\), using the remaining data points as witnesses to relationships among landmarks <a class="citation" href="#ref-5">[5]</a>, <a class="citation" href="#ref-6">[6]</a>.</p>
+      <p>I tested both strong and lazy witness constructions. Random landmark selection was unsatisfactory in the initial experiments, so I switched to a maxmin strategy: after choosing an initial landmark, repeatedly select the data point whose distance to its nearest existing landmark is largest. This spreads landmarks across the observed data rather than allowing them to cluster in already well-sampled regions. The witness-complex construction and landmark strategy are discussed in the cited witness-complex literature <a class="citation" href="#ref-5">[5]</a>, and evaluated in my reports <a class="citation" href="#ref-10">[10]</a>, <a class="citation" href="#ref-11">[11]</a>.</p>
       <p>The motivation was practical as well as mathematical. A smaller complex reduces the storage burden of the Hodge Laplacian, and landmark selection can change how well a complex reflects a non-uniform sample. In the recorded experiments, witness complexes reduced storage and helped in some settings, but the improvement was not universal. Accuracy could remain poor for difficult geometries or strongly non-uniform samples.</p>
 
       <h2>4. The trade-off: fewer simplices, harder construction</h2>
       <p>Witness complexes exchange one computational burden for another. They can reduce the number of simplices stored and therefore make subsequent linear algebra more manageable. However, checking witness conditions can itself be expensive, particularly for geometries such as tori that need many landmarks to represent their structure adequately.</p>
-      <p>Landmark count is therefore not a harmless implementation setting. Too few landmarks can erase features before the scale-selection stage has a chance to recover them; too many can diminish the computational advantage. A landmark budget suitable for a sphere need not be suitable for a torus or a higher-genus surface.</p>
+      <p>Landmark count is therefore not a harmless implementation setting. Too few landmarks can erase features before the scale-selection stage has a chance to recover them; too many can diminish the computational advantage. A landmark budget suitable for a sphere need not be suitable for a torus or a higher-genus surface <a class="citation" href="#ref-10">[10]</a>, <a class="citation" href="#ref-11">[11]</a>.</p>
 
       <h2>5. What I take from these experiments</h2>
       <ul>
@@ -82,7 +88,23 @@
         <li>Maxmin landmark selection was a more useful starting point than random landmarks in the experiments I recorded.</li>
         <li>Witness complexes offered computational benefits, but did not remove the difficulty of scale selection or guarantee accurate Betti-number estimates.</li>
       </ul>
-      <p>The contribution documented here is the extension and experimental investigation: carrying the scale-selection pipeline into 3D test cases, implementing and evaluating witness-complex alternatives, and recording both the gains and the failure modes. The results motivate further work, but do not establish a general theorem guaranteeing correct scale selection.</p>
+      <p>The contribution documented here is the extension and experimental investigation: carrying the scale-selection pipeline into 3D test cases, implementing and evaluating witness-complex alternatives, and recording both the gains and the failure modes <a class="citation" href="#ref-9">[9]</a>–<a class="citation" href="#ref-11">[11]</a>. The results motivate further work, but do not establish a general theorem guaranteeing correct scale selection.</p>
+    <section class="references" aria-labelledby="references-title">
+<h2 id="references-title">References</h2>
+<ol>
+<li id="ref-1">Guzmán-Tristán, A., Rieser, A., &amp; Velázquez-Richards, E. (2024). <em>Noncommutative model selection and the data-driven estimation of real cohomology groups.</em></li>
+<li id="ref-2">Mémoli, F., Wan, Z., &amp; Wang, Y. (2022). “Persistent Laplacians: Properties, algorithms and implications.” <em>SIAM Journal on Mathematics of Data Science</em>, 4(2), 858–884.</li>
+<li id="ref-3">Ebli, S., &amp; Spreemann, G. (2019). “A notion of harmonic clustering in simplicial complexes.” <em>CoRR</em>, abs/1910.07247.</li>
+<li id="ref-4">Grande, V. P., &amp; Schaub, M. T. (2024). “Disentangling the spectral properties of the Hodge Laplacian: not all small eigenvalues are equal.” In <em>ICASSP 2024</em>, pp. 9896–9900. IEEE, April 2024.</li>
+<li id="ref-5">de Silva, V., &amp; Carlsson, G. (2004). “Topological estimation using witness complexes.” In <em>SPBG’04 Symposium on Point-Based Graphics 2004</em>, Eurographics Association.</li>
+<li id="ref-6">Arafat, N. A., Basu, D., &amp; Bressan, S. (2023). “Topological Data Analysis with ε-Net Induced Lazy Witness Complex.” arXiv preprint:2303.07356.</li>
+<li id="ref-7">Majhi, S. (2024). “Demystifying Latschev’s Theorem: Manifold Reconstruction from Noisy Data.” arXiv preprint:2305.17288.</li>
+<li id="ref-8">Chazal, F., Cohen-Steiner, D., Glisse, M., Guibas, L., &amp; Oudot, S. Y. (2009). “Proximity of persistence modules and their diagrams.” In <em>SoCG 2009: 25th Annual Symposium on Computational Geometry</em>, Aarhus, Denmark, June 2009. ACM Press.</li>
+<li id="ref-9">Niksa, A. (2025, September 29). <em>Hodge Laplacian Eigenmap for Sampled Point Clouds.</em> Research report.</li>
+<li id="ref-10">Niksa, A. (2025, July 25). <em>Testing the Performance of Witness Complexes.</em> Experimental report.</li>
+<li id="ref-11">Niksa, A. (2025, August 4). <em>Testing the Performance of Light Witness Complexes.</em> Experimental report.</li>
+</ol>
+</section>
     </article>
     <footer class="post-footer"><a class="back-link" href="./">All posts</a></footer>
   </main>
