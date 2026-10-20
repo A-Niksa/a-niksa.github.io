@@ -33,13 +33,21 @@
     const dynamicSelectors = [
       'meta[name="description"]', 'meta[name="theme-color"]',
       'link[rel="canonical"]', 'link[rel="alternate"]',
-      'link[rel="icon"]', 'link[rel="shortcut icon"]',
       'meta[property^="og:"]', 'meta[name^="twitter:"]',
       'script[type="application/ld+json"]'
     ];
     for (const selector of dynamicSelectors) {
       document.head.querySelectorAll(selector).forEach(n => n.remove());
       next.head.querySelectorAll(selector).forEach(n => document.head.append(n.cloneNode(true)));
+    }
+    // Keep one consistent, cache-busted icon even on older article pages.
+    document.head.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="alternate icon"]').forEach(n => n.remove());
+    for (const [rel, type, href] of [['icon', 'image/svg+xml', '/assets/img/favicon-v3.svg?v=3'], ['shortcut icon', 'image/x-icon', '/assets/img/favicon.ico?v=3']]) {
+      const icon = document.createElement('link');
+      icon.rel = rel;
+      icon.type = type;
+      icon.href = href;
+      document.head.append(icon);
     }
     document.head.querySelectorAll("[data-page-style]").forEach(n => n.remove());
     const anchor = document.head.querySelector('link[href="/css/refined.css"]');
