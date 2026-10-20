@@ -159,3 +159,28 @@ h1 {
         font-size: 1.02rem;
     }
 }
+
+/* Editorial visual continuity with the bilingual homepage */
+:root{--background:#f7f5ef;--surface:#ece9df;--text:#202c2b;--heading:#202c2b;--muted:#6c7370;--border:#d9d8ce;--accent:#a64a35;--accent-hover:#803525}
+body{font-family:"DM Sans",Arial,sans-serif;background:var(--background);-webkit-font-smoothing:antialiased}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#27302d13 .55px,transparent .55px);background-size:7px 7px;opacity:.24;z-index:-1}
+.blog-shell{width:min(900px,calc(100% - 44px));padding:4rem 0 6.5rem}
+.site-link,.back-link{font-size:.81rem;font-weight:700;letter-spacing:.01em;border-bottom:1px solid var(--border);padding-bottom:5px}
+h1{font-family:"Fraunces",Georgia,serif;font-weight:500;letter-spacing:-.055em;line-height:1.16;margin:1.5rem 0 1.5rem}
+.blog-header{margin-bottom:3rem}
+.blog-header:before,.post-header:before{content:"NOTES / ARCHIVE";display:block;margin-bottom:1.5rem;font:500 .69rem/1.5 "DM Mono",monospace;letter-spacing:.15em;color:var(--accent)}
+.blog-header h1{font-size:clamp(3.8rem,8vw,6rem)}
+.language-switch{background:transparent;border-radius:2px;padding:4px}
+.language-button{border-radius:1px;font-size:.78rem}
+.post-item{padding:1.7rem 0}
+.post-link{font:500 clamp(1.3rem,2.5vw,1.75rem)/1.45 "Fraunces",Georgia,serif;letter-spacing:-.025em}
+.post-item p,.post-meta{color:var(--muted);font-size:.95rem}
+.post-header{margin-bottom:3.4rem}
+.post-title{font-size:clamp(2.7rem,6vw,4.6rem)}
+.post-body{font-size:1.08rem;line-height:2;max-width:760px}
+.post-body a{color:var(--accent)}
+.persian-post,.post-list[lang=fa],[lang=fa]{font-family:"Vazirmatn",Tahoma,sans-serif}
+.persian-post .post-title,.post-list[lang=fa] .post-link{font-family:"Vazirmatn",Tahoma,sans-serif;font-weight:700;letter-spacing:0;line-height:1.65}
+.post-list[lang=fa] .post-link{font-size:1.46rem}
+.persian-post .post-body{line-height:2.4}
+@media(max-width:560px){.blog-shell{padding-top:2.7rem}.post-body{font-size:1rem}}
