@@ -13,7 +13,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 h1{font-size:clamp(2rem,5vw,2.8rem);font-weight:700;line-height:1.35;letter-spacing:-.045em;color:var(--heading);margin:26px 0 10px}
 .blog-intro,.post-meta{color:var(--muted);margin:0 0 22px;font-size:.94rem;line-height:1.9}
 .language-switch{display:inline-flex;gap:14px;border-bottom:1px solid var(--border);margin-top:9px}
-.language-button{border:0;border-bottom:2px solid transparent;padding:9px 0;background:transparent;color:var(--muted);font:600 .87rem/1.7 inherit;cursor:pointer}
+.language-button{border:0;border-bottom:2px solid transparent;padding:9px 0;background:transparent;color:var(--muted);font:600 .87rem/1.7 'Inter',Arial,sans-serif;cursor:pointer}
 .language-button[aria-pressed="true"]{color:var(--heading);border-color:var(--heading)}
 .post-list{border-top:1px solid var(--border)}
 .post-list[hidden]{display:none}
