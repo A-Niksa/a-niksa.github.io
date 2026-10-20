@@ -1,3 +1,4 @@
+(() => {
 const buttons = document.querySelectorAll('[data-language-button]');
 const lists = document.querySelectorAll('[data-language-posts]');
 const title = document.querySelector('[data-blog-title]');
@@ -15,11 +16,11 @@ function showLanguage(language) {
     lists.forEach(list => { list.hidden = list.dataset.languagePosts !== language; });
     document.documentElement.lang = language;
     document.documentElement.dir = fa ? 'rtl' : 'ltr';
-    document.title = fa ? 'نوشته‌ها | آرشا نیکسا' : 'Writing | Arsha Niksa';
+    document.title = 'Arsha Niksa | آرشا نیک‌سا';
     if (title) title.textContent = fa ? 'نوشته‌ها' : 'Writing';
-    if (intro) intro.textContent = fa ? 'جستارهای فارسی و یادداشت‌های پژوهشی به انگلیسی.' : 'Research notes in English, personal essays in Persian.';
-    if (homeLink) { homeLink.href = fa ? '/fa/' : '/'; homeLink.textContent = fa ? 'آرشا نیکسا' : 'Arsha Niksa'; }
-    if (railIdentity) { railIdentity.href = prefix + '/'; railIdentity.textContent = fa ? 'آرشا نیکسا' : 'Arsha Niksa'; }
+    if (intro) intro.textContent = fa ? 'نوشته‌های شخصی به فارسی و یادداشت‌های پژوهشی به انگلیسی.' : 'Research notes in English, personal essays in Persian.';
+    if (homeLink) { homeLink.href = fa ? '/fa/' : '/'; homeLink.textContent = fa ? 'آرشا نیک‌سا' : 'Arsha Niksa'; }
+    if (railIdentity) { railIdentity.href = prefix + '/'; railIdentity.textContent = fa ? 'آرشا نیک‌سا' : 'Arsha Niksa'; }
     if (railCaption) railCaption.textContent = fa ? 'ریاضیات · علم داده · نوشتن' : 'Mathematics · Data Science · Writing';
     if (railHeading) railHeading.textContent = fa ? 'راهنما' : 'Navigation';
     const labels = fa ? ['خانه', 'پژوهش', 'نوشته‌ها', 'دربارهٔ من'] : ['Home', 'Research', 'Writing', 'About'];
@@ -45,3 +46,5 @@ const requested = new URLSearchParams(window.location.search).get('lang');
 let saved = 'fa';
 try { saved = localStorage.getItem('blog-language') || saved; } catch (_) {}
 showLanguage(requested === 'fa' || requested === 'en' ? requested : (saved === 'en' ? 'en' : 'fa'));
+
+})();

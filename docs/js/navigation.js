@@ -27,12 +27,13 @@
     return html;
   };
   const syncHead = next => {
-    document.title = next.title;
+    document.title = 'Arsha Niksa | آرشا نیک‌سا';
     document.documentElement.lang = next.documentElement.lang;
     document.documentElement.dir = next.documentElement.dir;
     const dynamicSelectors = [
       'meta[name="description"]', 'meta[name="theme-color"]',
       'link[rel="canonical"]', 'link[rel="alternate"]',
+      'link[rel="icon"]', 'link[rel="shortcut icon"]',
       'meta[property^="og:"]', 'meta[name^="twitter:"]',
       'script[type="application/ld+json"]'
     ];
@@ -42,11 +43,13 @@
     }
     document.head.querySelectorAll("[data-page-style]").forEach(n => n.remove());
     const anchor = document.head.querySelector('link[href="/css/refined.css"]');
+    const pageBase = next.querySelector('link[rel="canonical"]')?.href || location.href;
     const links = [...next.head.querySelectorAll('link[rel="stylesheet"]')]
-      .filter(link => !new URL(link.href, location.href).pathname.endsWith("/css/refined.css"));
+      .filter(link => !new URL(link.getAttribute('href'), pageBase).pathname.endsWith("/css/refined.css"));
     for (const link of links) {
       const clone = link.cloneNode(true);
       clone.dataset.pageStyle = "1";
+      clone.href = new URL(link.getAttribute('href'), pageBase).href;
       if (anchor) anchor.before(clone); else document.head.append(clone);
     }
     next.head.querySelectorAll("style").forEach(style => {
