@@ -7,6 +7,7 @@
   const fetchCache = new Map();
   let controller = null;
   let generation = 0;
+  let activeKey = location.pathname + location.search;
   history.replaceState({ ...(history.state || {}), scrollY: window.scrollY }, "", location.href);
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const normalized = url => url.pathname + url.search;
@@ -84,7 +85,7 @@
   async function navigate(target, { push = true, restoreY = null } = {}) {
     const url = new URL(target, location.href);
     const destination = normalized(url);
-    if (normalized(new URL(location.href)) === destination) {
+    if (activeKey === destination) {
       if (url.hash) document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView();
       return;
     }
@@ -108,6 +109,7 @@
         await document.startViewTransition(render).finished;
       } else render();
       if (push) history.pushState({ scrollY: 0 }, "", url.href);
+      activeKey = destination;
       const hash = url.hash ? decodeURIComponent(url.hash.slice(1)) : "";
       if (hash) document.getElementById(hash)?.scrollIntoView();
       else window.scrollTo({ top: restoreY ?? 0, behavior: "instant" });
