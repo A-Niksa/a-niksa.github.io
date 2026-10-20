@@ -57,7 +57,7 @@
   };
   const loadPageScripts = async next => {
     const scripts = [...next.querySelectorAll('script[src]')];
-    const onBlogIndex = scripts.some(s => new URL(s.src, location.href).pathname.endsWith("/blog/blog.js"));
+    const onBlogIndex = scripts.some(s => new URL(s.getAttribute("src"), next.querySelector('link[rel="canonical"]')?.href || location.href).pathname.endsWith("/blog/blog.js"));
     if (onBlogIndex) {
       // Run once per replacement, with fresh references to the new buttons.
       const old = document.getElementById("blog-index-script");
