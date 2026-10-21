@@ -15,7 +15,7 @@
     if (!a || (event && (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey))) return false;
     if (a.hasAttribute("download") || (a.target && a.target !== "_self") || a.dataset.noSpa !== undefined) return false;
     const url = new URL(a.href, location.href);
-    return url.origin === location.origin && /^https?:$/.test(url.protocol) && !url.pathname.startsWith("/assets/") && !/\.(pdf|xml|txt|ico|svg|jpg|jpeg|png|webp)$/i.test(url.pathname);
+    return url.origin === location.origin && !url.pathname.startsWith("/blog/") && !location.pathname.startsWith("/blog/") && /^https?:$/.test(url.protocol) && !url.pathname.startsWith("/assets/") && !/\.(pdf|xml|txt|ico|svg|jpg|jpeg|png|webp)$/i.test(url.pathname);
   };
   const safeFetch = async (url, signal) => {
     const key = normalized(url);
