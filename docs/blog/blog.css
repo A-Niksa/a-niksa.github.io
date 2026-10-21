@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 :root{--background:#fff;--text:#23272a;--heading:#23272a;--muted:#60676b;--border:#e7e9e9;--accent:#225b83;--accent-hover:#103e5e}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -32,10 +32,10 @@ h1{font-size:clamp(2rem,5vw,2.8rem);font-weight:700;line-height:1.35;letter-spac
 .post-body code{overflow-wrap:anywhere}
 .references{margin-top:2.5rem;font-size:.92rem}
 .post-footer{padding-top:22px;border-top:1px solid var(--border);margin-top:48px}
-[lang="fa"],.persian-post{font-family:'Estedad',Tahoma,Arial,sans-serif}
-html[lang=fa] body{font-family:'Estedad',Tahoma,Arial,sans-serif}
+[lang="fa"],.persian-post{font-family:''IBM Plex Sans Arabic'',Tahoma,Arial,sans-serif}
+html[lang=fa] body{font-family:''IBM Plex Sans Arabic'',Tahoma,Arial,sans-serif}
 .persian-post .post-body{font-size:1.07rem;line-height:2.45}
-.persian-post h1,.post-list[lang=fa] .post-link,[lang=fa] h1{font-family:'Estedad',Tahoma,Arial,sans-serif;letter-spacing:0}
+.persian-post h1,.post-list[lang=fa] .post-link,[lang=fa] h1{font-family:''IBM Plex Sans Arabic'',Tahoma,Arial,sans-serif;letter-spacing:0}
 .persian-post h1{font-size:clamp(2rem,5vw,2.55rem);line-height:1.7}
 .persian-post .post-body p{margin-bottom:1.75rem}
 @media(max-width:580px){.blog-shell{width:calc(100% - 38px);padding:34px 0 65px}.post-body{font-size:.98rem}.persian-post .post-body{font-size:1rem}.blog-header,.post-header{margin-bottom:25px}}
