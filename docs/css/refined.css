@@ -35,8 +35,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offse
 .site-content{grid-column:2;grid-row:1;min-width:0;display:flex;flex-direction:column;min-height:100vh}
 .content-wrap,.wrap{width:min(960px,calc(100% - 112px));margin-inline:auto}
 main{flex:1}
-.hero{padding:86px 0 64px;position:relative;border-bottom:1px solid var(--line)}
-.hero::before{content:"";position:absolute;inset-inline-start:0;top:88px;width:3px;height:74px;background:var(--teal);border-radius:4px}
+.hero{padding:86px 0 64px;border-bottom:1px solid var(--line)}
+
 .kicker{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--teal);margin:0 0 22px}
 .hero h1{font:800 clamp(2.9rem,5vw,4.8rem)/1.17 Manrope,Arial,sans-serif;letter-spacing:-.07em;margin:0 0 19px;color:var(--ink)}
 .hero h1 span{color:var(--teal)}
@@ -98,7 +98,7 @@ html[dir=rtl] body{grid-template-columns:minmax(0,1fr) var(--rail-width)}
 html[dir=rtl] .site-rail{grid-column:2}
 html[dir=rtl] .site-content{grid-column:1}
 html[dir=rtl] .rail-heading{margin-inline-start:12px}
-html[dir=rtl] .hero::before{inset-inline-start:0}
+
 html[dir=rtl] .hero h1 span{color:var(--teal)}
 html[dir=rtl] .entry h3 a[lang=en]{font:600 .91rem/1.7 Inter,Arial,sans-serif;display:inline-block}
 .blog-shell{width:min(850px,calc(100% - 112px));margin-inline:auto;padding:70px 0 100px}
