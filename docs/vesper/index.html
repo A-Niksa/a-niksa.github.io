@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vesper | Personal morning briefing</title>
+<meta name="description" content="A private morning briefing: today’s calendar, tasks, notes, and Gmail updates, delivered to Telegram.">
+<meta name="theme-color" content="#182b3d">
+<link rel="canonical" href="https://www.aniksa.me/vesper/">
+<link rel="icon" type="image/svg+xml" href="/assets/img/favicon-v3.svg?v=3">
+<link rel="stylesheet" href="/css/refined.css">
+<style>
+.vesper-wordmark{font-size:2rem;letter-spacing:-.06em;color:#fff;font-weight:800;text-decoration:none}
+.vesper-copy{max-width:760px}.vesper-copy p,.vesper-copy li{color:var(--muted)}
+.vesper-copy li{margin-bottom:.6rem}.vesper-copy h3{font-size:1.05rem;margin:1.5rem 0 .5rem}
+.vesper-copy code{overflow-wrap:anywhere;font-size:.88em}.vesper-copy .page-header p{max-width:650px}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<aside class="site-rail" aria-label="Vesper navigation">
+<div class="rail-profile"><a class="vesper-wordmark" href="/vesper/">Vesper<span aria-hidden="true">.</span></a><p class="rail-caption">A quieter start to your day.<br>A personal project by Arsha Niksa.</p></div>
+<nav class="rail-nav" aria-label="Vesper pages"><a href="/vesper/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Overview</a><a href="/vesper/privacy/"><span class="nav-indicator" aria-hidden="true"></span>Privacy policy</a><a href="/vesper/terms/"><span class="nav-indicator" aria-hidden="true"></span>Terms of use</a></nav>
+<div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="rail-mini"><a href="/">Arsha’s website</a><a href="mailto:arshanyxaa@gmail.com">Contact</a></div></div>
+</aside>
+<div class="site-content">
+<main id="main" class="wrap vesper-copy">
+<header class="page-header"><p class="kicker">VESPER · PERSONAL ASSISTANT</p><h1>Vesper</h1><p>A private morning briefing: today’s calendar, tasks, notes, and Gmail updates, delivered to Telegram.</p></header>
+<section class="page-section"><h2>One morning briefing, in Telegram</h2><p>Vesper is a personal briefing assistant built and operated by Arsha Niksa. It brings today’s calendar, open-task counts, selected notes, and relevant Gmail updates into a private Telegram chat at 7:00 AM Asia/Tehran. A refresh command requests an updated briefing.</p><p>This website explains the project and its data practices. Vesper is currently a private, single-user setup; there is no public registration or mailbox connection on this website.</p></section><section class="page-section"><h2>What Vesper reads</h2><ul><li><strong>Gmail:</strong> read-only message headers, snippets, labels, and dates from explicitly authorized accounts, used for recent unread-mail summaries and daily-report alerts.</li><li><strong>Apple Calendar and Reminders:</strong> event titles and times, plus the number of open tasks in each selected list.</li><li><strong>Apple Notes:</strong> extracted items from one selected Backburner note, with tentative ideas marked as suggestions.</li></ul><p>The briefing service runs on a private server. An authorized Mac publishes selected Apple snapshots while awake; each Apple section shows when it was last synced. Gmail is fetched directly by the server.</p></section><section class="page-section"><h2>Read-only, with a clear purpose</h2><p>The Gmail connection requests <code>https://www.googleapis.com/auth/gmail.readonly</code>. Vesper does not send, delete, archive, or modify email, and its current Gmail requests do not download full message bodies or attachments.</p><p>Selected briefing content is sent through Telegram to the owner’s paired private chat. Vesper does not use Gmail data for advertising, sale, or AI model training, and its briefing pipeline does not send mailbox content to an external language model.</p><p>Read the <a href="/vesper/privacy/">privacy policy</a> for access, storage, retention, sharing, and deletion details, or the <a href="/vesper/terms/">terms of use</a> for the project’s operating limits.</p></section><section class="page-section"><h2>Contact</h2><p>Vesper is maintained by Arsha Niksa. For access, privacy, or support questions, contact <a href="mailto:arshanyxaa@gmail.com">arshanyxaa@gmail.com</a>.</p></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>Vesper · Arsha Niksa</span><nav class="footer-links" aria-label="Vesper information"><a href="/vesper/">Overview</a><a href="/vesper/privacy/">Privacy policy</a><a href="/vesper/terms/">Terms of use</a></nav></div></footer>
+</div>
+</body>
+</html>
