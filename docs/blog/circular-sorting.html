@@ -83,8 +83,8 @@
 
     <p>Since a sorted circle may be rotated, we are free to choose the most favorable rotation. Consequently,</p>
     <div class="equation">\[
-      d([p],[\mathrm{id}])=\min_{0\le k<n}\bigl(n-C(r^k p)\bigr)
-      =n-\max_{0\le k<n} C(r^k p).
+      d([p],[\mathrm{id}])=\min_{0\le k&lt;n}\bigl(n-C(r^k p)\bigr)
+      =n-\max_{0\le k&lt;n} C(r^k p).
     \]</div>
     <p>The entire witness question is therefore reduced to finding a permutation whose <em>every rotation</em> has few cycles. In these three examples, no rotation has more than four cycles. That makes each witness exactly \(n-4\) swaps away from the sorted circle.</p>
 
@@ -95,7 +95,7 @@
      31,3,21,0,27,33,26,4,35,18,9,34]</code></pre>
     <p>For this permutation, \(C(p)=1\). Among the other rotations, the cycle count is two at shifts \(7\) and \(23\), three at each nonzero even shift, and four at the remaining odd shifts. Thus</p>
     <div class="equation">\[
-      \max_{0\le k<36}C(r^kp)=4,\qquad
+      \max_{0\le k&lt;36}C(r^kp)=4,\qquad
       d([p],[\mathrm{id}])=36-4=32.
     \]</div>
     <p>A single example is enough to prove \(x(36)\ge32\), because \(x(36)\) is a maximum. The same idea works at \(n=40\) and \(n=42\); their complete permutations and all cycle decompositions are published below rather than taking up several pages here.</p>
