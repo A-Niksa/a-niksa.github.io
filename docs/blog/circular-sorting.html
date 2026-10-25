@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.">
-  <title>Circular Sorting: Improved Bounds for 36, 40 and 42 | Arsha Niksa</title>
+  <meta name="description" content="A modest computational note on circular sorting at n=36, 40 and 42, with explicit permutations, Lean-checked certificates, and limitations.">
+  <title>Circular Sorting Bounds for n=36, 40, 42 | Arsha Niksa</title>
   <link rel="canonical" href="https://www.aniksa.me/blog/circular-sorting.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Arsha Niksa">
-  <meta property="og:title" content="Circular Sorting: Three Improved Bounds with Lean-Checked Certificates">
-  <meta property="og:description" content="Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.">
+  <meta property="og:title" content="Circular Sorting: A Small Computational Note">
+  <meta property="og:description" content="A modest computational note on circular sorting at n=36, 40 and 42, with explicit permutations, Lean-checked certificates, and limitations.">
   <meta property="og:url" content="https://www.aniksa.me/blog/circular-sorting.html">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:locale" content="en_US">
   <meta property="article:published_time" content="2026-10-25">
   <meta property="article:modified_time" content="2026-10-25">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Circular Sorting: Three Improved Bounds with Lean-Checked Certificates">
-  <meta name="twitter:description" content="Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Circular Sorting: Three Improved Bounds with Lean-Checked Certificates","description":"Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.","url":"https://www.aniksa.me/blog/circular-sorting.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/circular-sorting.html"},"datePublished":"2026-10-25","dateModified":"2026-10-25","keywords":["circular sorting","Lean 4","permutations","transpositions","computational combinatorics"],"author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Combinatorics and computer-assisted mathematics","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
+  <meta name="twitter:title" content="Circular Sorting: A Small Computational Note">
+  <meta name="twitter:description" content="A modest computational note on circular sorting at n=36, 40 and 42, with explicit permutations, Lean-checked certificates, and limitations.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Circular Sorting: A Small Computational Note","description":"A modest computational note on circular sorting at n=36, 40 and 42, with explicit permutations, Lean-checked certificates, and limitations.","url":"https://www.aniksa.me/blog/circular-sorting.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/circular-sorting.html"},"datePublished":"2026-10-25","dateModified":"2026-10-25","keywords":["circular sorting","Lean 4","permutations","transpositions","computational combinatorics"],"author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Combinatorics and computer-assisted mathematics","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
   <link rel="stylesheet" href="/blog/blog.css">
   <link rel="stylesheet" href="/css/refined.css">
   <link rel="shortcut icon" href="/assets/img/favicon.ico?v=3">
@@ -53,23 +53,23 @@
 <main id="main" class="blog-shell">
   <header class="post-header">
     <a class="back-link" href="/blog/en/">Back to the blog</a>
-    <h1 class="post-title">Circular Sorting: Three Improved Bounds with Lean-Checked Certificates</h1>
+    <h1 class="post-title">Circular Sorting: A Small Computational Note</h1>
     <p class="post-meta">Arsha Niksa · 25 October 2026 · AI-assisted mathematical exploration</p>
   </header>
   <article class="post-body">
-    <p>A professor told me about the <em>prime-number case</em> of circular sorting as a problem from the National Mathematics Olympiad organized by the Iranian Mathematical Society. I did not attend the competition; I heard about the question from my professor. It is the sort of problem that looks like a puzzle about swapping numbers and then quietly turns into a problem about permutation groups.</p>
+    <p>One of my professors mentioned a circular-sorting problem from the National Mathematics Olympiad organized by the Iranian Mathematical Society. The question concerned the case where the number of positions is prime. I wasn't at the competition; I only heard about it from him. I found it interesting and wondered what happened when the number of positions was composite.</p>
 
-    <p>That conversation made me curious about the general problem: how difficult can circular sorting become when the number of labels is composite? I asked <strong>Astra</strong>, an AI model, to investigate the existing bounds, try to improve them, and look for something genuinely new. It found three explicit examples that improve lower bounds reported in a recent paper. The examples come with finite certificates checked by Lean.</p>
+    <p>I asked <strong>Astra</strong>, an AI model, to explore some composite values and compare them with published bounds. It produced three permutations, for \(n=36,40,42\), whose cycle counts give lower bounds one larger than those in Table 1 of a recent paper <a href="#ref-2">[2]</a>. I checked the finite certificates with Lean and a separate Python script. I am posting the details because the examples can be inspected, not because I can establish that they are new.</p>
 
-    <div class="disclosure"><strong>Authorship disclosure.</strong> I initiated this exploration and posed the challenge to Astra. The mathematical explanations in this post are <strong>AI-written</strong>, as are the computational constructions and formal certificate code. I am <strong>not a combinatorics expert by any means</strong>. I am sharing the result, the precise evidence for it, and its limitations openly so that others can inspect or improve it.</div>
+    <div class="disclosure"><strong>A note on authorship.</strong> The explanation below, the search code, and the Lean certificates were <strong>AI-written</strong>. My part was asking the question, following up on the results, and running the checks. I am <strong>not a combinatorics expert by any means</strong>, and I may have missed relevant work. I would welcome corrections, especially from people who know this literature better than I do.</div>
 
-    <h2>1. What is circular sorting?</h2>
+    <h2>1. The problem</h2>
     <p>Place the numbers \(0,1,\ldots,n-1\) around a circle, one at each position. A move swaps <em>any two</em> labels, not necessarily adjacent ones. The goal is to put the labels in cyclic order. Rotating the entire circle does not change the configuration, but reversing it generally does.</p>
 
     <p>For a particular circular configuration, count the fewest swaps needed to sort it. Then maximize that number over all possible configurations. Call the resulting worst-case distance \(x(n)\). The prime case is especially elegant: for a prime \(p\), one has \(x(p)=p-2\). For composite \(n\), the picture is much less complete <a href="#ref-1">[1]</a><a href="#ref-2">[2]</a>.</p>
 
-    <h2>2. Three improved lower bounds</h2>
-    <p>The August 2026 version of a paper by Bastide, Bishnoi, Groenland, Gijswijt and Joshi gives the following intervals in its Table 1 <a href="#ref-2">[2]</a>. The explicit circular permutations supplied here raise the lower endpoint by one in three cases:</p>
+    <h2>2. Three examples</h2>
+    <p>Table 1 of the August 2026 version of a paper by Bastide, Bishnoi, Groenland, Gijswijt and Joshi reports the following intervals <a href="#ref-2">[2]</a>. Using the same definition of circular sorting, the three permutations in the attached files give a lower endpoint one larger in each case:</p>
     <div class="results"><table>
       <thead><tr><th>Number of labels</th><th>Bounds in [2]</th><th>Bounds from these certificates</th></tr></thead>
       <tbody>
@@ -78,22 +78,22 @@
         <tr><td>\(n=42\)</td><td>\(37\le x(42)\le39\)</td><td>\(38\le x(42)\le39\)</td></tr>
       </tbody>
     </table></div>
-    <p>These are <strong>lower-bound improvements</strong>. They do not give the exact diameter at any of these three sizes, nor do they resolve the general composite case. The upper bounds are known; here the evidence for the new lower bounds consists of concrete witnesses.</p>
+    <p>This is only a comparison with the bounds reported in that version of the paper. It does not determine \(x(n)\) exactly for any of these values, and it does not mean these examples are the best known today. The upper bounds come from existing work; the attached permutations support the lower bounds.</p>
 
-    <h2>3. Why a sorting problem becomes a cycle-count problem</h2>
+    <h2>3. Why cycle counts help</h2>
     <p>Write a permutation \(p\) in one-line notation: the entry \(p(i)\) gives the label at position \(i\). Let \(r(i)=i+1\pmod n\) denote a rotation, and let \(C(q)\) be the number of disjoint cycles of the permutation \(q\), including fixed points.</p>
 
-    <p>The key elementary fact is that a permutation \(q\) requires exactly \(n-C(q)\) arbitrary transpositions to turn it into the identity. One swap can change the number of cycles by only one, while a cycle of length \(\ell\) can be broken into singletons with \(\ell-1\) swaps. Summing over disjoint cycles proves the formula.</p>
+    <p>A standard fact about permutations is that \(q\) requires \(n-C(q)\) arbitrary transpositions to become the identity. A swap changes the number of cycles by at most one, and a cycle of length \(\ell\) can be broken into singletons using \(\ell-1\) swaps. Applying this to each cycle gives the formula.</p>
 
     <p>Since a sorted circle may be rotated, we are free to choose the most favorable rotation. Consequently,</p>
     <div class="equation">\[
       d([p],[\mathrm{id}])=\min_{0\le k&lt;n}\bigl(n-C(r^k p)\bigr)
       =n-\max_{0\le k&lt;n} C(r^k p).
     \]</div>
-    <p>The entire witness question is therefore reduced to finding a permutation whose <em>every rotation</em> has few cycles. In these three examples, no rotation has more than four cycles. That makes each witness exactly \(n-4\) swaps away from the sorted circle.</p>
+    <p>So, for a lower bound, it is enough to exhibit a permutation with few cycles under <em>every rotation</em>. The attached data show at most four cycles for each of the three permutations, with four attained in at least one rotation. By the standard transposition formula, their distances from the sorted circle are \(n-4\).</p>
 
-    <h2>4. A witness that needs 32 swaps</h2>
-    <p>For \(n=36\), Astra found the following one-line permutation, indexed from zero:</p>
+    <h2>4. One explicit example</h2>
+    <p>For \(n=36\), the search returned this permutation in one-line notation, indexed from zero:</p>
     <pre><code>p = [17,32,8,24,5,20,14,15,13,19,29,2,
      25,10,12,6,22,7,30,11,16,23,1,28,
      31,3,21,0,27,33,26,4,35,18,9,34]</code></pre>
@@ -102,10 +102,10 @@
       \max_{0\le k&lt;36}C(r^kp)=4,\qquad
       d([p],[\mathrm{id}])=36-4=32.
     \]</div>
-    <p>A single example is enough to prove \(x(36)\ge32\), because \(x(36)\) is a maximum. The same idea works at \(n=40\) and \(n=42\); their complete permutations and all cycle decompositions are published below rather than taking up several pages here.</p>
+    <p>Since \(x(36)\) is the maximum over configurations, this example gives \(x(36)\ge32\). The \(n=40\) and \(n=42\) examples are similar; their permutations and cycle decompositions are in the files below.</p>
 
-    <h2>5. What exactly has Lean checked?</h2>
-    <p>The finite certificates were checked using <strong>Lean 4.19.0</strong>. The source uses <code>decide +kernel</code> and contains no <code>sorry</code>, added axioms, <code>native_decide</code>, or outside proof oracle. I reran the complete certificate file with the official Lean 4.19.0 release; all fifteen printed theorem checks report that they depend on no axioms. The independent Python verifier also passed.</p>
+    <h2>5. What Lean actually checks</h2>
+    <p>I ran the supplied certificate file using <strong>Lean 4.19.0</strong>. It compiles, and all fifteen printed theorem checks report no axiom dependencies. The proofs use <code>decide +kernel</code>, without <code>sorry</code> or <code>native_decide</code>. The separate Python verifier also passed. That checks the finite data, but it is important to be precise about what the Lean file does and does not prove.</p>
     <p>For each of the three sizes, the Lean file checks:</p>
     <ol>
       <li>The witness has exactly \(n\) entries and uses each label once.</li>
@@ -114,14 +114,14 @@
       <li>Some shift actually has four cycles.</li>
       <li>The minimum certified swap cost is \(32\), \(36\), or \(38\), respectively.</li>
     </ol>
-    <p>This is a significant but <strong>limited</strong> formal guarantee. Lean certifies the explicit permutations and their cycle data. The general theorem that transposition length equals \(n-C(q)\), the interpretation of circular distance, and the general upper-bound argument are supplied as ordinary mathematical reasoning in the accompanying README. They are <em>not</em> formalized end-to-end in Lean. The certificates also do not establish mathematical novelty by themselves.</p>
+    <p>Lean checks the particular permutations and the cycle decompositions listed for them. It does <strong>not</strong> formalize the general identity between transposition length and cycle count, the circular-distance interpretation, or the published upper bound. Those steps are explained mathematically in the README. So this is a verified set of finite certificates, <em>not</em> an end-to-end Lean formalization of the circular-sorting problem.</p>
 
-    <h2>6. How the examples were found and independently checked</h2>
-    <p>Astra used a stochastic search in C++ to look for permutations that minimize the number of rotations with more than four cycles. Simulated annealing proposed swaps and three-cycle mutations; the search histories are available with the code. Stochastic search is a <em>discovery method</em>, not a proof: running it again need not produce the same permutation.</p>
-    <p>What makes these examples reproducible is that the results do not require rerunning the search. The finite witnesses are saved explicitly, and a separate Python verifier reconstructs all cycles from the permutations. That independent traversal confirms the claimed distances for all \(36+40+42=118\) rotations. It uses only the Python standard library.</p>
+    <h2>6. Search and cross-checks</h2>
+    <p>Astra generated C++ code for a stochastic search over permutations, using swaps and three-cycle mutations. The search logs are included. Because the search is randomized, another run may find something different; the proof does not depend on reproducing the search itself.</p>
+    <p>The permutations are recorded explicitly. A short, standard-library Python script separately reconstructs the cycles for all \(36+40+42=118\) rotations and obtains the same cycle counts. The distances then follow from the usual transposition formula.</p>
     <p>The general upper bound \(x(n)\le n-3\) for even \(n\ge4\) follows from a parity argument already discussed in [2]: consecutive rotations have opposite permutation parity when \(n\) is even, ruling out the special cycle structure required to attain distance \(n-2\). Combining this known upper bound with the explicit lower-bound examples gives the intervals above.</p>
 
-    <h2>7. Download the certificates</h2>
+    <h2>7. Files and reproduction</h2>
     <p>All files are plain text and can be inspected directly. To repeat the formal checks, install Lean 4.19.0, then run <code>lean CircularSorting.lean</code>; run <code>python3 verify.py</code> for the independent cycle traversal.</p>
     <ul class="download-list">
       <li><a href="/blog/circular-sorting/CircularSorting.lean">CircularSorting.lean</a> — Lean theorems and all explicit cycle certificates.</li>
@@ -133,9 +133,9 @@
       <li><a href="https://github.com/A-Niksa/a-niksa.github.io/tree/main/docs/blog/circular-sorting">Browse the complete certificate directory on GitHub</a>.</li>
     </ul>
 
-    <h2>8. How new is the result?</h2>
-    <p>The precise claim is an improvement over the publicly available bounds in Table 1 of [2]. That is a narrower and more honest statement than claiming to have solved the circular-sorting problem or proved that these examples are the first ever found. An independent discovery, a later improvement, or related results elsewhere may exist. The values of \(x(36)\), \(x(40)\), and \(x(42)\) are still not pinned down exactly by this work.</p>
-    <p>For me, the interesting part is also methodological. A professor's mention of the Olympiad problem sparked my interest in the prime case; a request to Astra led to larger computational witnesses, and formal certificates made those witnesses checkable without trusting the AI or its search procedure. I do not pretend this makes me a specialist in combinatorics. It does make the claim concrete enough for specialists to scrutinize.</p>
+    <h2>8. A note on novelty</h2>
+    <p>As far as I can tell, these examples tighten three lower bounds stated in Table 1 of [2]. I have not done a comprehensive literature search, and I do not know whether the same permutations, their cycle profiles, or stronger bounds have already been found elsewhere. That is a question for people who know this subject better than I do.</p>
+    <p>I thought it was worth putting the examples and the checking code online. If there is a mistake, an overlooked reference, or a simpler construction, I would be grateful to hear about it.</p>
 
     <section class="references" aria-labelledby="references-title">
       <h2 id="references-title">References</h2>
