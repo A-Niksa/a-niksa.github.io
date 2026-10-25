@@ -3,24 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A technical note on quotient spaces, invariant representations, and symmetry-aware distances for molecular configurations." />
-    <title>Arsha Niksa | آرشا نیک‌سا</title>
+    <meta name="description" content="A category-theoretic view of molecular symmetry: G-spaces, invariant morphisms, orbit quotients, universal properties, and symmetry-aware distances." />
+    <title>Symmetry-Invariant Distances via Quotient Spaces | Arsha Niksa</title>
     <link rel="canonical" href="https://www.aniksa.me/blog/symmetry-aware-methodology.html" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Arsha Niksa" />
-    <meta property="og:title" content="A Quotient-First View of Symmetry-Invariant Distances | Arsha Niksa" />
-    <meta property="og:description" content="A technical note on quotient spaces, invariant representations, and symmetry-aware distances for molecular configurations." />
+    <meta property="og:title" content="Symmetry-Invariant Distances via Quotient Spaces | Arsha Niksa" />
+    <meta property="og:description" content="A category-theoretic view of molecular symmetry: G-spaces, invariant morphisms, orbit quotients, universal properties, and symmetry-aware distances." />
     <meta property="og:url" content="https://www.aniksa.me/blog/symmetry-aware-methodology.html" />
     <meta property="og:locale" content="en_US" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta property="article:published_time" content="2026-10-17" />
+    <meta property="article:modified_time" content="2026-10-25" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="A Quotient-First View of Symmetry-Invariant Distances | Arsha Niksa" />
-    <meta name="twitter:description" content="A technical note on quotient spaces, invariant representations, and symmetry-aware distances for molecular configurations." />
+    <meta name="twitter:title" content="Symmetry-Invariant Distances via Quotient Spaces | Arsha Niksa" />
+    <meta name="twitter:description" content="A category-theoretic view of molecular symmetry: G-spaces, invariant morphisms, orbit quotients, universal properties, and symmetry-aware distances." />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "A Quotient-First View of Symmetry-Invariant Distances",
-      "description": "A technical note on quotient spaces, invariant representations, and symmetry-aware distances for molecular configurations.",
+      "description": "A category-theoretic view of molecular symmetry: G-spaces, invariant morphisms, orbit quotients, universal properties, and symmetry-aware distances.",
       "url": "https://www.aniksa.me/blog/symmetry-aware-methodology.html",
       "mainEntityOfPage": {
         "@type": "WebPage",
@@ -32,6 +35,9 @@
         "url": "https://www.aniksa.me/"
       },
       "inLanguage": "en",
+      "datePublished": "2026-10-17",
+      "dateModified": "2026-10-25",
+      "keywords": ["category theory", "G-spaces", "invariant morphisms", "quotient spaces", "group actions", "molecular symmetry"],
       "articleSection": "Symmetry and molecular geometry",
       "isPartOf": {
         "@type": "Blog",
@@ -128,6 +134,25 @@
 
             <p>A contribution I developed in the project was to make this factorization diagram an organizing principle for the invariant-distance problem. It separates two questions that can otherwise get mixed together: <em>which configurations should be identified?</em> and <em>which representation or metric should we use on the resulting space?</em> The universal property is standard; its role here is to connect the symmetry model to every invariant representation built from it.</p>
 
+
+            <h3>2.1. The categorical formulation: objects, arrows, and the quotient</h3>
+
+            <p>The language in my research write-up is the category of \(G\)-spaces. At the most basic set-theoretic level, fix a group \(G\) and consider the category \(\mathbf{GSet}\). Its objects are sets \(X\) equipped with an action \(\rho:G\to\operatorname{Aut}(X)\); its morphisms \(u:X\to X'\) are <em>equivariant</em> maps satisfying \(u(g\cdot x)=g\cdot u(x)\). A molecular configuration space with an admissible relabelling group is an example of such an object, once its action is explicitly specified.</p>
+
+            <p>There is an important distinction between <em>equivariance</em> and <em>invariance</em>. For a general \(G\)-space \(Y\), equivariance means \(f(g\cdot x)=g\cdot f(x)\). But if the target \(Y\) has the <em>trivial</em> action, \(g\cdot y=y\), equivariance reduces precisely to \(f(g\cdot x)=f(x)\). Thus an invariant representation \(f:X\to Y\) can be understood as a \(G\)-equivariant morphism from \(X\) into a trivial-action target. The identity \(X\to X\), for instance, is always equivariant; it is not invariant unless the action on \(X\) is trivial. This distinction matters when building a distance intended to ignore symmetry.</p>
+
+            <p>To express the quotient's universal property at the categorical level, let \(T:\mathbf{Set}\to\mathbf{GSet}\) equip each set with the trivial \(G\)-action, and let \(Q:\mathbf{GSet}\to\mathbf{Set}\) send an object to its orbit set \(Q(X)=X/G\). An equivariant arrow \(u:X\to X'\) induces the well-defined map \(Q(u):X/G\to X'/G\), given by \(Q(u)([x])=[u(x)]\). In this precise setting, the factorization through the quotient is the natural bijection</p>
+
+            <div class="equation">\[
+              \operatorname{Hom}_{\mathbf{Set}}(X/G,Y)
+              \;\cong\;
+              \operatorname{Hom}_{\mathbf{GSet}}(X,T(Y)).
+            \]</div>
+
+            <p>In categorical language, the orbit-set functor is <em>left adjoint</em> to the trivial-action functor, \(Q\dashv T\). Concretely, the bijection sends a map \(\widetilde f:X/G\to Y\) to \(f=\widetilde f\circ\pi_G\). Conversely, an invariant \(f\) uniquely determines \(\widetilde f([x])=f(x)\). The factorization is therefore more than notation: it expresses that the projection morphism \(\pi_G\) is universal among invariant maps to trivial-action targets.</p>
+
+            <p>This adjunction is standard category theory, not a newly proved theorem or an assertion that any numerical representation separates all orbits. Nor does this set-level statement automatically supply a metric, topology, continuity, or a computable algorithm on \(X/G\). Those require separate compatibility assumptions. In the research problem, the categorical formulation tells us <em>where</em> the invariant distance should live, while the molecular symmetry model and distance construction determine what it actually measures.</p>
+
             <h2>3. From the quotient to a computable comparison</h2>
 
             <p>One route is to compare invariant representations. Another is to compare orbits directly. Given a distance \(d\) on \(\mathcal X\), a natural candidate is</p>
@@ -154,6 +179,21 @@
             \]</div>
 
             <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. The source report compares this construction with Chenab’s internal report on interchangeable sets <a class="citation" href="#ref-2">[2]</a>. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
+
+            <h3>3.1. Combining several kinds of symmetry</h3>
+
+            <p>The source write-up distinguishes independent symmetry actions from interacting ones. If a group \(G_1\) acts on one aspect of a configuration and \(G_2\) on another, and the two actions commute, the combined action can be described by the direct product \(G_1\times G_2\). The order in which the two transformations are applied does not matter.</p>
+
+            <p>But if one transformation <em>reindexes</em> the others, the product is generally not direct. Given a homomorphism \(\varphi:G_2\to\operatorname{Aut}(G_1)\), the semidirect product \(G_1\rtimes_{\varphi}G_2\) has multiplication</p>
+
+            <div class="equation">\[
+              (g_1,h_1)(g_2,h_2)
+              =\bigl(g_1\,\varphi(h_1)(g_2),\,h_1h_2\bigr).
+            \]</div>
+
+            <p>One familiar geometric example is the special Euclidean group, \(\mathrm{SE}(3)=\mathbb R^3\rtimes\mathrm{SO}(3)\): a rotation changes how a translation is transported when the motions are composed. In molecular relabelling, an outer permutation that exchanges repeated blocks can similarly act on the product of their internal symmetry groups. This is the structural reason that a block model may involve \(\bigl(\prod_b H_b\bigr)\rtimes P\), rather than a naive independent product. The action \(\varphi\) must be specified, and nested semidirect products should not be rearranged as though they were automatically associative.</p>
+
+            <p>These constructions describe <em>which symmetries are admissible</em>. They are not, by themselves, a new algorithm for minimizing over those symmetries, and the right group depends on the physical or modelling assumptions.</p>
 
             <h2>4. Testing invariance computationally</h2>
 

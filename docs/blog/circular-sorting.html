@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.">
-  <title>Circular Sorting: Three Improved Bounds with Lean-Checked Certificates | Arsha Niksa</title>
+  <meta name="description" content="Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.">
+  <title>Circular Sorting: Improved Bounds for 36, 40 and 42 | Arsha Niksa</title>
   <link rel="canonical" href="https://www.aniksa.me/blog/circular-sorting.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Arsha Niksa">
   <meta property="og:title" content="Circular Sorting: Three Improved Bounds with Lean-Checked Certificates">
-  <meta property="og:description" content="An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.">
+  <meta property="og:description" content="Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.">
   <meta property="og:url" content="https://www.aniksa.me/blog/circular-sorting.html">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-25">
+  <meta property="article:modified_time" content="2026-10-25">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Circular Sorting: Three Improved Bounds with Lean-Checked Certificates">
-  <meta name="twitter:description" content="An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Circular Sorting: Three Improved Bounds with Lean-Checked Certificates","description":"An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.","url":"https://www.aniksa.me/blog/circular-sorting.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/circular-sorting.html"},"datePublished":"2026-10-25","author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Combinatorics and computer-assisted mathematics","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
+  <meta name="twitter:description" content="Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Circular Sorting: Three Improved Bounds with Lean-Checked Certificates","description":"Lean-checked witnesses improve circular sorting lower bounds for n=36, 40 and 42. Explore the proof, computations and reproducible certificates.","url":"https://www.aniksa.me/blog/circular-sorting.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/circular-sorting.html"},"datePublished":"2026-10-25","dateModified":"2026-10-25","keywords":["circular sorting","Lean 4","permutations","transpositions","computational combinatorics"],"author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Combinatorics and computer-assisted mathematics","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
   <link rel="stylesheet" href="/blog/blog.css">
   <link rel="stylesheet" href="/css/refined.css">
   <link rel="shortcut icon" href="/assets/img/favicon.ico?v=3">
@@ -53,9 +57,9 @@
     <p class="post-meta">Arsha Niksa · 25 October 2026 · AI-assisted mathematical exploration</p>
   </header>
   <article class="post-body">
-    <p>I first encountered the <em>prime-number case</em> of circular sorting as a problem in the National Mathematics Olympiad organized by the Iranian Mathematical Society. It is the sort of question that looks like a puzzle about swapping numbers and then quietly turns into a problem about permutation groups.</p>
+    <p>A professor told me about the <em>prime-number case</em> of circular sorting as a problem from the National Mathematics Olympiad organized by the Iranian Mathematical Society. I did not attend the competition; I heard about the question from my professor. It is the sort of problem that looks like a puzzle about swapping numbers and then quietly turns into a problem about permutation groups.</p>
 
-    <p>After thinking about that case, I became curious about the general problem: how difficult can circular sorting become when the number of labels is composite? I asked <strong>Astra</strong>, an AI model, to investigate the existing bounds, try to improve them, and look for something genuinely new. It found three explicit examples that improve lower bounds reported in a recent paper. The examples come with finite certificates checked by Lean.</p>
+    <p>That conversation made me curious about the general problem: how difficult can circular sorting become when the number of labels is composite? I asked <strong>Astra</strong>, an AI model, to investigate the existing bounds, try to improve them, and look for something genuinely new. It found three explicit examples that improve lower bounds reported in a recent paper. The examples come with finite certificates checked by Lean.</p>
 
     <div class="disclosure"><strong>Authorship disclosure.</strong> I initiated this exploration and posed the challenge to Astra. The mathematical explanations in this post are <strong>AI-written</strong>, as are the computational constructions and formal certificate code. I am <strong>not a combinatorics expert by any means</strong>. I am sharing the result, the precise evidence for it, and its limitations openly so that others can inspect or improve it.</div>
 
@@ -101,7 +105,7 @@
     <p>A single example is enough to prove \(x(36)\ge32\), because \(x(36)\) is a maximum. The same idea works at \(n=40\) and \(n=42\); their complete permutations and all cycle decompositions are published below rather than taking up several pages here.</p>
 
     <h2>5. What exactly has Lean checked?</h2>
-    <p>The finite certificates were checked using <strong>Lean 4.19.0</strong>. The source uses <code>decide +kernel</code> and contains no <code>sorry</code>, added axioms, <code>native_decide</code>, or outside proof oracle. The supplied Lean check log reports that the fifteen printed theorem checks depend on no axioms.</p>
+    <p>The finite certificates were checked using <strong>Lean 4.19.0</strong>. The source uses <code>decide +kernel</code> and contains no <code>sorry</code>, added axioms, <code>native_decide</code>, or outside proof oracle. I reran the complete certificate file with the official Lean 4.19.0 release; all fifteen printed theorem checks report that they depend on no axioms. The independent Python verifier also passed.</p>
     <p>For each of the three sizes, the Lean file checks:</p>
     <ol>
       <li>The witness has exactly \(n\) entries and uses each label once.</li>
@@ -131,7 +135,7 @@
 
     <h2>8. How new is the result?</h2>
     <p>The precise claim is an improvement over the publicly available bounds in Table 1 of [2]. That is a narrower and more honest statement than claiming to have solved the circular-sorting problem or proved that these examples are the first ever found. An independent discovery, a later improvement, or related results elsewhere may exist. The values of \(x(36)\), \(x(40)\), and \(x(42)\) are still not pinned down exactly by this work.</p>
-    <p>For me, the interesting part is also methodological. I started with an Olympiad question whose prime case intrigued me; a request to Astra led to larger computational witnesses, and formal certificates made those witnesses checkable without trusting the AI or its search procedure. I do not pretend this makes me a specialist in combinatorics. It does make the claim concrete enough for specialists to scrutinize.</p>
+    <p>For me, the interesting part is also methodological. A professor's mention of the Olympiad problem sparked my interest in the prime case; a request to Astra led to larger computational witnesses, and formal certificates made those witnesses checkable without trusting the AI or its search procedure. I do not pretend this makes me a specialist in combinatorics. It does make the claim concrete enough for specialists to scrutinize.</p>
 
     <section class="references" aria-labelledby="references-title">
       <h2 id="references-title">References</h2>
