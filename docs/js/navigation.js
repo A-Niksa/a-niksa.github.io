@@ -27,7 +27,7 @@
     return html;
   };
   const syncHead = next => {
-    document.title = 'Arsha Niksa | آرشا نیک‌سا';
+    document.title = next.title;
     document.documentElement.lang = next.documentElement.lang;
     document.documentElement.dir = next.documentElement.dir;
     const dynamicSelectors = [
