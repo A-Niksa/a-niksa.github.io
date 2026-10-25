@@ -1,0 +1,6 @@
+n=36: permutation valid; all 36 decompositions valid; maximum cycles=4; witness distance=32
+  cycle counts: [1, 4, 3, 4, 3, 4, 3, 2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4]
+n=40: permutation valid; all 40 decompositions valid; maximum cycles=4; witness distance=36
+  cycle counts: [2, 1, 4, 3, 2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 2, 3, 2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 2, 3, 4, 3, 4, 3, 2, 3]
+n=42: permutation valid; all 42 decompositions valid; maximum cycles=4; witness distance=38
+  cycle counts: [3, 4, 3, 4, 3, 2, 3, 4, 3, 4, 3, 2, 3, 4, 3, 4, 3, 4, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 2]

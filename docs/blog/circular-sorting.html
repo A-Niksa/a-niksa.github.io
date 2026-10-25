@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.">
+  <title>Circular Sorting: Three Improved Bounds with Lean-Checked Certificates | Arsha Niksa</title>
+  <link rel="canonical" href="https://www.aniksa.me/blog/circular-sorting.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Arsha Niksa">
+  <meta property="og:title" content="Circular Sorting: Three Improved Bounds with Lean-Checked Certificates">
+  <meta property="og:description" content="An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.">
+  <meta property="og:url" content="https://www.aniksa.me/blog/circular-sorting.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Circular Sorting: Three Improved Bounds with Lean-Checked Certificates">
+  <meta name="twitter:description" content="An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Circular Sorting: Three Improved Bounds with Lean-Checked Certificates","description":"An Olympiad question led to an AI-assisted search for harder circular permutations. Three improved bounds at n = 36, 40, 42, with explicit Lean-checked certificates and a clear verification boundary.","url":"https://www.aniksa.me/blog/circular-sorting.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/circular-sorting.html"},"datePublished":"2026-10-25","author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Combinatorics and computer-assisted mathematics","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
+  <link rel="stylesheet" href="/blog/blog.css">
+  <link rel="stylesheet" href="/css/refined.css">
+  <link rel="shortcut icon" href="/assets/img/favicon.ico?v=3">
+  <style>
+    .post-body { line-height:1.85; }
+    .post-body h2 { line-height:1.35; margin:2.5rem 0 1rem; }
+    .post-body h3 { margin:1.8rem 0 .6rem; }
+    .post-body li { margin:.5rem 0; }
+    .post-body .equation { max-width:100%;overflow-x:auto;padding:.25rem 0;margin:1.5rem 0; }
+    .post-body .results { overflow-x:auto;margin:1.5rem 0 1.75rem; }
+    .post-body table { width:100%;border-collapse:collapse;font-size:.92rem;white-space:nowrap; }
+    .post-body th,.post-body td { text-align:left;padding:.8rem .9rem;border-bottom:1px solid var(--border); }
+    .post-body th { font-weight:600;background:#f5f8fa; }
+    .post-body td:last-child { font-weight:650;color:var(--accent); }
+    .post-body pre { padding:1rem 1.1rem;overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:#f7f9fa;font-size:.84rem;line-height:1.7; }
+    .post-body .disclosure { border-left:3px solid var(--accent);padding:.9rem 1.15rem;background:#f3f7fa;margin:1.55rem 0; }
+    .post-body .download-list { padding-left:1.3rem; }
+    .post-body .download-list a,.post-body .references a { overflow-wrap:anywhere; }
+    .post-body .references { border-top:1px solid var(--border);padding-top:1rem;margin-top:3rem;font-size:.93rem; }
+    .post-body .references li { margin:.8rem 0; }
+    .post-meta { color:var(--muted); }
+  </style>
+  <script>
+    window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']} };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<aside class="site-rail" aria-label="Primary navigation"><div class="rail-profile"><img class="rail-avatar" src="/assets/img/ofc3.jpg" alt="Portrait of Arsha Niksa" width="78" height="78"><div><a class="rail-identity" href="/">Arsha Niksa</a><p class="rail-caption">Mathematics · Data Science</p></div></div><nav class="rail-nav" aria-label="Pages"><a href="/" ><span class="nav-indicator" aria-hidden="true"></span>Home</a><a href="/research/" ><span class="nav-indicator" aria-hidden="true"></span>Research</a><a href="/blog/en/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Blog</a><a href="/about/" ><span class="nav-indicator" aria-hidden="true"></span>About</a><details class="cv-dropdown"><summary>CV <span aria-hidden="true">⌄</span></summary><div class="cv-dropdown-menu"><a href="/assets/academic-cv.pdf" download>Academic CV ↓</a><a href="/assets/work-cv.pdf" download>Work CV ↓</a></div></details><div class="language-picker language-picker-mobile" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div></nav><div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="language-picker language-picker-desktop" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div><div class="rail-mini"><a href="https://github.com/A-Niksa" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:arshaniksaa@gmail.com">Email</a></div></div></aside>
+<div class="site-content">
+<main id="main" class="blog-shell">
+  <header class="post-header">
+    <a class="back-link" href="/blog/en/">Back to the blog</a>
+    <h1 class="post-title">Circular Sorting: Three Improved Bounds with Lean-Checked Certificates</h1>
+    <p class="post-meta">Arsha Niksa · 25 October 2026 · AI-assisted mathematical exploration</p>
+  </header>
+  <article class="post-body">
+    <p>I first encountered the <em>prime-number case</em> of circular sorting as a problem in the National Mathematics Olympiad organized by the Iranian Mathematical Society. It is the sort of question that looks like a puzzle about swapping numbers and then quietly turns into a problem about permutation groups.</p>
+
+    <p>After thinking about that case, I became curious about the general problem: how difficult can circular sorting become when the number of labels is composite? I asked <strong>Astra</strong>, an AI model, to investigate the existing bounds, try to improve them, and look for something genuinely new. It found three explicit examples that improve lower bounds reported in a recent paper. The examples come with finite certificates checked by Lean.</p>
+
+    <div class="disclosure"><strong>Authorship disclosure.</strong> I initiated this exploration and posed the challenge to Astra. The mathematical explanations in this post are <strong>AI-written</strong>, as are the computational constructions and formal certificate code. I am <strong>not a combinatorics expert by any means</strong>. I am sharing the result, the precise evidence for it, and its limitations openly so that others can inspect or improve it.</div>
+
+    <h2>1. What is circular sorting?</h2>
+    <p>Place the numbers \(0,1,\ldots,n-1\) around a circle, one at each position. A move swaps <em>any two</em> labels, not necessarily adjacent ones. The goal is to put the labels in cyclic order. Rotating the entire circle does not change the configuration, but reversing it generally does.</p>
+
+    <p>For a particular circular configuration, count the fewest swaps needed to sort it. Then maximize that number over all possible configurations. Call the resulting worst-case distance \(x(n)\). The prime case is especially elegant: for a prime \(p\), one has \(x(p)=p-2\). For composite \(n\), the picture is much less complete <a href="#ref-1">[1]</a><a href="#ref-2">[2]</a>.</p>
+
+    <h2>2. Three improved lower bounds</h2>
+    <p>The August 2026 version of a paper by Bastide, Bishnoi, Groenland, Gijswijt and Joshi gives the following intervals in its Table 1 <a href="#ref-2">[2]</a>. The explicit circular permutations supplied here raise the lower endpoint by one in three cases:</p>
+    <div class="results"><table>
+      <thead><tr><th>Number of labels</th><th>Bounds in [2]</th><th>Bounds from these certificates</th></tr></thead>
+      <tbody>
+        <tr><td>\(n=36\)</td><td>\(31\le x(36)\le33\)</td><td>\(32\le x(36)\le33\)</td></tr>
+        <tr><td>\(n=40\)</td><td>\(35\le x(40)\le37\)</td><td>\(36\le x(40)\le37\)</td></tr>
+        <tr><td>\(n=42\)</td><td>\(37\le x(42)\le39\)</td><td>\(38\le x(42)\le39\)</td></tr>
+      </tbody>
+    </table></div>
+    <p>These are <strong>lower-bound improvements</strong>. They do not give the exact diameter at any of these three sizes, nor do they resolve the general composite case. The upper bounds are known; here the evidence for the new lower bounds consists of concrete witnesses.</p>
+
+    <h2>3. Why a sorting problem becomes a cycle-count problem</h2>
+    <p>Write a permutation \(p\) in one-line notation: the entry \(p(i)\) gives the label at position \(i\). Let \(r(i)=i+1\pmod n\) denote a rotation, and let \(C(q)\) be the number of disjoint cycles of the permutation \(q\), including fixed points.</p>
+
+    <p>The key elementary fact is that a permutation \(q\) requires exactly \(n-C(q)\) arbitrary transpositions to turn it into the identity. One swap can change the number of cycles by only one, while a cycle of length \(\ell\) can be broken into singletons with \(\ell-1\) swaps. Summing over disjoint cycles proves the formula.</p>
+
+    <p>Since a sorted circle may be rotated, we are free to choose the most favorable rotation. Consequently,</p>
+    <div class="equation">\[
+      d([p],[\mathrm{id}])=\min_{0\le k<n}\bigl(n-C(r^k p)\bigr)
+      =n-\max_{0\le k<n} C(r^k p).
+    \]</div>
+    <p>The entire witness question is therefore reduced to finding a permutation whose <em>every rotation</em> has few cycles. In these three examples, no rotation has more than four cycles. That makes each witness exactly \(n-4\) swaps away from the sorted circle.</p>
+
+    <h2>4. A witness that needs 32 swaps</h2>
+    <p>For \(n=36\), Astra found the following one-line permutation, indexed from zero:</p>
+    <pre><code>p = [17,32,8,24,5,20,14,15,13,19,29,2,
+     25,10,12,6,22,7,30,11,16,23,1,28,
+     31,3,21,0,27,33,26,4,35,18,9,34]</code></pre>
+    <p>For this permutation, \(C(p)=1\). Among the other rotations, the cycle count is two at shifts \(7\) and \(23\), three at each nonzero even shift, and four at the remaining odd shifts. Thus</p>
+    <div class="equation">\[
+      \max_{0\le k<36}C(r^kp)=4,\qquad
+      d([p],[\mathrm{id}])=36-4=32.
+    \]</div>
+    <p>A single example is enough to prove \(x(36)\ge32\), because \(x(36)\) is a maximum. The same idea works at \(n=40\) and \(n=42\); their complete permutations and all cycle decompositions are published below rather than taking up several pages here.</p>
+
+    <h2>5. What exactly has Lean checked?</h2>
+    <p>The finite certificates were checked using <strong>Lean 4.19.0</strong>. The source uses <code>decide +kernel</code> and contains no <code>sorry</code>, added axioms, <code>native_decide</code>, or outside proof oracle. The supplied Lean check log reports that the fifteen printed theorem checks depend on no axioms.</p>
+    <p>For each of the three sizes, the Lean file checks:</p>
+    <ol>
+      <li>The witness has exactly \(n\) entries and uses each label once.</li>
+      <li>For <em>every</em> shift \(k\), the listed nonempty cycles cover the entire set of labels, with no repetitions, and each arrow is correct for the rotated permutation.</li>
+      <li>The full vector of cycle counts agrees with the claimed profile.</li>
+      <li>Some shift actually has four cycles.</li>
+      <li>The minimum certified swap cost is \(32\), \(36\), or \(38\), respectively.</li>
+    </ol>
+    <p>This is a significant but <strong>limited</strong> formal guarantee. Lean certifies the explicit permutations and their cycle data. The general theorem that transposition length equals \(n-C(q)\), the interpretation of circular distance, and the general upper-bound argument are supplied as ordinary mathematical reasoning in the accompanying README. They are <em>not</em> formalized end-to-end in Lean. The certificates also do not establish mathematical novelty by themselves.</p>
+
+    <h2>6. How the examples were found and independently checked</h2>
+    <p>Astra used a stochastic search in C++ to look for permutations that minimize the number of rotations with more than four cycles. Simulated annealing proposed swaps and three-cycle mutations; the search histories are available with the code. Stochastic search is a <em>discovery method</em>, not a proof: running it again need not produce the same permutation.</p>
+    <p>What makes these examples reproducible is that the results do not require rerunning the search. The finite witnesses are saved explicitly, and a separate Python verifier reconstructs all cycles from the permutations. That independent traversal confirms the claimed distances for all \(36+40+42=118\) rotations. It uses only the Python standard library.</p>
+    <p>The general upper bound \(x(n)\le n-3\) for even \(n\ge4\) follows from a parity argument already discussed in [2]: consecutive rotations have opposite permutation parity when \(n\) is even, ruling out the special cycle structure required to attain distance \(n-2\). Combining this known upper bound with the explicit lower-bound examples gives the intervals above.</p>
+
+    <h2>7. Download the certificates</h2>
+    <p>All files are plain text and can be inspected directly. To repeat the formal checks, install Lean 4.19.0, then run <code>lean CircularSorting.lean</code>; run <code>python3 verify.py</code> for the independent cycle traversal.</p>
+    <ul class="download-list">
+      <li><a href="/blog/circular-sorting/CircularSorting.lean">CircularSorting.lean</a> — Lean theorems and all explicit cycle certificates.</li>
+      <li><a href="/blog/circular-sorting/witnesses.json">witnesses.json</a> — permutations, cycle counts and decompositions.</li>
+      <li><a href="/blog/circular-sorting/verify.py">verify.py</a> — independent standard-library Python checker.</li>
+      <li><a href="/blog/circular-sorting/README.md">README.md</a> — complete mathematical proof, novelty scope, and reproducibility notes.</li>
+      <li><a href="/blog/circular-sorting/lean_check.log">Lean check log</a> and <a href="/blog/circular-sorting/python_check.log">Python check log</a> — outputs supplied with the certificates.</li>
+      <li><a href="/blog/circular-sorting/search.cpp">search.cpp</a> — heuristic search code, with <a href="/blog/circular-sorting/search_36.log">36</a>, <a href="/blog/circular-sorting/search_40.log">40</a> and <a href="/blog/circular-sorting/search_42.log">42</a> search logs.</li>
+      <li><a href="https://github.com/A-Niksa/a-niksa.github.io/tree/main/docs/blog/circular-sorting">Browse the complete certificate directory on GitHub</a>.</li>
+    </ul>
+
+    <h2>8. How new is the result?</h2>
+    <p>The precise claim is an improvement over the publicly available bounds in Table 1 of [2]. That is a narrower and more honest statement than claiming to have solved the circular-sorting problem or proved that these examples are the first ever found. An independent discovery, a later improvement, or related results elsewhere may exist. The values of \(x(36)\), \(x(40)\), and \(x(42)\) are still not pinned down exactly by this work.</p>
+    <p>For me, the interesting part is also methodological. I started with an Olympiad question whose prime case intrigued me; a request to Astra led to larger computational witnesses, and formal certificates made those witnesses checkable without trusting the AI or its search procedure. I do not pretend this makes me a specialist in combinatorics. It does make the claim concrete enough for specialists to scrutinize.</p>
+
+    <section class="references" aria-labelledby="references-title">
+      <h2 id="references-title">References</h2>
+      <ol>
+        <li id="ref-1">Ron M. Adin, Noga Alon and Yuval Roichman, <em>Circular Sorting</em> (2025). <a href="https://arxiv.org/abs/2502.14398">arXiv:2502.14398</a>.</li>
+        <li id="ref-2">Paul Bastide, Anurag Bishnoi, Carla Groenland, Dion Gijswijt and Rohinee Joshi, <em>Circular sorting, strong complete mappings and wreath product constructions</em>, arXiv:2510.18529v3, Table 1 and Theorem 3 (version dated 2026). <a href="https://arxiv.org/html/2510.18529v3">Read the paper</a>.</li>
+      </ol>
+    </section>
+  </article>
+  <footer class="post-footer"><a class="back-link" href="/blog/en/">All posts</a></footer>
+</main>
+</div>
+</body>
+</html>
