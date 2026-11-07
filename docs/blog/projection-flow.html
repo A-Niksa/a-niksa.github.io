@@ -1,142 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A formalization of dimension reduction as a nonlinear flow, an orthogonal projection, and a coordinate isomorphism, with a local data-driven Taylor surrogate." />
-  <title>Dimension Reduction as Projection and Flow | Arsha Niksa</title>
-    <link rel="canonical" href="https://www.aniksa.me/blog/projection-flow.html" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="Arsha Niksa" />
-    <meta property="og:title" content="Dimension Reduction as Projection and Flow | Arsha Niksa" />
-    <meta property="og:description" content="A formalization of dimension reduction as a nonlinear flow, an orthogonal projection, and a coordinate isomorphism, with a local data-driven Taylor surrogate." />
-    <meta property="og:url" content="https://www.aniksa.me/blog/projection-flow.html" />
-    <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Dimension Reduction as Projection and Flow | Arsha Niksa" />
-    <meta name="twitter:description" content="A formalization of dimension reduction as a nonlinear flow, an orthogonal projection, and a coordinate isomorphism, with a local data-driven Taylor surrogate." />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Dimension Reduction as Projection and Flow",
-      "description": "A formalization of dimension reduction as a nonlinear flow, an orthogonal projection, and a coordinate isomorphism, with a local data-driven Taylor surrogate.",
-      "url": "https://www.aniksa.me/blog/projection-flow.html",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://www.aniksa.me/blog/projection-flow.html"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Arsha Niksa",
-        "url": "https://www.aniksa.me/"
-      },
-      "inLanguage": "en",
-      "articleSection": "Dimensionality reduction",
-      "isPartOf": {
-        "@type": "Blog",
-        "name": "Arsha Niksa Blog",
-        "url": "https://www.aniksa.me/blog/"
-      }
-    }
-    </script>
-  <link rel="stylesheet" href="blog.css" />
-  <style>
-.post-body { line-height: 1.85; }
-.post-body h2 { margin: 2.5rem 0 1rem; line-height: 1.25; }
-.post-body.equation { overflow-x: auto; margin: 1.35rem 0; padding:.3rem 0; }
-.post-body li { margin:.45rem 0; }
-.post-body.note { padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--surface); }
-.post-meta { color: var(--muted); }
-  
-.references { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-.references ol { padding-left: 1.5rem; }
-.references li { margin:.85rem 0; overflow-wrap: anywhere; }
-.references a { overflow-wrap: anywhere; }
-.citation { font-size:.92em; white-space: nowrap; text-decoration: none; }
-    </style>
-  <script>
-    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="/css/refined.css" />
-<link rel="shortcut icon" href="/assets/img/favicon.ico?v=3"></head>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="description" content="This research note has been withdrawn from the published blog." />
+  <title>Withdrawn research note | Arsha Niksa</title>
+  <link rel="stylesheet" href="/blog/blog.css" />
+  <link rel="stylesheet" href="/css/refined.css" />
+  <link rel="icon" href="/assets/img/favicon.ico?v=3" />
+</head>
 <body>
-<aside class="site-rail" aria-label="Primary navigation"><div class="rail-profile"><img class="rail-avatar" src="/assets/img/ofc3.jpg" alt="Portrait of Arsha Niksa" width="78" height="78"><div><a class="rail-identity" href="/">Arsha Niksa</a><p class="rail-caption">Mathematics · Data Science</p></div></div><nav class="rail-nav" aria-label="Pages"><a href="/" ><span class="nav-indicator" aria-hidden="true"></span>Home</a><a href="/research/" ><span class="nav-indicator" aria-hidden="true"></span>Research</a><a href="/blog/en/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Blog</a><a href="/about/" ><span class="nav-indicator" aria-hidden="true"></span>About</a><details class="cv-dropdown"><summary>CV <span aria-hidden="true">⌄</span></summary><div class="cv-dropdown-menu"><a href="/assets/academic-cv.pdf" download>Academic CV ↓</a><a href="/assets/work-cv.pdf" download>Work CV ↓</a></div></details><div class="language-picker language-picker-mobile" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div></nav><div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="language-picker language-picker-desktop" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div><div class="rail-mini"><a href="https://github.com/A-Niksa" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:arshaniksaa@gmail.com">Email</a></div></div></aside><div class="site-content">
-  <main class="blog-shell">
-    <header class="post-header">
-      <a class="back-link" href="/blog/en/">Back to the blog</a>
-      <h1 class="post-title">Dimension Reduction as Projection and Flow</h1>
-      <p class="post-meta">Arsha Niksa · An original formalization developed in the broader research context with Marzieh Eidi and Jürgen Jost</p>
-    </header>
-    <article class="post-body">
-      <p>This note isolates my own formalization from the broader research context in which I worked with Marzieh Eidi and Jürgen Jost. The model treats dimension reduction as a composition of a nonlinear deformation, a linear projection, and a change of coordinates. Alongside that factorization, I formulated a data-driven local approximation of a dimension-reduction rule using first- and second-order terms, then interpolated those local models across nearby inputs. The focus here is this decomposition and its mathematical structure, not a summary of the wider collaboration.</p>
-
-      <h2>1. Treat dimension reduction as a map-valued rule</h2>
-      <p>Let \(n&gt;k\). Rather than regard dimension reduction only as a single embedding of one point cloud, model the procedure as a rule that takes an input distribution or data measure \(\mu\) to a map \(f:\mathbb R^n\to\mathbb R^k\):</p>
-      <div class="equation">\[
-        F:\mathcal P(\mathbb R^n)\longrightarrow
-        C(\mathbb R^n,\mathbb R^k),\qquad \mu\longmapsto f=F(\mu).
-      \]</div>
-      <p>This perspective makes the dependence of the dimension-reduction map on the input data part of the object being studied. The goal is not merely to describe one output embedding, but to build a model of how the rule changes as its input changes.</p>
-
-      <h2>2. A finite-dimensional surrogate</h2>
-      <p>To make the problem tractable, restrict the inputs to a finite-dimensional space. Choose \(M\) cubes from a uniform partition of \([0,1]^n\), and let \(\mu_j\) be the uniform measure supported on the \(j\)-th cube. Set</p>
-      <div class="equation">\[
-        X=\operatorname{span}\{\mu_1,\ldots,\mu_M\}.
-      \]</div>
-      <p>On the output side, choose continuous, linearly independent feature maps \(\phi_i:\mathbb R^n\to\mathbb R^k\), \(i=1,\ldots,N\), and let</p>
-      <div class="equation">\[
-        Y=\operatorname{span}\{\phi_1,\ldots,\phi_N\}.
-      \]</div>
-      <p>The restricted rule is then a map between finite-dimensional spaces, \(F:X\to Y\). An input is represented by coefficients in the measure basis, and an output map by coefficients in the feature basis. This turns a map-valued learning problem into a finite-dimensional approximation problem.</p>
-
-      <h2>3. Local second-order model</h2>
-      <p>Fix an anchor \(x_0\in X\). For inputs near \(x_0\), approximate the rule by a second-order expansion:</p>
-      <div class="equation">\[
-        F(x)\approx F(x_0)+J(x-x_0)
-        +H[(x-x_0),(x-x_0)],
-      \]</div>
-      <p>where \(J:X\to Y\) is linear and \(H:X\times X\to Y\) is a symmetric bilinear map. In coordinates, if \(a\) describes the input perturbation and \(b\) the output coefficients, the model has the form</p>
-      <div class="equation">\[
-        b\approx b_0+Ja+\sum_{p,q}H_{pq}a_pa_q.
-      \]</div>
-      <p>Given evaluations \(y_s=F(x_s)\) at perturbations around the anchor, the coefficients of \(J\) and \(H\) can be estimated by solving a linear system. The quality of this estimate depends on the perturbations being sufficiently informative and the system being well-conditioned; the second-order truncation also imposes an approximation error.</p>
-
-      <h2>4. Interpolating local models</h2>
-      <p>A single Taylor model is local. To approximate the rule near a query \(x\), select nearby anchors \(x_1,\ldots,x_\ell\) and nonnegative weights satisfying \(\sum_i\alpha_i=1\). Approximate the output by</p>
-      <div class="equation">\[
-        F(x)\approx\sum_{i=1}^{\ell}\alpha_i F(x_i),
-      \]</div>
-      <p>with each anchor output itself estimated using its local linear and quadratic terms. This combines local information without assuming that one expansion is accurate throughout the input space. The choice of anchors and interpolation weights becomes part of the approximation design.</p>
-
-      <h2>5. Factorization into deformation, projection, and coordinates</h2>
-      <p>For a fixed input, let \(f:\mathbb R^n\to\mathbb R^k\) be the resulting dimension-reduction map. The proposed structural model is.</p>
-      <div class="equation">\[
-        f=T\circ P\circ N,
-      \]</div>
-      <p>where</p>
-      <ul>
-        <li>\(N:\mathbb R^n\to\mathbb R^n\) is a nonlinear preprocessing map;</li>
-        <li>\(P:\mathbb R^n\to H\) is the orthogonal projection onto a \(k\)-dimensional subspace \(H\subseteq\mathbb R^n\);</li>
-        <li>\(T:H\to\mathbb R^k\) is a linear isomorphism that expresses the projected coordinates in the output space.</li>
-      </ul>
-      <p>The decomposition separates three roles that are often bundled together in a dimension-reduction algorithm. The nonlinear stage can reorganize or flatten the geometry; projection removes dimensions; and the final isomorphism changes coordinates without losing information within the projected subspace.</p>
-
-      <h2>6. Modelling the nonlinear stage as a flow</h2>
-      <p>The preprocessing map \(N\) can be viewed as the time-one map of a flow. A gradient-flow form is</p>
-      <div class="equation">\[
-        \dot X(t)=-\nabla E(X(t)),\qquad X(0)=X_0,
-      \]</div>
-      <p>where the energy \(E\) is chosen to drive the initial point toward the desired transformed representation. This gives a language for describing the nonlinear stage as a continuous deformation before projection, rather than as an opaque preprocessing operation.</p>
-
-      <h2>7. What this formalization does—and does not—claim</h2>
-      <p>The framework combines two ideas: a finite-dimensional, data-driven surrogate for how the reduction rule varies with its input, and a structural factorization of a fixed reduction map into nonlinear deformation, projection, and coordinate change. These ideas provide a common language for discussing local approximation and geometric preprocessing.</p>
-      <p>The formalization is a modelling framework, not by itself a convergence theorem or a guarantee that a chosen flow preserves topology. To turn it into a complete algorithm, one must specify the feature basis, the anchor-selection and interpolation rules, the energy functional, and the conditions under which the estimated local models are stable. These are substantive mathematical and computational choices, not details that can be omitted.</p>
-      <p>The central idea is the decomposition itself: study the nonlinear geometric transformation separately from the unavoidable dimensional projection, while using local second-order models to approximate how the overall reduction rule responds to changes in its input.</p>
-    
-    </article>
-    <footer class="post-footer"><a class="back-link" href="/blog/en/">All posts</a></footer>
-  </main>
-</div></body>
+<aside class="site-rail" aria-label="Primary navigation"><div class="rail-profile"><img class="rail-avatar" src="/assets/img/ofc3.jpg" alt="Portrait of Arsha Niksa" width="78" height="78"><div><a class="rail-identity" href="/">Arsha Niksa</a><p class="rail-caption">Mathematics · Data Science</p></div></div><nav class="rail-nav" aria-label="Pages"><a href="/" ><span class="nav-indicator" aria-hidden="true"></span>Home</a><a href="/research/" ><span class="nav-indicator" aria-hidden="true"></span>Research</a><a href="/blog/en/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Blog</a><a href="/about/" ><span class="nav-indicator" aria-hidden="true"></span>About</a><details class="cv-dropdown"><summary>CV <span aria-hidden="true">⌄</span></summary><div class="cv-dropdown-menu"><a href="/assets/academic-cv.pdf" download>Academic CV ↓</a><a href="/assets/work-cv.pdf" download>Work CV ↓</a></div></details><div class="language-picker language-picker-mobile" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div></nav><div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="language-picker language-picker-desktop" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div><div class="rail-mini"><a href="https://github.com/A-Niksa" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:arshaniksaa@gmail.com">Email</a></div></div></aside>
+<div class="site-content">
+<main class="blog-shell">
+  <header class="post-header">
+    <a class="back-link" href="/blog/en/">Back to the blog</a>
+    <h1 class="post-title">Dimension Reduction as Projection and Flow</h1>
+    <p class="post-meta">Publication status · 7 November 2026</p>
+  </header>
+  <article class="post-body">
+    <h2>This research note has been withdrawn</h2>
+    <p>Three research notes from my earlier collaboration with Professor Jürgen Jost and Dr. Marzieh Eidi have been withdrawn from this blog following Professor Jost's request concerning the disclosure of unfinished joint research. I take that scientific concern seriously. I was nonetheless disappointed that the request included personal assessments of my mathematical and professional development, which I consider inappropriate to the question of publication consent. Original drafts remain preserved in the public source repository as an archival record, but are not published as blog articles.</p>
+  </article>
+  <footer class="post-footer"><a class="back-link" href="/blog/en/">All posts</a></footer>
+</main>
+</div>
+</body>
 </html>

@@ -81,11 +81,11 @@
         <header class="post-header">
             <a class="back-link" href="/blog/en/">Back to the blog</a>
             <h1 class="post-title">A Quotient-First View of Symmetry-Invariant Distances</h1>
-            <p class="post-meta">Arsha Niksa · Notes on a collaborative project with Marina Meila and Chenab</p>
+            <p class="post-meta">Arsha Niksa · Notes from a collaborative research project</p>
         </header>
 
         <article class="post-body">
-            <p>The project with Marina Meila and Chenab concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons.</p>
+            <p>The broader collaborative project concerned symmetry in molecular systems: how should we compare two configurations when some differences are only changes of coordinates or labels, rather than differences relevant to the model? My contribution discussed here is a mathematical organization of that question around group actions, invariant representations, and the quotient space. The point is not to introduce quotient spaces as new mathematics, but to make their universal property do useful work in the construction of symmetry-aware comparisons.</p>
 
             <h2>1. The object to compare is an orbit, not always a coordinate vector</h2>
 
@@ -178,11 +178,11 @@
               \text{ for every }j=1,\ldots,k\}.
             \]</div>
 
-            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. The source report compares this construction with Chenab’s internal report on interchangeable sets <a class="citation" href="#ref-2">[2]</a>. In the project, I investigated extending a two-disjoint-set setup to several subsets, including overlapping subsets, and to more general groups acting on atom indices. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
+            <p>This formulation is particularly useful when the subsets overlap: one permutation must satisfy all constraints at once, rather than choosing incompatible local permutations independently. I investigated how such group constraints can be represented mathematically. Unpublished comparisons with collaborators' internal methods are intentionally omitted pending their permission. When symmetries act independently, direct products can describe their combination; when one action reindexes another, the interaction requires additional structure, such as a semidirect product.</p>
 
             <h3>3.1. Combining several kinds of symmetry</h3>
 
-            <p>The source write-up distinguishes independent symmetry actions from interacting ones. If a group \(G_1\) acts on one aspect of a configuration and \(G_2\) on another, and the two actions commute, the combined action can be described by the direct product \(G_1\times G_2\). The order in which the two transformations are applied does not matter.</p>
+            <p>More generally, one can distinguish independent symmetry actions from interacting ones. If a group \(G_1\) acts on one aspect of a configuration and \(G_2\) on another, and the two actions commute, the combined action can be described by the direct product \(G_1\times G_2\). The order in which the two transformations are applied does not matter.</p>
 
             <p>But if one transformation <em>reindexes</em> the others, the product is generally not direct. Given a homomorphism \(\varphi:G_2\to\operatorname{Aut}(G_1)\), the semidirect product \(G_1\rtimes_{\varphi}G_2\) has multiplication</p>
 
@@ -220,13 +220,13 @@
               <li>Validate the implementation against the defining invariance property, while keeping computational approximations separate from exact claims.</li>
             </ol>
 
-            <p>This note isolates the mathematical framing and implementation methodology I worked on in the collaborative project with Marina Meila and Chenab.</p>
+            <p>This note isolates the mathematical framing and implementation methodology I worked on in the broader collaboration.</p>
         
     <section class="references" aria-labelledby="references-title">
 <h2 id="references-title">References</h2>
 <ol>
 <li id="ref-1">MIT 5.03 Inorganic Chemistry. <em>Point Group Symmetry.</em> Course reading. <a href="https://web.mit.edu/5.03/www/readings/point_groups/out.pdf">Source listed in the project’s references.bib</a>.</li>
-<li id="ref-2">Chenab. <em>Invariant Algorithm: Interchangeable Sets.</em> 2026. Internal, unpublished report; source file: <a href="https://github.com/mmp2/symmetries-mlcules/blob/main/chenab_reports/main.tex">chenab_reports/main.tex</a>.</li>
+
 </ol>
 </section>
     </article>
