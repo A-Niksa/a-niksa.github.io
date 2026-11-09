@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A categorical treatment of group actions, invariant maps, orbit quotients, and distances, centered on the adjunction between orbit sets and trivial actions.">
+  <title>Orbits as Universal Invariants: A Categorical View of Symmetry and Distance | Arsha Niksa</title>
+  <link rel="canonical" href="https://www.aniksa.me/blog/orbits-as-universal-invariants.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Arsha Niksa">
+  <meta property="og:title" content="Orbits as Universal Invariants: A Categorical View of Symmetry and Distance">
+  <meta property="og:description" content="A categorical treatment of group actions, invariant maps, orbit quotients, and distances, centered on the adjunction between orbit sets and trivial actions.">
+  <meta property="og:url" content="https://www.aniksa.me/blog/orbits-as-universal-invariants.html">
+  <meta property="og:locale" content="en_US">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta property="article:modified_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Orbits as Universal Invariants: A Categorical View of Symmetry and Distance">
+  <meta name="twitter:description" content="A categorical treatment of group actions, invariant maps, orbit quotients, and distances, centered on the adjunction between orbit sets and trivial actions.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Orbits as Universal Invariants: A Categorical View of Symmetry and Distance","description":"A categorical treatment of group actions, invariant maps, orbit quotients, and distances, centered on the adjunction between orbit sets and trivial actions.","url":"https://www.aniksa.me/blog/orbits-as-universal-invariants.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/orbits-as-universal-invariants.html"},"datePublished":"2026-11-09","dateModified":"2026-11-09","keywords":["category theory","group actions","quotient spaces","adjunction","invariant metric"],"author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Mathematics — group actions and quotients","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
+  <link rel="stylesheet" href="/blog/blog.css">
+  <link rel="stylesheet" href="/css/refined.css">
+  <link rel="shortcut icon" href="/assets/img/favicon.ico?v=3">
+  <style>
+    .post-body { line-height:1.85; }
+    .post-body h2 { line-height:1.3; margin:2.5rem 0 1rem; }
+    .post-body h3 { line-height:1.4; margin:1.8rem 0 .75rem; }
+    .post-body li { margin:.45rem 0; }
+    .post-body .math.display { display:block;max-width:100%;overflow-x:auto;padding:.4rem 0; }
+    .post-body .math-figure { margin:2rem auto;padding:1.25rem;border:1px solid var(--border);border-radius:12px;text-align:center;background:white; }
+    .post-body .math-figure img { display:block;max-width:100%;width:min(100%,560px);height:auto;margin:auto; }
+    .post-body .math-figure figcaption { margin-top:.75rem;color:var(--muted);font-size:.92rem; }
+    .post-body hr { border:0;border-top:1px solid var(--border);margin:2.5rem 0; }
+    .post-meta { color:var(--muted); }
+  </style>
+  <script>
+    window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']} };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<aside class="site-rail" aria-label="Primary navigation"><div class="rail-profile"><img class="rail-avatar" src="/assets/img/ofc3.jpg" alt="Portrait of Arsha Niksa" width="78" height="78"><div><a class="rail-identity" href="/">Arsha Niksa</a><p class="rail-caption">Mathematics · Data Science</p></div></div><nav class="rail-nav" aria-label="Pages"><a href="/" ><span class="nav-indicator" aria-hidden="true"></span>Home</a><a href="/research/" ><span class="nav-indicator" aria-hidden="true"></span>Research</a><a href="/blog/en/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Blog</a><a href="/about/" ><span class="nav-indicator" aria-hidden="true"></span>About</a><details class="cv-dropdown"><summary>CV <span aria-hidden="true">⌄</span></summary><div class="cv-dropdown-menu"><a href="/assets/academic-cv.pdf" download>Academic CV ↓</a><a href="/assets/work-cv.pdf" download>Work CV ↓</a></div></details><div class="language-picker language-picker-mobile" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div></nav><div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="language-picker language-picker-desktop" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div><div class="rail-mini"><a href="https://github.com/A-Niksa" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:arshaniksaa@gmail.com">Email</a></div></div></aside>
+<div class="site-content">
+<main id="main" class="blog-shell">
+  <header class="post-header">
+    <a class="back-link" href="/blog/en/">Back to the blog</a>
+    <h1 class="post-title">Orbits as Universal Invariants: A Categorical View of Symmetry and Distance</h1>
+    <p class="post-meta">Arsha Niksa · 9 November 2026 · Mathematical note</p>
+  </header>
+  <article class="post-body">
+<p>Two points can be distinct as elements of a set and yet represent the
+same object once a specified class of transformations is declared
+irrelevant. This elementary observation appears throughout geometry, but
+it also suggests a useful order in which to construct invariant
+comparisons: first determine what counts as the same object, then ask
+how to distinguish the resulting equivalence classes.</p>
+<p>The categorical language of group actions makes this order precise.
+The orbit-space construction is universal among invariant maps, and its
+adjunction with the trivial-action functor explains why an invariant
+representation necessarily factors through a quotient. A distance on the
+original space may then yield a distance between orbits, provided the
+action and metric satisfy suitable hypotheses.</p>
+<p>The purpose of this note is to organize invariant comparisons around
+the universal property of an orbit quotient, separating categorical
+statements from the additional metric assumptions they require.</p>
+<h2 id="actions-equivariance-and-invariance">1. Actions, equivariance,
+and invariance</h2>
+<p>Let <span class="math inline">\(G\)</span> be a group acting on a set
+<span class="math inline">\(X\)</span> on the left. Thus there is a
+map</p>
+<p><span class="math display">\[
+a:G\times X\longrightarrow X,\qquad (g,x)\longmapsto g\cdot x,
+\]</span></p>
+<p>such that <span class="math inline">\(e\cdot x=x\)</span> and <span
+class="math inline">\(g\cdot(h\cdot x)=(gh)\cdot x\)</span>. We call
+<span class="math inline">\(X\)</span>, together with this action, a
+<em><span class="math inline">\(G\)</span>-set</em>.</p>
+<p>If <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Z\)</span> are <span
+class="math inline">\(G\)</span>-sets, a map <span
+class="math inline">\(u:X\to Z\)</span> is <strong>equivariant</strong>
+when</p>
+<p><span class="math display">\[
+u(g\cdot x)=g\cdot u(x)
+\qquad(g\in G,\ x\in X).
+\]</span></p>
+<p>The <span class="math inline">\(G\)</span>-sets and equivariant maps
+form a category, denoted <span
+class="math inline">\(G\text{-}\mathbf{Set}\)</span>. Equivariance is a
+property of a map between <em>two spaces with actions</em>. Invariance
+is the special case in which the target carries the trivial action:</p>
+<p><span class="math display">\[
+f(g\cdot x)=f(x).
+\]</span></p>
+<p>Equivariance therefore retains the information about how an object
+transforms, while invariance forgets differences within each orbit.</p>
+<p>The orbit of <span class="math inline">\(x\in X\)</span> is <span
+class="math inline">\(Gx=\{g\cdot x:g\in G\}\)</span>. The set of orbits
+is written <span class="math inline">\(X/G\)</span>, and the canonical
+projection is</p>
+<p><span class="math display">\[
+\pi_X:X\longrightarrow X/G,\qquad x\longmapsto[x].
+\]</span></p>
+<p>Because <span class="math inline">\(\pi_X(g\cdot
+x)=\pi_X(x)\)</span>, the projection is invariant.</p>
+<h2 id="the-quotient-as-a-universal-invariant">2. The quotient as a
+universal invariant</h2>
+<p>The key assertion is more informative than the fact that <span
+class="math inline">\(\pi_X\)</span> is invariant.</p>
+<p><strong>Proposition (universal property of orbits).</strong> Let
+<span class="math inline">\(Y\)</span> be a set and let <span
+class="math inline">\(f:X\to Y\)</span> be invariant under <span
+class="math inline">\(G\)</span>. There exists a unique map <span
+class="math inline">\(\bar f:X/G\to Y\)</span> such that</p>
+<p><span class="math display">\[
+f=\bar f\circ\pi_X.
+\]</span></p>
+<p>In other words, the following triangle commutes:</p>
+<figure class="math-figure"><img src="/blog/quotient-factorization.svg" alt="Commuting factorization triangle: f from X to Y factors uniquely through the orbit projection from X to X/G." /><figcaption>Every invariant map factors uniquely through the orbit projection.</figcaption></figure>
+<p><em>Proof.</em> Define <span class="math inline">\(\bar
+f([x])=f(x)\)</span>. If <span
+class="math inline">\([x]=[x&#39;]\)</span>, then <span
+class="math inline">\(x&#39;=g\cdot x\)</span> for some <span
+class="math inline">\(g\in G\)</span>, hence <span
+class="math inline">\(f(x&#39;)=f(x)\)</span>; thus <span
+class="math inline">\(\bar f\)</span> is well-defined. It gives the
+required factorization. Since <span class="math inline">\(\pi_X\)</span>
+is surjective, any map satisfying the factorization must agree with
+<span class="math inline">\(\bar f\)</span> on every orbit. <span
+class="math inline">\(\square\)</span></p>
+<p>There is a concise categorical way to express this proposition.
+Let</p>
+<p><span class="math display">\[
+T:\mathbf{Set}\longrightarrow G\text{-}\mathbf{Set}
+\]</span></p>
+<p>assign to every set its trivial <span
+class="math inline">\(G\)</span>-action. Let</p>
+<p><span class="math display">\[
+Q:G\text{-}\mathbf{Set}\longrightarrow\mathbf{Set}
+\]</span></p>
+<p>send <span class="math inline">\(X\)</span> to <span
+class="math inline">\(X/G\)</span> and an equivariant map <span
+class="math inline">\(u:X\to Z\)</span> to the map <span
+class="math inline">\(Q(u)([x])=[u(x)]\)</span>. The latter is
+well-defined precisely because equivariant maps send orbits into
+orbits.</p>
+<p>The universal property says that there is a natural bijection</p>
+<p><span class="math display">\[
+\operatorname{Hom}_{\mathbf{Set}}(QX,Y)
+\;\cong\;
+\operatorname{Hom}_{G\text{-}\mathbf{Set}}(X,TY).
+\]</span></p>
+<p>This is the <strong>orbit–trivial-action adjunction</strong>, <span
+class="math inline">\(Q\dashv T\)</span>. Invariant maps out of <span
+class="math inline">\(X\)</span> are exactly ordinary maps out of <span
+class="math inline">\(X/G\)</span>.</p>
+<p>The adjunction is a statement about sets and maps. It does not, by
+itself, provide a metric on <span class="math inline">\(X/G\)</span>,
+prove that an invariant representation separates orbits, or make an
+optimization problem computationally tractable. Those are separate
+questions.</p>
+<h2 id="from-invariants-to-distances">3. From invariants to
+distances</h2>
+<p>Suppose <span class="math inline">\(Y\)</span> carries a metric <span
+class="math inline">\(d_Y\)</span>, and <span
+class="math inline">\(f:X\to Y\)</span> is invariant. The expression</p>
+<p><span class="math display">\[
+\rho_f(x,x&#39;)=d_Y\bigl(f(x),f(x&#39;)\bigr)
+\]</span></p>
+<p>defines a pseudometric on <span class="math inline">\(X\)</span>: it
+is nonnegative, symmetric, and satisfies the triangle inequality, but it
+may vanish at distinct points. In particular, every pair of points in
+the same orbit has zero <span
+class="math inline">\(\rho_f\)</span>-distance.</p>
+<p>By the universal property, <span class="math inline">\(f=\bar
+f\circ\pi_X\)</span>, so the expression</p>
+<p><span class="math display">\[
+\bar\rho_f([x],[x&#39;])
+=d_Y\bigl(\bar f([x]),\bar f([x&#39;])\bigr)
+\]</span></p>
+<p>is a well-defined pseudometric on <span
+class="math inline">\(X/G\)</span>. It is a metric <strong>if and only
+if</strong> <span class="math inline">\(\bar f\)</span> is injective.
+Thus invariance ensures that equivalent points become indistinguishable;
+it does not ensure that <em>only</em> equivalent points become
+indistinguishable.</p>
+<p>There is also a direct way to measure orbit separation without first
+choosing an invariant representation.</p>
+<p><strong>Proposition (finite isometric actions).</strong> Let <span
+class="math inline">\((X,d)\)</span> be a metric space and let a finite
+group <span class="math inline">\(G\)</span> act on <span
+class="math inline">\(X\)</span> by isometries. Then</p>
+<p><span class="math display">\[
+d_{X/G}([x],[y])=\min_{g\in G}d(x,g\cdot y)
+\]</span></p>
+<p>is a metric on <span class="math inline">\(X/G\)</span>.</p>
+<p><em>Proof.</em> Replacing <span class="math inline">\(x\)</span> by
+<span class="math inline">\(h\cdot x\)</span> or <span
+class="math inline">\(y\)</span> by <span class="math inline">\(k\cdot
+y\)</span> only reindexes the minimum, using the fact that each group
+element is an isometry; hence the expression is independent of orbit
+representatives. Nonnegativity is immediate. Symmetry follows from</p>
+<p><span class="math display">\[
+d(x,g\cdot y)=d(g^{-1}\cdot x,y).
+\]</span></p>
+<p>For any <span class="math inline">\(g,h\in G\)</span>,</p>
+<p><span class="math display">\[
+d(x,gh\cdot z)
+\le d(x,g\cdot y)+d(g\cdot y,gh\cdot z)
+=d(x,g\cdot y)+d(y,h\cdot z).
+\]</span></p>
+<p>Taking minima gives the triangle inequality. Finally, if <span
+class="math inline">\(d_{X/G}([x],[y])=0\)</span>, finiteness ensures
+that some <span class="math inline">\(g\)</span> attains the minimum, so
+<span class="math inline">\(x=g\cdot y\)</span> and <span
+class="math inline">\([x]=[y]\)</span>. <span
+class="math inline">\(\square\)</span></p>
+<p>For infinite groups, taking an infimum can produce only a
+pseudometric unless additional conditions prevent distinct orbits from
+having zero separation. One sufficient condition, when the action is
+isometric, is that every orbit be closed in <span
+class="math inline">\(X\)</span>.</p>
+<p>The categorical and metric viewpoints now have distinct roles. The
+quotient declares <em>which points are identified</em>; the metric
+construction specifies <em>how far apart the resulting classes
+are</em>.</p>
+<h2 id="an-abstract-example-quarter-turn-symmetry">4. An abstract
+example: quarter-turn symmetry</h2>
+<p>Consider <span class="math inline">\(X=\mathbb R^2\)</span> with
+Euclidean distance. Let <span class="math inline">\(C_4=\langle r\mid
+r^4=e\rangle\)</span> act by quarter-turn rotations about the
+origin:</p>
+<p><span class="math display">\[
+r(x_1,x_2)=(-x_2,x_1).
+\]</span></p>
+<p>The action is finite and isometric, so the orbit formula defines a
+metric on <span class="math inline">\(\mathbb R^2/C_4\)</span>.</p>
+<p>The points <span class="math inline">\(x=(1,0)\)</span> and <span
+class="math inline">\(y=(0,1)\)</span> are distinct vectors, but <span
+class="math inline">\(y=r\cdot x\)</span>; hence <span
+class="math inline">\(d_{X/C_4}([x],[y])=0\)</span>, as they are the
+same orbit. For <span class="math inline">\(z=(2,0)\)</span>, direct
+inspection of the four rotations gives</p>
+<p><span class="math display">\[
+d_{X/C_4}([x],[z])=1.
+\]</span></p>
+<p>The distinction is not caused by a special formula for planar
+rotations. It is caused by the choice to compare orbits instead of
+representatives, followed by an isometry-compatible metric
+construction.</p>
+<p>One can also build invariant functions, such as <span
+class="math inline">\(f(x_1,x_2)=x_1^2+x_2^2\)</span>. This function
+factors through <span class="math inline">\(X/C_4\)</span>, but it does
+<strong>not</strong> distinguish all orbits: points of equal radius need
+not lie in the same <span class="math inline">\(C_4\)</span>-orbit.
+Accordingly, the distance <span class="math inline">\(\lvert
+f(x)-f(y)\rvert\)</span> is a pseudometric even after passing to <span
+class="math inline">\(X/C_4\)</span>. This illustrates why a valid
+invariant can still be too coarse a comparison.</p>
+<h2 id="combining-symmetries-without-confusing-their-actions">5.
+Combining symmetries without confusing their actions</h2>
+<p>Suppose groups <span class="math inline">\(H\)</span> and <span
+class="math inline">\(K\)</span> act on the same set <span
+class="math inline">\(X\)</span>, and the two actions commute:</p>
+<p><span class="math display">\[
+h\cdot(k\cdot x)=k\cdot(h\cdot x)
+\qquad(h\in H,\ k\in K).
+\]</span></p>
+<p>Then the combined action is an action of the direct product <span
+class="math inline">\(H\times K\)</span>, given by <span
+class="math inline">\((h,k)\cdot x=h\cdot(k\cdot x)\)</span>. Since the
+<span class="math inline">\(K\)</span>-action respects <span
+class="math inline">\(H\)</span>-orbits, it descends to <span
+class="math inline">\(X/H\)</span>. There is a canonical bijection</p>
+<p><span class="math display">\[
+(X/H)/K\;\cong\;X/(H\times K).
+\]</span></p>
+<p>Indeed, both sides identify two points exactly when one can be
+obtained from the other by a combination of an <span
+class="math inline">\(H\)</span>-transformation and a <span
+class="math inline">\(K\)</span>-transformation.</p>
+<p>This identity is useful conceptually: quotienting in stages is
+legitimate when the intervening action is well-defined. When the actions
+do not commute, treating them as independent factors can be wrong.</p>
+<p>There is a structured way to describe some noncommuting actions. Let
+<span class="math inline">\(\varphi:K\to\operatorname{Aut}(H)\)</span>
+be a homomorphism. The <em>semidirect product</em> <span
+class="math inline">\(H\rtimes_\varphi K\)</span> is the set <span
+class="math inline">\(H\times K\)</span> with multiplication</p>
+<p><span class="math display">\[
+(h,k)(h&#39;,k&#39;)=\bigl(h\,\varphi(k)(h&#39;),\,kk&#39;\bigr).
+\]</span></p>
+<p>To obtain an action of this group on <span
+class="math inline">\(X\)</span> from given <span
+class="math inline">\(H\)</span>- and <span
+class="math inline">\(K\)</span>-actions, the actions must satisfy the
+compatibility law</p>
+<p><span class="math display">\[
+k\cdot(h\cdot x)
+=\varphi(k)(h)\cdot(k\cdot x).
+\]</span></p>
+<p>Only under this condition does <span class="math inline">\((h,k)\cdot
+x=h\cdot(k\cdot x)\)</span> define the desired semidirect-product
+action. For an elementary example, translations and nonzero scalings of
+the real line combine in the affine group <span
+class="math inline">\(\mathbb R\rtimes\mathbb R^\times\)</span>, whose
+elements act as <span class="math inline">\(x\mapsto ax+b\)</span> and
+obey <span
+class="math inline">\((b,a)(b&#39;,a&#39;)=(b+ab&#39;,aa&#39;)\)</span>.</p>
+<p>The same caution applies to constructing transformations from
+generators or local constraints. The relevant mathematical object is a
+single, well-defined group action. Only after specifying that action
+does the orbit quotient—and hence its universal property—become
+unambiguous.</p>
+<h2 id="a-quotient-first-checklist">6. A quotient-first checklist</h2>
+<p>The previous sections suggest the following order for studying an
+invariant comparison:</p>
+<ol type="1">
+<li><strong>Choose an action.</strong> Specify a group <span
+class="math inline">\(G\)</span> and how it acts on <span
+class="math inline">\(X\)</span>. This is where equivalence is
+defined.</li>
+<li><strong>Take the quotient.</strong> Regard the orbits in <span
+class="math inline">\(X/G\)</span> as the objects to distinguish.</li>
+<li><strong>Use the universal property.</strong> Any invariant map <span
+class="math inline">\(X\to Y\)</span> factors uniquely through <span
+class="math inline">\(X/G\)</span>; categorical language makes this
+relationship functorial.</li>
+<li><strong>Check separation.</strong> An invariant representation may
+collapse distinct orbits. If it is to induce a metric on the quotient,
+its descended map must be injective.</li>
+<li><strong>Supply metric hypotheses.</strong> If comparing orbits
+directly, establish compatibility of the action with the original metric
+and conditions under which orbit separation is positive.</li>
+<li><strong>Keep computation separate from proof.</strong> Enumerating a
+finite group, using generators, or approximating an infimum may help
+implement a comparison; none of these operations replaces the
+mathematical conditions above.</li>
+</ol>
+<p>The central point is a logical one. Invariance is not first a
+property of a particular formula. It is a factorization property
+relative to a chosen quotient. The quotient tells us what is to count as
+one object; only then can a representation or a distance tell us how
+those objects differ.</p>
+<hr />
+<h3 id="background-references">Background references</h3>
+<ul>
+<li>Saunders Mac Lane, <em>Categories for the Working
+Mathematician</em>, 2nd ed., Springer, 1998 (adjunctions and universal
+properties).</li>
+<li>Tammo tom Dieck, <em>Transformation Groups</em>, de Gruyter, 1987
+(group actions and orbit spaces).</li>
+</ul>
+
+  </article>
+  <footer class="post-footer"><a class="back-link" href="/blog/en/">All posts</a></footer>
+</main></div></body></html>
