@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A mathematical note on local projection factorizations, flow-based coordinate changes, and finite-dimensional models of data-dependent reduction maps.">
+  <title>Flows and Projections in Dimension Reduction | Arsha Niksa</title>
+  <link rel="canonical" href="https://www.aniksa.me/blog/flows-and-projections-in-dimension-reduction.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Arsha Niksa">
+  <meta property="og:title" content="Flows and Projections in Dimension Reduction">
+  <meta property="og:description" content="A mathematical note on local projection factorizations, flow-based coordinate changes, and finite-dimensional models of data-dependent reduction maps.">
+  <meta property="og:url" content="https://www.aniksa.me/blog/flows-and-projections-in-dimension-reduction.html">
+  <meta property="og:locale" content="en_US">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta property="article:modified_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Flows and Projections in Dimension Reduction">
+  <meta name="twitter:description" content="A mathematical note on local projection factorizations, flow-based coordinate changes, and finite-dimensional models of data-dependent reduction maps.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Flows and Projections in Dimension Reduction","description":"A mathematical note on local projection factorizations, flow-based coordinate changes, and finite-dimensional models of data-dependent reduction maps.","url":"https://www.aniksa.me/blog/flows-and-projections-in-dimension-reduction.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/flows-and-projections-in-dimension-reduction.html"},"datePublished":"2026-11-09","dateModified":"2026-11-09","keywords":["dimension reduction","diffeomorphisms","flows","projection","Taylor approximation"],"author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","articleSection":"Mathematics — differential geometry and approximation","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/"}}</script>
+  <link rel="stylesheet" href="/blog/blog.css">
+  <link rel="stylesheet" href="/css/refined.css">
+  <link rel="shortcut icon" href="/assets/img/favicon.ico?v=3">
+  <style>
+    .post-body { line-height:1.85; }
+    .post-body h2 { line-height:1.3; margin:2.5rem 0 1rem; }
+    .post-body h3 { line-height:1.4; margin:1.8rem 0 .75rem; }
+    .post-body li { margin:.45rem 0; }
+    .post-body .math.display { display:block;max-width:100%;overflow-x:auto;padding:.4rem 0; }
+    .post-body .math-figure { margin:2rem auto;padding:1.25rem;border:1px solid var(--border);border-radius:12px;text-align:center;background:white; }
+    .post-body .math-figure img { display:block;max-width:100%;width:min(100%,560px);height:auto;margin:auto; }
+    .post-body .math-figure figcaption { margin-top:.75rem;color:var(--muted);font-size:.92rem; }
+    .post-body hr { border:0;border-top:1px solid var(--border);margin:2.5rem 0; }
+    .post-meta { color:var(--muted); }
+  </style>
+  <script>
+    window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']} };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<aside class="site-rail" aria-label="Primary navigation"><div class="rail-profile"><img class="rail-avatar" src="/assets/img/ofc3.jpg" alt="Portrait of Arsha Niksa" width="78" height="78"><div><a class="rail-identity" href="/">Arsha Niksa</a><p class="rail-caption">Mathematics · Data Science</p></div></div><nav class="rail-nav" aria-label="Pages"><a href="/" ><span class="nav-indicator" aria-hidden="true"></span>Home</a><a href="/research/" ><span class="nav-indicator" aria-hidden="true"></span>Research</a><a href="/blog/en/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Blog</a><a href="/about/" ><span class="nav-indicator" aria-hidden="true"></span>About</a><details class="cv-dropdown"><summary>CV <span aria-hidden="true">⌄</span></summary><div class="cv-dropdown-menu"><a href="/assets/academic-cv.pdf" download>Academic CV ↓</a><a href="/assets/work-cv.pdf" download>Work CV ↓</a></div></details><div class="language-picker language-picker-mobile" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div></nav><div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="language-picker language-picker-desktop" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div><div class="rail-mini"><a href="https://github.com/A-Niksa" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:arshaniksaa@gmail.com">Email</a></div></div></aside>
+<div class="site-content">
+<main id="main" class="blog-shell">
+  <header class="post-header">
+    <a class="back-link" href="/blog/en/">Back to the blog</a>
+    <h1 class="post-title">Flows and Projections in Dimension Reduction</h1>
+    <p class="post-meta">Arsha Niksa · 9 November 2026 · Mathematical note</p>
+  </header>
+  <article class="post-body">
+<p>Dimensionality reduction is often described by the output of an
+algorithm: a collection of points in fewer coordinates. There is another
+way to look at the problem. One can ask how the map producing those
+coordinates is assembled, and how that map changes when the input data
+change.</p>
+<p>This note develops two complementary descriptions. At the geometric
+level, it separates a nonlinear change of coordinates from a linear
+projection. At the data-dependent level, it treats a dimension-reduction
+procedure as a map-valued rule and approximates that rule through local
+finite-dimensional models. The distinction matters: a factorization of
+one map is not, by itself, a model for a family of maps, and neither
+description automatically guarantees preservation of geometry or
+topology.</p>
+<h2 id="deformation-projection-and-coordinates">1. Deformation,
+projection, and coordinates</h2>
+<p>Let <span class="math inline">\(n&gt;k\)</span> and consider a
+differentiable map</p>
+<p><span class="math display">\[
+f:\Omega\subseteq\mathbb R^n\longrightarrow\mathbb R^k.
+\]</span></p>
+<p>Fix a <span class="math inline">\(k\)</span>-dimensional linear
+subspace <span class="math inline">\(H\subseteq\mathbb R^n\)</span>, let
+<span class="math inline">\(P_H:\mathbb R^n\to H\)</span> be orthogonal
+projection, and let <span class="math inline">\(T:H\to\mathbb
+R^k\)</span> be a linear isomorphism. The factorization of interest
+is</p>
+<p><span class="math display">\[
+\boxed{f=T\circ P_H\circ N},
+\]</span></p>
+<p>where <span class="math inline">\(N\)</span> is a nonlinear change of
+the ambient coordinates. The three factors perform different
+operations:</p>
+<ol type="1">
+<li><strong><span class="math inline">\(N\)</span></strong> reorganizes
+the geometry before information is discarded.</li>
+<li><strong><span class="math inline">\(P_H\)</span></strong> removes
+the components orthogonal to the chosen <span
+class="math inline">\(k\)</span>-plane.</li>
+<li><strong><span class="math inline">\(T\)</span></strong> expresses
+the projected result in <span class="math inline">\(\mathbb
+R^k\)</span>.</li>
+</ol>
+<p>Without a restriction on <span class="math inline">\(N\)</span>, this
+notation is too permissive to say much. A useful geometric
+interpretation is obtained when <span class="math inline">\(N\)</span>
+is a <em>local diffeomorphism</em>: a differentiable change of
+coordinates with a differentiable inverse. In that case all local
+information loss takes place at the projection stage.</p>
+<h2 id="what-the-factorization-actually-guarantees">2. What the
+factorization actually guarantees</h2>
+<p>The following is a local statement. It follows from the inverse
+function theorem, but its proof exhibits the coordinate change
+explicitly.</p>
+<p><strong>Proposition (local projection form).</strong> Let <span
+class="math inline">\(f:\Omega\to\mathbb R^k\)</span> be <span
+class="math inline">\(C^1\)</span>, and suppose <span
+class="math inline">\(\operatorname{rank}Df(x_0)=k\)</span> at some
+<span class="math inline">\(x_0\in\Omega\)</span>. There are a
+neighborhood <span class="math inline">\(U\)</span> of <span
+class="math inline">\(x_0\)</span>, a <span
+class="math inline">\(C^1\)</span> diffeomorphism <span
+class="math inline">\(N:U\to N(U)\subseteq\mathbb R^n\)</span>, and a
+projection <span class="math inline">\(P:\mathbb R^n\to\mathbb
+R^k\)</span> onto the first <span class="math inline">\(k\)</span>
+coordinates such that</p>
+<p><span class="math display">\[
+f|_U=P\circ N.
+\]</span></p>
+<p><strong>Proof.</strong> Because <span
+class="math inline">\(Df(x_0)\)</span> has rank <span
+class="math inline">\(k\)</span>, one can choose a linear map <span
+class="math inline">\(L:\mathbb R^n\to\mathbb R^{n-k}\)</span> for
+which</p>
+<p><span class="math display">\[
+v\longmapsto\bigl(Df(x_0)v,Lv\bigr)
+\]</span></p>
+<p>is invertible. Define</p>
+<p><span class="math display">\[
+N(x)=\bigl(f(x),L(x-x_0)\bigr).
+\]</span></p>
+<p>Its derivative at <span class="math inline">\(x_0\)</span> is exactly
+that invertible map. The inverse function theorem makes <span
+class="math inline">\(N\)</span> a diffeomorphism after restricting to a
+sufficiently small neighborhood <span class="math inline">\(U\)</span>.
+Projecting <span class="math inline">\(N(x)\)</span> onto its first
+<span class="math inline">\(k\)</span> coordinates recovers <span
+class="math inline">\(f(x)\)</span>. <span
+class="math inline">\(\square\)</span></p>
+<p>Identifying the first <span class="math inline">\(k\)</span>
+coordinates with a chosen plane <span class="math inline">\(H\)</span>,
+and inserting an isomorphism <span class="math inline">\(T:H\to\mathbb
+R^k\)</span>, gives the form <span class="math inline">\(f=T\circ
+P_H\circ N\)</span>. Thus the decomposition is locally available at
+every regular point of <span class="math inline">\(f\)</span>.</p>
+<p>There is a converse obstruction worth keeping in sight. If <span
+class="math inline">\(N\)</span> is a local diffeomorphism and <span
+class="math inline">\(T\)</span> is a linear isomorphism, then</p>
+<p><span class="math display">\[
+\operatorname{rank}D(T\circ P_H\circ N)(x)=k.
+\]</span></p>
+<p>Consequently a map with a critical point cannot admit this
+factorization with a local diffeomorphism <span
+class="math inline">\(N\)</span> across that point. For example, <span
+class="math inline">\(f(x,y)=x^2+y^2\)</span> has zero derivative at the
+origin, so it cannot be written there as a rank-one projection after a
+local diffeomorphism.</p>
+<p>The geometric picture is also local: where <span
+class="math inline">\(f\)</span> has full rank, the sets <span
+class="math inline">\(f^{-1}(y)\)</span> are locally smooth <span
+class="math inline">\((n-k)\)</span>-dimensional fibers. The map <span
+class="math inline">\(N\)</span> straightens those fibers into sets on
+which the first <span class="math inline">\(k\)</span> coordinates are
+constant. This is a description of the structure of a smooth submersion,
+not a claim that arbitrary algorithms have globally well-behaved
+fibers.</p>
+<h2 id="when-the-coordinate-change-is-a-flow">3. When the coordinate
+change is a flow</h2>
+<p>One way to construct <span class="math inline">\(N\)</span> is to
+evolve points under a vector field. For a sufficiently regular, locally
+defined time-dependent field <span class="math inline">\(V_t\)</span>,
+write</p>
+<p><span class="math display">\[
+\frac{d}{dt}x(t)=V_t(x(t)),\qquad x(0)=x.
+\]</span></p>
+<p>Where the solutions exist, let <span
+class="math inline">\(\Phi_t(x)\)</span> denote the resulting flow map.
+A deformation-based reduction takes <span
+class="math inline">\(N=\Phi_1\)</span> and considers</p>
+<p><span class="math display">\[
+f=T\circ P_H\circ\Phi_1.
+\]</span></p>
+<p>This construction puts a dynamical model behind the nonlinear stage.
+The choice of vector field specifies <em>how</em> points move before
+projection; it is additional information not determined by the
+factorization alone.</p>
+<p>For a simple example, consider</p>
+<p><span class="math display">\[
+f(x,y)=x+y^2.
+\]</span></p>
+<p>The autonomous vector field <span
+class="math inline">\(V(x,y)=(y^2,0)\)</span> has flow</p>
+<p><span class="math display">\[
+\Phi_t(x,y)=(x+ty^2,y).
+\]</span></p>
+<p>At time one, projection onto the first coordinate yields</p>
+<p><span class="math display">\[
+P\bigl(\Phi_1(x,y)\bigr)=x+y^2=f(x,y).
+\]</span></p>
+<p>Here the nonlinear coordinate change is a global diffeomorphism with
+inverse <span class="math inline">\((u,v)\mapsto(u-v^2,v)\)</span>. This
+example makes the three-stage description concrete without requiring the
+flow to be a gradient flow.</p>
+<p><strong>A qualification.</strong> The local projection proposition
+does <em>not</em> imply that its coordinate change <span
+class="math inline">\(N\)</span> is the time-one map of a specified
+vector field, much less of a gradient field <span
+class="math inline">\(-\nabla E\)</span>. Flow realizability and
+restrictions such as energy descent impose further conditions. Likewise,
+smoothness and invertibility of <span
+class="math inline">\(\Phi_1\)</span> do not establish that the
+projected output preserves distances, homology, or other topological
+features.</p>
+<h2 id="a-dimension-reduction-algorithm-is-a-map-valued-rule">4. A
+dimension-reduction algorithm is a map-valued rule</h2>
+<p>The preceding construction concerns a fixed map <span
+class="math inline">\(f\)</span>. A data-driven algorithm instead
+produces a potentially different map for each input dataset or
+distribution. A useful abstract model is</p>
+<p><span class="math display">\[
+\mathcal F:\mathcal P(\mathbb R^n)\longrightarrow
+\mathcal C(\mathbb R^n,\mathbb R^k),
+\qquad \mu\longmapsto f_\mu,
+\]</span></p>
+<p>where <span class="math inline">\(\mathcal P(\mathbb R^n)\)</span>
+denotes probability measures and <span class="math inline">\(\mathcal
+C\)</span> a chosen class of continuous maps. This is initially only
+notation: to speak of continuity, derivatives, or approximation errors
+for <span class="math inline">\(\mathcal F\)</span>, one must specify
+how measures and output maps are parameterized and compared.</p>
+<p>For a finite-dimensional surrogate, choose probability measures <span
+class="math inline">\(\mu_1,\ldots,\mu_M\)</span> and let</p>
+<p><span class="math display">\[
+\mu_p=\sum_{j=1}^M p_j\mu_j,
+\qquad p_j\ge0,\quad \sum_{j=1}^M p_j=1.
+\]</span></p>
+<p>The mixture coefficients belong to an <span
+class="math inline">\((M-1)\)</span>-dimensional simplex. Work in a
+local coordinate chart <span class="math inline">\(z\in
+U\subseteq\mathbb R^{M-1}\)</span> of its interior, with corresponding
+mixture <span class="math inline">\(\mu_z\)</span>. Suppose the output
+maps are approximated using fixed feature maps <span
+class="math inline">\(\phi_1,\ldots,\phi_N:\mathbb R^n\to\mathbb
+R^k\)</span>:</p>
+<p><span class="math display">\[
+f_{\mu_z}(\xi)\approx\sum_{i=1}^N B_i(z)\phi_i(\xi).
+\]</span></p>
+<p>Then <span class="math inline">\(B:U\to\mathbb R^N\)</span> is a
+finite-dimensional coefficient rule. Its definition depends on a
+specified fitting or projection procedure for the features. Treating
+<span class="math inline">\(B\)</span> as differentiable is an
+assumption to be checked, not a consequence of writing <span
+class="math inline">\(\mathcal F\)</span>.</p>
+<h2 id="local-second-order-models-and-interpolation">5. Local
+second-order models and interpolation</h2>
+<p>Assume <span class="math inline">\(B\)</span> is <span
+class="math inline">\(C^3\)</span> on an open set <span
+class="math inline">\(U\subseteq\mathbb R^{M-1}\)</span>. Around an
+anchor <span class="math inline">\(a\in U\)</span>, its second-order
+model is</p>
+<p><span class="math display">\[
+\mathcal T_a(z)=B(a)+DB(a)(z-a)
++\tfrac12 D^2B(a)[z-a,z-a].
+\]</span></p>
+<p>The linear and bilinear terms describe, respectively, first- and
+second-order sensitivity of the output coefficients to changes in the
+input mixture. In a computational setting they can be estimated from
+evaluations of the underlying algorithm at nearby parameter values, with
+accuracy depending on the sampling design and conditioning.</p>
+<p>One local model need not approximate <span
+class="math inline">\(B\)</span> over all of <span
+class="math inline">\(U\)</span>. Given anchors <span
+class="math inline">\(a_1,\ldots,a_s\)</span> and nonnegative weights
+<span class="math inline">\(w_i(z)\)</span> with <span
+class="math inline">\(\sum_i w_i(z)=1\)</span>, form</p>
+<p><span class="math display">\[
+\widehat B(z)=\sum_{i=1}^s w_i(z)\mathcal T_{a_i}(z).
+\]</span></p>
+<p>This makes the dependence on nearby input distributions explicit. It
+also admits a simple conditional error estimate.</p>
+<p><strong>Proposition (weighted Taylor error).</strong> Suppose, for a
+query <span class="math inline">\(z\)</span>, every segment joining
+<span class="math inline">\(z\)</span> to an anchor with nonzero weight
+lies in <span class="math inline">\(U\)</span>, and <span
+class="math inline">\(\|D^3B\|\le M_3\)</span> along those segments. If
+every such anchor satisfies <span class="math inline">\(\|z-a_i\|\le
+r\)</span>, then</p>
+<p><span class="math display">\[
+\bigl\|B(z)-\widehat B(z)\bigr\|
+\le \frac{M_3}{6}r^3.
+\]</span></p>
+<p><strong>Proof.</strong> Taylor’s theorem along the segment from <span
+class="math inline">\(a_i\)</span> to <span
+class="math inline">\(z\)</span> gives <span
+class="math inline">\(\|B(z)-\mathcal T_{a_i}(z)\|\le
+M_3\|z-a_i\|^3/6\)</span>. Multiply each inequality by <span
+class="math inline">\(w_i(z)\)</span>, sum, and use nonnegativity and
+<span class="math inline">\(\sum_iw_i(z)=1\)</span>. <span
+class="math inline">\(\square\)</span></p>
+<p>The estimate is about the approximation of <span
+class="math inline">\(B\)</span>, not about whether the
+dimension-reduction algorithm correctly reconstructs a manifold. In
+particular, it assumes the coefficient rule is smooth and that its
+derivatives, or their estimates, are reliable.</p>
+<h2 id="two-levels-that-should-not-be-confused">6. Two levels that
+should not be confused</h2>
+<p>The geometric factorization and the local surrogate answer different
+questions:</p>
+<ul>
+<li>For one <span class="math inline">\(f_\mu\)</span>, a factorization
+<span class="math inline">\(T\circ P_H\circ N\)</span> asks how a
+nonlinear coordinate change and a projection combine to produce
+lower-dimensional coordinates.</li>
+<li>For a family <span class="math inline">\(\mu\mapsto f_\mu\)</span>,
+the finite-dimensional model <span class="math inline">\(B(z)\)</span>
+asks how an algorithm’s output map responds to a change in the input
+measure.</li>
+</ul>
+<p>Even if every <span class="math inline">\(f_{\mu_z}\)</span> has a
+local projection form, it does not follow that the associated coordinate
+changes <span class="math inline">\(N_z\)</span> can be chosen globally,
+uniquely, or smoothly in <span class="math inline">\(z\)</span>. Those
+are separate questions. A proposed flow-based algorithm must
+additionally specify its vector field or energy, its domain of
+existence, its stopping rule, and the properties it is meant to
+preserve.</p>
+<p>The useful principle is therefore modest but structural: separate the
+nonlinear reorganization of geometry from the dimension-losing
+projection, and separate the analysis of an individual reduction map
+from the sensitivity of the procedure that generates it. Each separation
+makes its own assumptions visible.</p>
+<hr />
+<h3 id="background-reference">Background reference</h3>
+<ul>
+<li>John M. Lee, <em>Introduction to Smooth Manifolds</em>, 2nd ed.,
+Springer, 2013, especially the treatments of submersions, the inverse
+function theorem, and flows. <a
+href="https://link.springer.com/book/10.1007/978-1-4419-9982-5">Publisher
+page</a>.</li>
+</ul>
+
+  </article>
+  <footer class="post-footer"><a class="back-link" href="/blog/en/">All posts</a></footer>
+</main></div></body></html>
