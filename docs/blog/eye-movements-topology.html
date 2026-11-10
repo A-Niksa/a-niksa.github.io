@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An interactive explanation of how eye movement trajectories become delay embeddings, persistent loops, and features for emotion recognition.">
+  <title>What Can the Shape of Eye Movements Tell Us? | Arsha Niksa</title>
+  <link rel="canonical" href="https://www.aniksa.me/blog/eye-movements-topology.html">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Arsha Niksa">
+  <meta property="og:title" content="What Can the Shape of Eye Movements Tell Us?">
+  <meta property="og:description" content="Try changing a time delay and growing a Vietoris–Rips complex to see the mathematics behind our eye-tracking paper.">
+  <meta property="og:url" content="https://www.aniksa.me/blog/eye-movements-topology.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-10">
+  <meta property="article:modified_time" content="2026-11-10">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="What Can the Shape of Eye Movements Tell Us?">
+  <meta name="twitter:description" content="An interactive walk through gaze trajectories, delay embeddings, and persistent homology.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What Can the Shape of Eye Movements Tell Us?","description":"An interactive explanation of delay embeddings and persistent homology for eye-tracking emotion recognition.","url":"https://www.aniksa.me/blog/eye-movements-topology.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aniksa.me/blog/eye-movements-topology.html"},"datePublished":"2026-11-10","dateModified":"2026-11-10","author":{"@type":"Person","name":"Arsha Niksa","url":"https://www.aniksa.me/"},"inLanguage":"en","keywords":["persistent homology","topological data analysis","eye tracking","delay embedding","emotion recognition"],"citation":"https://arxiv.org/abs/2507.17450","isPartOf":{"@type":"Blog","name":"Arsha Niksa Blog","url":"https://www.aniksa.me/blog/en/"}}</script>
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon-v3.svg?v=3">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico?v=3">
+  <link rel="stylesheet" href="/blog/blog.css">
+  <link rel="stylesheet" href="/css/refined.css">
+  <link rel="stylesheet" href="/blog/eye-movements-topology.css">
+  <script defer src="/blog/eye-movements-topology.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<aside class="site-rail" aria-label="Primary navigation">
+  <div class="rail-profile"><img class="rail-avatar" src="/assets/img/ofc3.jpg" alt="Portrait of Arsha Niksa" width="78" height="78"><div><a class="rail-identity" href="/">Arsha Niksa</a><p class="rail-caption">Mathematics · Data Science</p></div></div>
+  <nav class="rail-nav" aria-label="Pages"><a href="/"><span class="nav-indicator" aria-hidden="true"></span>Home</a><a href="/research/"><span class="nav-indicator" aria-hidden="true"></span>Research</a><a href="/blog/en/" aria-current="page"><span class="nav-indicator" aria-hidden="true"></span>Blog</a><a href="/about/"><span class="nav-indicator" aria-hidden="true"></span>About</a><details class="cv-dropdown"><summary>CV <span aria-hidden="true">⌄</span></summary><div class="cv-dropdown-menu"><a href="/assets/academic-cv.pdf" download>Academic CV ↓</a><a href="/assets/work-cv.pdf" download>Work CV ↓</a></div></details><div class="language-picker language-picker-mobile" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div></nav>
+  <div class="rail-bottom"><div class="rail-bottom-rule"></div><div class="language-picker language-picker-desktop" role="group" aria-label="Language / زبان"><a class="language-en" href="/blog/en/" lang="en" dir="ltr" hreflang="en" aria-current="page">English</a><a class="language-fa" href="/blog/" lang="fa" dir="rtl" hreflang="fa">فارسی</a></div><div class="rail-mini"><a href="https://github.com/A-Niksa" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:arshaniksaa@gmail.com">Email</a></div></div>
+</aside>
+<div class="site-content"><main id="main" class="blog-shell">
+  <header class="post-header">
+    <a class="back-link" href="/blog/en/">Back to the blog</a>
+    <p class="tda-eyebrow">An interactive research note · Topological data analysis</p>
+    <h1 class="post-title">What Can the Shape of Eye Movements Tell Us?</h1>
+    <p class="post-meta">Arsha Niksa · 10 November 2026 · <span class="tda-readtime">8 min read + experiments</span></p>
+    <p class="tda-deck">We usually describe an eye movement by where it goes. What happens if we study the <em>shape of the motion</em> instead?</p>
+    <a class="tda-paper-link" href="https://arxiv.org/abs/2507.17450" target="_blank" rel="noopener noreferrer">Read the paper <span aria-hidden="true">↗</span></a>
+  </header>
+  <article class="post-body">
+    <p>Imagine recording someone's gaze as they watch a video. You obtain a long sequence of coordinates: left, right, up, down, a pause, another jump. A familiar approach is to measure fixations and saccades, then calculate statistics of those events. But a sequence has a structure that an average cannot describe. Two people can visit the same positions in very different orders.</p>
+    <p>In <a href="https://arxiv.org/abs/2507.17450"><em>Persistent Patterns in Eye Movements: A Topological Approach to Emotion Recognition</em></a>, my coauthors and I explored a simple question: <strong>can the geometry of eye-movement dynamics contain useful information about emotional state?</strong> Our approach connects dynamical systems, topology, and ordinary machine learning. The interesting part is how we get from a time series to a shape.</p>
+
+    <h2 id="time">1. The order of points matters</h2>
+    <p>A gaze trace is a sequence <var>g<sub>t</sub> = (x<sub>t</sub>, y<sub>t</sub>)</var>, not merely an unordered collection of points. To see the difference, consider two paths that visit <em>exactly the same positions</em>. In one, the eye travels smoothly around them. In the other, the eye jumps between them. Their ordinary point clouds are identical. Their dynamics are not.</p>
+    <section class="tda-lab" aria-labelledby="delay-lab-title">
+      <div class="tda-lab-head"><div><p class="tda-kicker">Experiment 01</p><h3 id="delay-lab-title">Rearrange time, not space</h3></div><span class="tda-lab-tag">Illustrative data</span></div>
+      <div class="tda-segment" role="group" aria-label="Gaze ordering">
+        <button type="button" class="tda-choice is-active" data-order="smooth" aria-pressed="true">Smooth order</button>
+        <button type="button" class="tda-choice" data-order="shuffled" aria-pressed="false">Same points, shuffled</button>
+      </div>
+      <div class="tda-viz-grid">
+        <figure class="tda-viz"><figcaption>Gaze path <span>(x, y)</span></figcaption><svg id="tda-gaze" viewBox="0 0 320 248" role="img" aria-label="A two-dimensional illustrative gaze trajectory."></svg></figure>
+        <figure class="tda-viz"><figcaption>Delay-coordinate view <span>(xₜ, xₜ₊τ)</span></figcaption><svg id="tda-delay" viewBox="0 0 320 248" role="img" aria-label="A two-dimensional slice of a time-delay embedding."></svg></figure>
+      </div>
+      <div class="tda-control"><label for="tda-tau">Time delay <strong id="tda-tau-value">10 samples</strong></label><input type="range" id="tda-tau" min="1" max="16" step="1" value="10"><div class="tda-scale-labels"><span>1</span><span>16</span></div></div>
+      <p id="tda-delay-explanation" class="tda-live" aria-live="polite">The same locations, visited smoothly, produce a structured delay-coordinate curve.</p>
+      <p class="tda-caption">These are generated demonstration paths, not participant recordings. This panel uses two delayed x-coordinates for visibility. Our paper uses three coordinates per axis, with embedding dimension d = 3 and delay τ = 10.</p>
+    </section>
+    <p>Here is the mathematical trick. Rather than represent a signal by its value at one instant, take a short collection of its values at separated instants:</p>
+    <div class="tda-equation" role="math" aria-label="phi of x at t equals the tuple x at t, x at t plus tau, and x at t plus two tau">φ<sub>x</sub>(t) = (x<sub>t</sub>, x<sub>t+τ</sub>, x<sub>t+2τ</sub>).</div>
+    <p>This construction is called a <em>delay embedding</em>. It turns a one-dimensional signal into a trajectory in a higher-dimensional space. We apply it separately to horizontal and vertical gaze coordinates. In the paper, each produces a three-dimensional point cloud; we also study the original two-dimensional gaze cloud. The idea is inspired by Takens' theorem, though our empirical choice of parameters is not a proof of the theorem's conditions for this dataset.</p>
+    <p>A useful intuition is that the delayed coordinates let the past and future of the signal appear next to one another. Repeated patterns can then show up as geometric structure, even when they are difficult to recognize from summary statistics.</p>
+
+    <h2 id="topology">2. Let the point cloud grow</h2>
+    <p>We now have points in a space. What is their <em>shape</em>? At a very small scale they are separate islands. As we increase a distance threshold, nearby points connect. Eventually a ring may appear, and at a still larger scale the ring fills in. The connected components and holes that survive over a range of scales are precisely the kinds of features studied by <em>persistent homology</em>.</p>
+    <section class="tda-lab" aria-labelledby="rips-lab-title">
+      <div class="tda-lab-head"><div><p class="tda-kicker">Experiment 02</p><h3 id="rips-lab-title">Build a shape from a cloud</h3></div><span class="tda-lab-tag">Exact H₀ and H₁</span></div>
+      <p class="tda-instruction">Move the scale slider. Edges join points once their distance is at most ε, and triangles fill in when all three edges are present.</p>
+      <div class="tda-rips-layout">
+        <figure class="tda-viz tda-rips-figure"><figcaption>Vietoris–Rips complex <span>at scale ε</span></figcaption><svg id="tda-rips" viewBox="0 0 320 272" role="img" aria-label="Interactive Vietoris–Rips complex of a synthetic ring-shaped point cloud."></svg></figure>
+        <div class="tda-topology-stats">
+          <div class="tda-stat"><span>Connected components</span><strong id="tda-beta0" aria-live="polite">13</strong><small>β₀ · zero-dimensional homology</small></div>
+          <div class="tda-stat"><span>Independent loops</span><strong id="tda-beta1" aria-live="polite">0</strong><small>β₁ · one-dimensional homology</small></div>
+          <p id="tda-rips-description" class="tda-live" aria-live="polite">At this scale, the points remain separate.</p>
+        </div>
+      </div>
+      <div class="tda-control"><label for="tda-epsilon">Connection scale <strong id="tda-epsilon-value">ε = 0</strong></label><input type="range" id="tda-epsilon" min="0" max="188" step="1" value="0"><div class="tda-scale-labels"><span>Separated</span><span>Filled</span></div></div>
+      <div class="tda-presets" role="group" aria-label="Try example connection scales"><button type="button" data-epsilon="12">Separate points</button><button type="button" data-epsilon="48">A persistent loop</button><button type="button" data-epsilon="188">Filled shape</button></div>
+      <p class="tda-caption">A synthetic point cloud, unrelated to the study's measurements. The counts above are computed from the actual Vietoris–Rips 2-skeleton shown, over the field with two elements. The triangle faces matter: a cycle of edges is not necessarily a topological hole.</p>
+    </section>
+    <p>There is a subtle point here. A loop is not important simply because it appears. What matters is <em>how long it survives</em> while we increase ε. We summarize the lifetime of a topological feature by its birth and death scales, <var>(b<sub>i</sub>, d<sub>i</sub>)</var>. Its <em>persistence</em> is <var>d<sub>i</sub> − b<sub>i</sub></var>. This gives us a way to separate short-lived geometric accidents from longer-lived structure without choosing one arbitrary scale in advance.</p>
+    <div class="tda-insight"><span class="tda-insight-label">The core idea</span><p>Do not ask, “Does this point cloud have a hole?” Ask, “<strong>For how much of the scale range does the hole exist?</strong>”</p></div>
+
+    <h2 id="features">3. From shapes to numbers</h2>
+    <p>A machine-learning model needs a fixed-length vector. We calculate persistent homology in dimensions 0 and 1 for the raw gaze cloud and the two delay-embedded clouds, then summarize their persistence diagrams. Examples include the number of recorded birth-death pairs, the mean and maximum of their birth, death, and persistence values, and entropy-type summaries. These do not tell us the meaning of a loop. They quantify its geometry across scales.</p>
+    <div class="tda-flow" aria-label="The paper's computational pipeline"><div><span>01</span>Gaze trajectory</div><div><span>02</span>Delay coordinates</div><div><span>03</span>Persistent homology</div><div><span>04</span>Summary features</div><div><span>05</span>Random forest</div></div>
+    <p>Finally, a random forest learns which combinations of these features help distinguish the four quadrants of the <em>circumplex model of affect</em>: positive or negative valence, each with high or low arousal. These are broad experimental labels, not a claim that every feeling has a unique topological signature.</p>
+
+    <h2 id="results">4. What did we find?</h2>
+    <p>We tested the method on the <a href="https://doi.org/10.1145/3495002">VREED dataset</a>, in which 34 participants watched immersive VR videos while their eye movements and other measurements were recorded. Our analysis used left-eye gaze trajectories. The paper reports the following four-class classification accuracies:</p>
+    <figure class="tda-results" aria-label="Comparison of reported classification accuracy">
+      <div class="tda-result-row"><div class="tda-result-label"><strong>Topological features</strong><span>75.0% test</span></div><div class="tda-track"><div class="tda-bar tda-primary" style="width:75%"></div></div></div>
+      <div class="tda-result-row"><div class="tda-result-label"><strong>Conventional processed features</strong><span>57.1% test</span></div><div class="tda-track"><div class="tda-bar tda-secondary" style="width:57.1%"></div></div></div>
+      <figcaption>The paper also reports 75.7% on a separate validation split for the topological model. These values describe the reported experiment, not independently replicated performance.</figcaption>
+    </figure>
+    <p>The improvement in this experiment is encouraging: temporal shape can complement the familiar statistics of eye movements. But it is not evidence that a camera can reliably read a stranger's emotions. The dataset is relatively small, the paper used sample-level randomized splits, and it does not report a participant-held-out evaluation. Measurements from the same participant may therefore appear in different splits. Generalization to unseen people remains an open question.</p>
+
+    <h2 id="perspective">5. Why I find this interesting</h2>
+    <p>For me, the attraction of this problem is not the classifier. It is the change of language. A sequence of eye positions becomes a trajectory in a reconstructed state space. A trajectory becomes a family of geometric objects. Those objects become topological measurements. Only at the end do we ask whether the measurements predict anything.</p>
+    <p>There is also a useful restraint in this viewpoint. Topology does not explain emotion, and two different processes can have similar topology. What it offers is a particular family of geometric <em>descriptors</em> of dynamic data. The next meaningful tests would include participant-independent evaluation, sensitivity to the delay and sampling choices, and comparisons across more datasets.</p>
+    <p>And this is the broader question worth keeping: what other time series might reveal something when we stop looking only at their individual values and start studying the shape of their evolution?</p>
+
+    <section class="tda-credit" aria-labelledby="paper-credit-title"><h3 id="paper-credit-title">The research behind this note</h3><p><strong>Arsha Niksa, Hooman Zare, Ali Shahrabi, Hanieh Hatami, and Mohammadreza Razvan.</strong> “Persistent Patterns in Eye Movements: A Topological Approach to Emotion Recognition.” arXiv:2507.17450, 2025.</p><p>This is my informal explanation of our joint preprint. The interactive examples are pedagogical simulations, not plots or reanalyses of the VREED dataset.</p><p><a href="https://arxiv.org/abs/2507.17450">Paper on arXiv</a> · <a href="https://arxiv.org/html/2507.17450v1">Accessible HTML version</a></p></section>
+  </article>
+  <footer class="post-footer"><a class="back-link" href="/blog/en/">All English posts</a></footer>
+</main></div>
+</body>
+</html>
